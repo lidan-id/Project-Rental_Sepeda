@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/features/home.dart';
 import 'package:flutter_application_1/features/login.dart';
+import 'package:flutter_application_1/provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -287,6 +289,10 @@ class _RegisterState extends State<Register> {
                       confirmPasswordErrorText = null;
                     }
                     if (!error) {
+                      Provider.of<RegisterProvider>(context, listen: false)
+                          .addUser(User(
+                              username: usernameInput.text,
+                              password: passwordInput.text));
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => Home()));
                     }
@@ -315,14 +321,6 @@ class _RegisterState extends State<Register> {
                         padding: EdgeInsets.zero,
                         foregroundColor: Colors.white),
                   ),
-                  // TextButton(
-                  //   onPressed: () {},
-                  //   child: Text('Forgot Password ?'),
-                  //   style: TextButton.styleFrom(
-                  //       splashFactory: NoSplash.splashFactory,
-                  //       padding: EdgeInsets.zero,
-                  //       foregroundColor: Colors.white),
-                  // ),
                 ],
               )
             ],

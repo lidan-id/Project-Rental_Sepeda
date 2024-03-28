@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/features/home.dart';
 import 'package:flutter_application_1/features/register.dart';
+import 'package:flutter_application_1/provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -21,9 +23,10 @@ class _LoginState extends State<Login> {
   bool visibilityPassword = true;
   TextEditingController usernameInput = TextEditingController();
   TextEditingController passwordInput = TextEditingController();
-  String realUsername = 'eden';
-  String realPassword = 'gg';
   String? errorText = null;
+  String usernameTempInput = '';
+  String passwordTempInput = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +99,11 @@ class _LoginState extends State<Login> {
                 child: TextFormField(
                   onChanged: (value) {
                     setState(() {
-                      errorText = null;
+                      usernameInput.text = value.trim();
+                      if (usernameTempInput != usernameInput.text ||
+                          passwordTempInput != passwordInput.text) {
+                        errorText = null;
+                      }
                     });
                   },
                   controller: usernameInput,
@@ -134,7 +141,11 @@ class _LoginState extends State<Login> {
                 child: TextFormField(
                   onChanged: (value) {
                     setState(() {
-                      errorText = null;
+                      passwordInput.text = value.trim();
+                      if (usernameTempInput != usernameInput.text ||
+                          passwordTempInput != passwordInput.text) {
+                        errorText = null;
+                      }
                     });
                   },
                   controller: passwordInput,
@@ -181,9 +192,16 @@ class _LoginState extends State<Login> {
                   child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    if (usernameInput.text != realUsername ||
-                        passwordInput.text != realPassword) {
+                    if (!Provider.of<LoginProvider>(context, listen: false)
+                        .checkUser(
+                            Provider.of<RegisterProvider>(context,
+                                    listen: false)
+                                .users,
+                            usernameInput.text,
+                            passwordInput.text)) {
                       errorText = 'Invalid Username and Password';
+                      usernameTempInput = usernameInput.text;
+                      passwordTempInput = passwordInput.text;
                     } else {
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => Home()));
