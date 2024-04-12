@@ -14,6 +14,7 @@ class TopUp extends StatelessWidget {
           child: SizedBox(
             child: Text(
               'Top-Up',
+              style: TextStyle(fontFamily: 'Neue'),
             ),
           ),
         ),
