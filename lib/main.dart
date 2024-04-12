@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/login.dart';
+import 'package:flutter_application_1/features/profile.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -10,15 +11,17 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => RegisterProvider()),
-        ChangeNotifierProvider(create: (context) => LoginProvider())
+        ChangeNotifierProvider(create: (context) => LoginProvider()),
+        //Profile Setting
+        ChangeNotifierProvider(create: (context) => NotificationProvider()),
+        ChangeNotifierProvider(create: (context) => PermissionProvider()),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Login(),
       ),
