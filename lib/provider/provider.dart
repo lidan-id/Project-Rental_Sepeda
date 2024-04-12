@@ -15,11 +15,13 @@ class RegisterProvider extends ChangeNotifier {
 }
 
 class LoginProvider extends ChangeNotifier {
+  String user = '';
   bool checkUser(List users, String username, String password) {
     bool result = false;
     for (int i = 0; i < users.length; i++) {
       if (users[i].username == username && users[i].password == password) {
         result = true;
+        user = username;
         break;
       } else {
         result = false;

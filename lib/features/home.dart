@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/menudata.dart';
+import 'package:flutter_application_1/provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -8,14 +10,14 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF2D3250),
-        title: const Row(
+        title: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.pedal_bike,
               color: Color(0xFFF6B17A),
               size: 28,
             ),
-            Text(
+            const Text(
               '  Re:Bike',
               style: TextStyle(
                 color: Colors.white,
@@ -23,16 +25,16 @@ class Home extends StatelessWidget {
                 fontFamily: 'Neue',
               ),
             ),
-            Spacer(),
-            Icon(
+            const Spacer(),
+            const Icon(
               Icons.home,
               color: Color(0xFF424769),
               size: 28,
             ),
-            Spacer(),
+            const Spacer(),
             Text(
-              ' @username',
-              style: TextStyle(
+              Provider.of<LoginProvider>(context).user,
+              style: const TextStyle(
                 fontFamily: 'Neue',
                 fontSize: 24,
                 fontStyle: FontStyle.italic,
