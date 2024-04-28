@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/login.dart';
 import 'package:provider/provider.dart';
 
 //suggest: change username/password
@@ -490,7 +491,10 @@ class LogOut extends StatelessWidget {
             ),
             //tambah logic Logout
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => Login()), (route) => false);
+              },
               style: ElevatedButton.styleFrom(
                 elevation: 10,
                 enableFeedback: true,
