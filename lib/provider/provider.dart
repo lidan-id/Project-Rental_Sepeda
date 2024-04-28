@@ -30,3 +30,12 @@ class LoginProvider extends ChangeNotifier {
     return result;
   }
 }
+
+class SaldoProvider extends ChangeNotifier {
+  double saldo = 250000;
+
+  void topUp(amount) {
+    saldo = saldo + amount;
+    notifyListeners();
+  }
+}
