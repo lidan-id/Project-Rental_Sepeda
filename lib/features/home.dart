@@ -5,10 +5,12 @@ import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF2D3250),
         title: Row(
           children: [
