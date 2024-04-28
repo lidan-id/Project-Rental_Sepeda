@@ -50,6 +50,7 @@ class Home extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: const Column(
             children: [
+              Saldo(),
               MainMenu(),
               Garis(),
               Row(
@@ -116,6 +117,43 @@ class Garis extends StatelessWidget {
     );
   }
 }
+
+class Saldo extends StatefulWidget {
+  const Saldo({super.key});
+
+  @override
+  State<Saldo> createState() => _SaldoState();
+}
+
+class _SaldoState extends State<Saldo> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: (
+      Row(
+        children: [
+          const Text("Saldo",
+            style: TextStyle(
+                color: Color(0xFFF6B17A),
+                fontSize: 30,
+                fontFamily: 'Neue'
+            ),
+          ),
+          const SizedBox(width: 10,),
+          Text("Rp${Provider.of<SaldoProvider>(context,listen: false).saldo.toStringAsFixed(0)}",
+            style: const TextStyle(
+                color: Color(0xFFFFFFFF),
+                fontSize: 30,
+                fontFamily: 'Neue'
+            ),
+          ),
+        ],
+      )
+      ),
+    );
+  }
+}
+
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});
@@ -212,7 +250,7 @@ class BikesNearby extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  bikesNearby[index]['nearbike'],
+                  "assets/${bikesNearby[index]['nearbike']}",
                   width: double.infinity,
                   height: 250,
                 ),
