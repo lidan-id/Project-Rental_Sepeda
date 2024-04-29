@@ -16,6 +16,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  Color EmailFocus = Colors.white;
   Color usernameFocus = Colors.white;
   Color passwordFocus = Colors.white;
   Color confirmPasswordFocus = Colors.white;
@@ -23,9 +24,11 @@ class _RegisterState extends State<Register> {
   IconData visibility2 = Icons.visibility_off_outlined;
   bool visibilityPassword = true;
   bool visibilityConfirmPassword = true;
+  TextEditingController emailInput = TextEditingController();
   TextEditingController usernameInput = TextEditingController();
   TextEditingController passwordInput = TextEditingController();
   TextEditingController confirmPasswordInput = TextEditingController();
+  String? emailErrorText = null;
   String? usernameErrorText = null;
   String? passwordErrorText = null;
   String? confirmPasswordErrorText = null;
@@ -37,6 +40,19 @@ class _RegisterState extends State<Register> {
     return regExp.hasMatch(value);
   }
 
+  bool validateEmail(String value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(value);
+  }
+
+  String emailTempInput = '';
   String usernameTempInput = '';
   String passwordTempInput = '';
   String confirmPasswordTempInput = '';
@@ -104,6 +120,47 @@ class _RegisterState extends State<Register> {
                 onFocusChange: (value) {
                   setState(() {
                     if (value) {
+                      EmailFocus = Color(0xFFF6B17A);
+                    } else {
+                      EmailFocus = Colors.white;
+                    }
+                  });
+                },
+                child: TextFormField(
+                  onChanged: (value) {
+                    setState(() {
+                      emailInput.text = value.trim();
+                      if (emailTempInput != emailInput.text) {
+                        emailErrorText = null;
+                      }
+                    });
+                  },
+                  controller: emailInput,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 1,
+                  maxLength: 30,
+                  decoration: InputDecoration(
+                      errorText: emailErrorText,
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: EmailFocus),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Colors.white,
+                      ),
+                      hintStyle: TextStyle(color: Colors.white),
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white))),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Focus(
+                onFocusChange: (value) {
+                  setState(() {
+                    if (value) {
                       usernameFocus = Color(0xFFF6B17A);
                     } else {
                       usernameFocus = Colors.white;
@@ -122,7 +179,7 @@ class _RegisterState extends State<Register> {
                   controller: usernameInput,
                   style: TextStyle(color: Colors.white),
                   maxLines: 1,
-                  maxLength: 10,
+                  maxLength: 20,
                   decoration: InputDecoration(
                       errorText: usernameErrorText,
                       labelText: 'Username',
@@ -164,7 +221,7 @@ class _RegisterState extends State<Register> {
                   obscureText: visibilityPassword,
                   style: TextStyle(color: Colors.white),
                   maxLines: 1,
-                  maxLength: 10,
+                  maxLength: 20,
                   decoration: InputDecoration(
                       errorText: passwordErrorText,
                       labelText: 'Password',
@@ -224,7 +281,7 @@ class _RegisterState extends State<Register> {
                   obscureText: visibilityConfirmPassword,
                   style: TextStyle(color: Colors.white),
                   maxLines: 1,
-                  maxLength: 10,
+                  maxLength: 20,
                   decoration: InputDecoration(
                       errorText: confirmPasswordErrorText,
                       labelText: 'Confirm Password',
@@ -264,9 +321,17 @@ class _RegisterState extends State<Register> {
                   child: ElevatedButton(
                 onPressed: () {
                   setState(() {
+                    emailTempInput = emailInput.text;
                     usernameTempInput = usernameInput.text;
                     passwordTempInput = passwordInput.text;
                     confirmPasswordTempInput = confirmPasswordInput.text;
+                    if (!validateEmail(emailInput.text)) {
+                      error = true;
+                      emailErrorText = 'Invalid Email';
+                    } else {
+                      error = false;
+                      emailErrorText = null;
+                    }
                     if (usernameInput.text.length < 3 ||
                         usernameInput.text == '') {
                       usernameErrorText = 'username must be 3 characters long';
@@ -291,6 +356,7 @@ class _RegisterState extends State<Register> {
                     if (!error) {
                       Provider.of<RegisterProvider>(context, listen: false)
                           .addUser(User(
+                              email: emailInput.text,
                               username: usernameInput.text,
                               password: passwordInput.text));
                       Navigator.of(context).pushReplacement(
@@ -305,7 +371,7 @@ class _RegisterState extends State<Register> {
                     foregroundColor: Colors.white),
               )),
               SizedBox(
-                height: 80,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

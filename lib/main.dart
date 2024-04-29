@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => RegisterProvider()),
         ChangeNotifierProvider(create: (context) => SaldoProvider()),
         ChangeNotifierProvider(create: (context) => LoginProvider()),
+        ChangeNotifierProvider(create: (context) => ForgotPasswordProvider()),
         //Profile Setting
         ChangeNotifierProvider(create: (context) => NotificationProvider()),
         ChangeNotifierProvider(create: (context) => PermissionProvider()),

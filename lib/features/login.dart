@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application_1/features/forgotPassword.dart';
 import 'package:flutter_application_1/features/home.dart';
 import 'package:flutter_application_1/features/register.dart';
 import 'package:flutter_application_1/provider/provider.dart';
@@ -232,7 +233,10 @@ class _LoginState extends State<Login> {
                         foregroundColor: Colors.white),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ForgotPassword()));
+                    },
                     child: Text('Forgot Password ?'),
                     style: TextButton.styleFrom(
                         splashFactory: NoSplash.splashFactory,
