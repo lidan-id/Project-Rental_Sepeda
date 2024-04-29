@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -14,41 +11,15 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  int validVerifNumber = 0;
   TextEditingController emailInput = TextEditingController();
-  TextEditingController verifNumberInput = TextEditingController();
   String emailTempInput = '';
   String? errorText = null;
-  Future sendEmail({required int verifNumber}) async {
-    final serviceId = 'service_lbrucr8';
-    final templateId = 'template_o6d0rat';
-    final userId = '3xJ0zN-aTPGUous8n';
-    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-    final response = await http.post(url,
-        headers: {
-          'origin': 'http://localhost',
-          'Content-Type': 'application/json'
-        },
-        body: json.encode({
-          'service_id': serviceId,
-          'template_id': templateId,
-          'user_id': userId,
-          'template_params': {
-            'user_email': 'kevinlidan12@gmail.com',
-            'to_email': emailInput.text,
-            'user_subject': 'Verification Number Re:Bike',
-            'user_message': verifNumber,
-          }
-        }));
-    return response.statusCode;
-  }
 
-  void showAutoDismissAlert(BuildContext context) {
+  void showAutoDismiss(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
-        Future.delayed(Duration(minutes: 1), () {
-          validVerifNumber = 0;
+        Future.delayed(Duration(seconds: 3), () {
           Navigator.of(context).pop();
         });
 
@@ -56,12 +27,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           backgroundColor: Color(0xFFF7077A1),
           title: Text("Verification sended to email"),
           content: TextField(
-            controller: verifNumberInput,
             style: TextStyle(color: Colors.white),
             maxLines: 1,
             decoration: InputDecoration(
                 labelText: 'Verification Number',
-                labelStyle: TextStyle(color: Color(0xFFF6B17A)),
+                labelStyle: TextStyle(color: Colors.black),
                 hintStyle: TextStyle(color: Colors.white),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white)),
@@ -72,17 +42,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  validVerifNumber = 0;
                 },
                 child: Text('Back')),
             ElevatedButton(
-              onPressed: () {
-                if (verifNumberInput.text == validVerifNumber.toString()) {
-                  print('betullll');
-                } else {
-                  print("salahhh");
-                }
-              },
+              onPressed: () {},
               child: Text('Submit'),
               style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFFF6B17A),
@@ -143,28 +106,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Provider.of<ForgotPasswordProvider>(context, listen: false)
-                      .checkUserEmail(
-                          Provider.of<RegisterProvider>(context, listen: false)
-                              .users,
-                          emailInput.text);
-                  if (Provider.of<ForgotPasswordProvider>(context,
-                              listen: false)
-                          .userChangePassword ==
-                      null) {
-                    errorText = "Can't find the email";
-                  } else {
-                    Random random = new Random();
-                    int randomNumber = random.nextInt(99999) + 99999;
-                    validVerifNumber = randomNumber;
-                    FocusScope.of(context).unfocus();
-                    showAutoDismissAlert(context);
-                    emailTempInput = emailInput.text;
-                    // emailInput.text = '';
-                    sendEmail(verifNumber: randomNumber);
-                    Provider.of<ForgotPasswordProvider>(context, listen: false)
-                        .resetUserChangePassword();
-                  }
+                  FocusScope.of(context).unfocus();
+                  showAutoDismiss(context);
+                  emailTempInput = emailInput.text;
+                  emailInput.text = '';
                 },
                 child: Text('Submit'),
                 style: ElevatedButton.styleFrom(

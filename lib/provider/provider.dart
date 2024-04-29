@@ -36,23 +36,6 @@ class LoginProvider extends ChangeNotifier {
   }
 }
 
-class ForgotPasswordProvider extends ChangeNotifier {
-  int? userChangePassword = null;
-  void checkUserEmail(List users, String email) {
-    for (int i = 0; i < users.length; i++) {
-      if (users[i].email == email) {
-        userChangePassword = i;
-      }
-    }
-    notifyListeners();
-  }
-
-  void resetUserChangePassword() {
-    userChangePassword = null;
-    notifyListeners();
-  }
-}
-
 class SaldoProvider extends ChangeNotifier {
   double saldo = 250000;
 
