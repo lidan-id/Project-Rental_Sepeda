@@ -1,9 +1,5 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/features/home.dart';
+import 'package:flutter_application_1/features/homepage.dart';
 import 'package:flutter_application_1/features/login.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -360,7 +356,7 @@ class _RegisterState extends State<Register> {
                               username: usernameInput.text,
                               password: passwordInput.text));
                       Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => Home()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     }
                   });
                 },

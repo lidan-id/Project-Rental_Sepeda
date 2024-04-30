@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/home.dart';
+import 'package:flutter_application_1/features/homepage.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -29,37 +29,35 @@ class _TopUpState extends State<BankTopUp> {
               TextFormField(
                 controller: nominalInput,
                 keyboardType: TextInputType.number,
-                style: TextStyle(
-                    color: Color(0xFFF6B17A),
-                    fontFamily: 'Neue'
-                ),
+                style: TextStyle(color: Color(0xFFF6B17A), fontFamily: 'Neue'),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFF22264f),width: 3),
-                    borderRadius: BorderRadius.circular(20)
-                  ),
+                      borderSide:
+                          BorderSide(color: Color(0xFF22264f), width: 3),
+                      borderRadius: BorderRadius.circular(20)),
                   label: Text("Nomimal TopUp"),
-                  labelStyle: TextStyle(
-                    color: Color(0xFFF6B17A)
-                  ),
+                  labelStyle: TextStyle(color: Color(0xFFF6B17A)),
                   hintText: "Masukkan Nominal TopUp",
-                  hintStyle: TextStyle(
-                      color: Colors.grey
-                  ),
+                  hintStyle: TextStyle(color: Colors.grey),
                   errorText: isPass ? null : "Minimal Top Up Rp.5000",
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     setState(() {
                       double nominal = double.parse(nominalInput.text);
-                      if(nominal >= 5000 ){
-                        Provider.of<SaldoProvider>(context,listen: false).topUp(nominal);
+                      if (nominal >= 5000) {
+                        Provider.of<SaldoProvider>(context, listen: false)
+                            .topUp(nominal);
                         Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => Home()), (route) => false,);
+                          MaterialPageRoute(builder: (context) => HomeMenu()),
+                          (route) => false,
+                        );
                       } else {
-                       isPass = false;
+                        isPass = false;
                       }
                     });
                   },
