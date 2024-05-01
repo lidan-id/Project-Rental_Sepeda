@@ -65,6 +65,7 @@ class NavHomeBawah extends StatelessWidget {
                 ),
               ),
             ],
+            showUnselectedLabels: false,
             iconSize: MediaQuery.of(context).size.height * 0.05,
             selectedFontSize: MediaQuery.of(context).size.height * 0.02,
             unselectedFontSize: MediaQuery.of(context).size.height * 0.02,
@@ -93,32 +94,9 @@ class HomePage extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.9,
           color: const Color(0xFF2D3250),
-          padding: const EdgeInsets.all(25),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(
-                Icons.widgets,
-                size: 30,
-                color: Color(0xFFF6B17A),
-              ),
-              WelcomeBanner(),
-              Text("Categories",
-                  style: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: 5,
-                    fontFamily: 'Neue',
-                    fontSize: 30,
-                  )),
-              Text("Top in ... Categories",
-                  style: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: 5,
-                    fontFamily: 'Neue',
-                    fontSize: 30,
-                  )),
-            ],
+            children: [WelcomeBanner(), BikeCategory()],
           ),
         ),
       ),
@@ -131,12 +109,123 @@ class WelcomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Hi User, Ready to ride?",
-        style: TextStyle(
-          color: Colors.white,
-          letterSpacing: 5,
-          fontFamily: 'Neue',
-          fontSize: 30,
-        ));
+    return Stack(
+      children: [
+        Image.asset(
+          "assets/banner.jpg",
+          width: MediaQuery.of(context).size.width,
+          filterQuality: FilterQuality.high,
+          height: MediaQuery.of(context).size.height * 0.25,
+          fit: BoxFit.cover,
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.25,
+          color: const Color(0xFF2D3250).withOpacity(0.85),
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Row(
+                children: [
+                  Icon(
+                    Icons.widgets,
+                    size: 30,
+                    color: Color(0xFFF6B17A),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text("Hello,",
+                  style: TextStyle(
+                    color: Colors.white,
+                    letterSpacing: 5,
+                    fontFamily: 'Neue',
+                    fontSize: 20,
+                  )),
+              Text(Provider.of<LoginProvider>(context).user,
+                  style: const TextStyle(
+                    color: Color(0xFFF6B17A),
+                    letterSpacing: 5,
+                    fontFamily: 'Neue',
+                    fontSize: 34,
+                  )),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
+
+class BikeCategory extends StatelessWidget {
+  const BikeCategory({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(25),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            "Categories",
+            style: TextStyle(
+              color: Color(0xFFF6B17A),
+              fontFamily: 'Neue',
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(height: 5),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              "City Bikes",
+              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            ),
+          ),
+          const SizedBox(height: 5),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              "Road Bikes",
+              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            ),
+          ),
+          const SizedBox(height: 5),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              "Mountain Bikes",
+              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            ),
+          ),
+          const SizedBox(height: 5),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text(
+              "Sport Bikes",
+              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            ),
+          ),
+          const SizedBox(height: 25),
+          const Text(
+            "Top Bikes",
+            style: TextStyle(
+              color: Color(0xFFF6B17A),
+              fontFamily: 'Neue',
+              fontSize: 20,
+            ),
+            //tampilan disini
+          )
+        ],
+      ),
+    );
+  }
+}
+/* TO DO:
+1. Add Logic Bike List Card
+2. Style Button
+ */
