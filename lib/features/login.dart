@@ -200,7 +200,7 @@ class _LoginState extends State<Login> {
                       passwordTempInput = passwordInput.text;
                     } else {
                       Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => HomeMenu()));
                     }
                   });
                 },

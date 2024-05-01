@@ -356,7 +356,7 @@ class _RegisterState extends State<Register> {
                               username: usernameInput.text,
                               password: passwordInput.text));
                       Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => HomeMenu()));
                     }
                   });
                 },
