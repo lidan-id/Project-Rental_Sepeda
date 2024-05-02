@@ -53,3 +53,39 @@ class BottomNavProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class BikeCategoryProvider extends ChangeNotifier {
+  int _selectedCategoryIndex = 0;
+  final List<List<Map<String, dynamic>>> _categories = [
+    [
+      {'bikepic': 'bike1.webp', 'bikename': 'City'},
+      {'bikepic': 'bike1.webp', 'bikename': 'Bi'},
+      {'bikepic': 'bike1.webp', 'bikename': 'Ke'},
+    ],
+    [
+      {'bikepic': 'bike2.webp', 'bikename': 'Road'},
+      {'bikepic': 'bike2.webp', 'bikename': 'bi'},
+      {'bikepic': 'bike2.webp', 'bikename': 'ke'},
+    ],
+    [
+      {'bikepic': 'bike3.webp', 'bikename': 'Sepe'},
+      {'bikepic': 'bike3.webp', 'bikename': 'bi'},
+      {'bikepic': 'bike3.webp', 'bikename': 'ke'},
+    ],
+    [
+      {'bikepic': 'bike3.webp', 'bikename': 'Sepe'},
+      {'bikepic': 'bike2.webp', 'bikename': 'bi'},
+      {'bikepic': 'bike1.webp', 'bikename': 'ke'},
+    ],
+  ];
+
+  int get selectedCategoryIndex => _selectedCategoryIndex;
+
+  void setSelectedCategoryIndex(int index) {
+    _selectedCategoryIndex = index;
+    notifyListeners();
+  }
+
+  List<Map<String, dynamic>> get currentCategory =>
+      _categories[_selectedCategoryIndex];
+}

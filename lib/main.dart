@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => RegisterProvider()),
         ChangeNotifierProvider(create: (context) => SaldoProvider()),
         ChangeNotifierProvider(create: (context) => LoginProvider()),
-        //Profile Setting
+        ChangeNotifierProvider(create: (context) => BottomNavProvider()),
         ChangeNotifierProvider(create: (context) => NotificationProvider()),
         ChangeNotifierProvider(create: (context) => PermissionProvider()),
+        ChangeNotifierProvider(create: (context) => BikeCategoryProvider()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
