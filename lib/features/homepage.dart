@@ -210,7 +210,7 @@ class BikeCategory extends StatelessWidget {
             ),
             child: const Row(
               children: [
-                Icon(Icons.directions_bike),
+                Icon(Icons.location_city),
                 Spacer(),
                 Text(
                   "City Bikes",
@@ -238,7 +238,7 @@ class BikeCategory extends StatelessWidget {
             ),
             child: const Row(
               children: [
-                Icon(Icons.directions_bike),
+                Icon(Icons.landscape),
                 Spacer(),
                 Text(
                   "Mountain Bikes",
@@ -266,7 +266,7 @@ class BikeCategory extends StatelessWidget {
             ),
             child: const Row(
               children: [
-                Icon(Icons.directions_bike),
+                Icon(Icons.sports_motorsports),
                 Spacer(),
                 Text(
                   "Road Bikes",
