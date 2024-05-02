@@ -18,6 +18,7 @@ class _HomeMenuState extends State<HomeMenu> {
     TopUp(),
     Profile(),
   ];
+
   @override
   Widget build(BuildContext context) {
     final bottomNavProvider = Provider.of<BottomNavProvider>(context);
@@ -72,7 +73,7 @@ class NavHomeBawah extends StatelessWidget {
             selectedLabelStyle: const TextStyle(fontFamily: 'Neue'),
             unselectedLabelStyle: const TextStyle(fontFamily: 'Neue'),
             fixedColor: const Color(0xFFF6B17A),
-            backgroundColor: const Color(0xFF7077A1),
+            backgroundColor: const Color(0xFF424769),
             type: BottomNavigationBarType.fixed,
             currentIndex: bottomNavProvider.selectedIndex,
             onTap: (index) {
@@ -92,7 +93,7 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.9,
+          height: MediaQuery.of(context).size.height,
           color: const Color(0xFF2D3250),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,11 +116,11 @@ class WelcomeBanner extends StatelessWidget {
           "assets/banner.jpg",
           width: MediaQuery.of(context).size.width,
           filterQuality: FilterQuality.high,
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.3,
           fit: BoxFit.cover,
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.3,
           color: const Color(0xFF2D3250).withOpacity(0.85),
           padding: const EdgeInsets.all(25),
           child: Column(
@@ -136,21 +137,21 @@ class WelcomeBanner extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: 30,
+                height: 100,
               ),
               const Text("Hello,",
                   style: TextStyle(
                     color: Colors.white,
                     letterSpacing: 5,
                     fontFamily: 'Neue',
-                    fontSize: 20,
+                    fontSize: 25,
                   )),
               Text(Provider.of<LoginProvider>(context).user,
                   style: const TextStyle(
                     color: Color(0xFFF6B17A),
                     letterSpacing: 5,
                     fontFamily: 'Neue',
-                    fontSize: 34,
+                    fontSize: 35,
                   )),
             ],
           ),
@@ -162,8 +163,21 @@ class WelcomeBanner extends StatelessWidget {
 
 class BikeCategory extends StatelessWidget {
   const BikeCategory({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final List<String> bikecategory = [
+      "City Bikes",
+      "Mountain Bikes",
+      "Road Bikes",
+      "Sport Bikes",
+    ];
+    final bikeCategoryProvider = Provider.of<BikeCategoryProvider>(context);
+    final isActive0 = bikeCategoryProvider.selectedCategoryIndex == 0;
+    final isActive1 = bikeCategoryProvider.selectedCategoryIndex == 1;
+    final isActive2 = bikeCategoryProvider.selectedCategoryIndex == 2;
+    final isActive3 = bikeCategoryProvider.selectedCategoryIndex == 3;
+
     return Container(
       padding: const EdgeInsets.all(25),
       child: Column(
@@ -180,52 +194,175 @@ class BikeCategory extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              "City Bikes",
-              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            onPressed: isActive0
+                ? null
+                : () {
+                    bikeCategoryProvider.setSelectedCategoryIndex(0);
+                  },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              disabledBackgroundColor: const Color(0xFF424769),
+              disabledForegroundColor: Colors.grey,
+              backgroundColor: const Color(0xFF7077A1),
+              foregroundColor: Colors.white,
+              fixedSize: const Size.fromHeight(40),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.directions_bike),
+                Spacer(),
+                Text(
+                  "City Bikes",
+                  style: TextStyle(
+                      fontFamily: "Neue", fontSize: 20, letterSpacing: 10),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 5),
           ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              "Road Bikes",
-              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            onPressed: isActive1
+                ? null
+                : () {
+                    bikeCategoryProvider.setSelectedCategoryIndex(1);
+                  },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              disabledBackgroundColor: const Color(0xFF424769),
+              disabledForegroundColor: Colors.grey,
+              backgroundColor: const Color(0xFF7077A1),
+              foregroundColor: Colors.white,
+              fixedSize: const Size.fromHeight(40),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.directions_bike),
+                Spacer(),
+                Text(
+                  "Mountain Bikes",
+                  style: TextStyle(
+                      fontFamily: "Neue", fontSize: 20, letterSpacing: 10),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 5),
           ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              "Mountain Bikes",
-              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            onPressed: isActive2
+                ? null
+                : () {
+                    bikeCategoryProvider.setSelectedCategoryIndex(2);
+                  },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              disabledBackgroundColor: const Color(0xFF424769),
+              disabledForegroundColor: Colors.grey,
+              backgroundColor: const Color(0xFF7077A1),
+              foregroundColor: Colors.white,
+              fixedSize: const Size.fromHeight(40),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.directions_bike),
+                Spacer(),
+                Text(
+                  "Road Bikes",
+                  style: TextStyle(
+                      fontFamily: "Neue", fontSize: 20, letterSpacing: 10),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 5),
           ElevatedButton(
-            onPressed: () {},
-            child: const Text(
-              "Sport Bikes",
-              style: TextStyle(fontFamily: "Neue", fontSize: 20),
+            onPressed: isActive3
+                ? null
+                : () {
+                    bikeCategoryProvider.setSelectedCategoryIndex(3);
+                  },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              disabledBackgroundColor: const Color(0xFF424769),
+              disabledForegroundColor: Colors.grey,
+              backgroundColor: const Color(0xFF7077A1),
+              foregroundColor: Colors.white,
+              fixedSize: const Size.fromHeight(40),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.directions_bike),
+                Spacer(),
+                Text(
+                  "Sport Bikes",
+                  style: TextStyle(
+                      fontFamily: "Neue", fontSize: 20, letterSpacing: 10),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 25),
-          const Text(
-            "Top Bikes",
-            style: TextStyle(
+          Text(
+            "Top ${bikecategory[Provider.of<BikeCategoryProvider>(context).selectedCategoryIndex]}",
+            style: const TextStyle(
               color: Color(0xFFF6B17A),
               fontFamily: 'Neue',
               fontSize: 20,
             ),
-            //tampilan disini
-          )
+          ),
+          const BikeList(),
         ],
       ),
     );
   }
 }
-/* TO DO:
-1. Add Logic Bike List Card
-2. Style Button
- */
+
+class BikeList extends StatelessWidget {
+  const BikeList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> bikeList =
+        Provider.of<BikeCategoryProvider>(context).currentCategory;
+
+    return SizedBox(
+      height: 250,
+      width: 20,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: bikeList.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 5),
+            decoration: BoxDecoration(
+              color: const Color(0xFF424769),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/${bikeList[index]['bikepic']}",
+                  height: 160,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  bikeList[index]['bikename'],
+                  style: const TextStyle(
+                    fontFamily: 'Neue',
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
