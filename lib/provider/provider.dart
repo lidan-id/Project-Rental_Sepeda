@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 
 class User {
@@ -88,4 +90,50 @@ class BikeCategoryProvider extends ChangeNotifier {
 
   List<Map<String, dynamic>> get currentCategory =>
       _categories[_selectedCategoryIndex];
+}
+
+class BikesClass {
+  String name;
+  String picture;
+  String price;
+  BikesClass({required this.name, required this.picture, required this.price});
+}
+
+class BikesProvider extends ChangeNotifier {
+  List<BikesClass> cityBikes = [
+    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
+  ];
+  List<BikesClass> mountainBikes = [
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+  ];
+  List<BikesClass> roadBikes = [
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+  ];
+  List<BikesClass> sportBikes = [
+    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+  ];
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/bikes.dart';
 import 'package:flutter_application_1/features/profile.dart';
 import 'package:flutter_application_1/features/toppup.dart';
 import 'package:flutter_application_1/provider/provider.dart';
@@ -14,7 +15,7 @@ class HomeMenu extends StatefulWidget {
 class _HomeMenuState extends State<HomeMenu> {
   static const List<Widget> menus = [
     HomePage(),
-    Profile(),
+    Bikes(),
     TopUp(),
     Profile(),
   ];
@@ -48,7 +49,7 @@ class NavHomeBawah extends StatelessWidget {
               BottomNavigationBarItem(
                   label: "Home", icon: Icon(Icons.home_outlined)),
               BottomNavigationBarItem(
-                label: ("Rent"),
+                label: ("Bikes"),
                 icon: Icon(
                   Icons.pedal_bike_outlined,
                 ),
