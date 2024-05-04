@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/login.dart';
 import 'package:flutter_application_1/features/profile.dart';
+import 'package:flutter_application_1/features/profilefeature/permission.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_application_1/features/profilefeature/notification.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +26,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BikeCategoryProvider()),
         ChangeNotifierProvider(create: (context) => BikesProvider()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: ThemeData(scaffoldBackgroundColor: Color(0xFF2D3250)),
         debugShowCheckedModeBanner: false,
         home: Login(),
       ),
