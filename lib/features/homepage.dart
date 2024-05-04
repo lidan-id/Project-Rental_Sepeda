@@ -85,12 +85,27 @@ class NavHomeBawah extends StatelessWidget {
   }
 }
 
+class FabHome extends StatelessWidget {
+  const FabHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {},
+      backgroundColor: Color(0xFFFF6B17A),
+      shape: CircleBorder(),
+      child: Icon(Icons.location_on),
+    );
+  }
+}
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const FabHome(),
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
