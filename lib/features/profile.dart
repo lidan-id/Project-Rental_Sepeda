@@ -105,9 +105,12 @@ class Profile extends StatelessWidget {
               ProfileMenuWidget(menuTitle: "History",onPress: () {},),
               ProfileMenuWidget(menuTitle: "Help Center",onPress: () {},),
               ProfileMenuWidget(menuTitle: "Notification",onPress: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotificationSettings()));},),
+              ProfileMenuWidget(menuTitle: "Permission",onPress: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => PermissionManager()));},),
               ProfileMenuWidget(menuTitle: "Privacy Policy",onPress: () {},),
               ProfileMenuWidget(menuTitle: "Terms of Service",onPress: () {},),
-              ProfileMenuWidget(menuTitle: "Permission",onPress: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => PermissionManager()));},),
+              ProfileMenuWidget(menuTitle: "Log out",onPress: () {Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => Login()), (route) => false);},endIcon: false,),
+              // LogOut()
             ],
           ),
         ),
@@ -121,24 +124,28 @@ class ProfileMenuWidget extends StatelessWidget {
     Key? key,
     required this.menuTitle,
     required this.onPress,
+    this.endIcon = true,
     
 
   }) : super(key: key);
 
   final String menuTitle;
   final VoidCallback onPress;
+  final bool endIcon;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onPress,
       title: Text(menuTitle, style: TextStyle(color: Colors.white, fontSize: 30, fontFamily: 'Neue'),),
-      trailing: Container(
+      trailing:
+      endIcon ?
+      Container(
         width: 30,
         height: 50,
         decoration: ShapeDecoration(shape: CircleBorder(side: BorderSide(color: Colors.grey,))),
         child: const Icon(Icons.arrow_right,color: Color(0xFFF6B17A),),
-      ),
+      ) : null,
     );
   }
 }
@@ -480,52 +487,52 @@ class ProfileMenuWidget extends StatelessWidget {
 //   }
 // }
 
-// class LogOut extends StatelessWidget {
-//   const LogOut({super.key});
+class LogOut extends StatelessWidget {
+  const LogOut({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         decoration: BoxDecoration(
-//           border: Border.all(width: 1),
-//           borderRadius: BorderRadius.circular(25),
-//         ),
-//         child: Column(
-//           children: [
-//             const ListTile(
-//               title: Text(
-//                 "Log Out",
-//                 style: TextStyle(
-//                     fontWeight: FontWeight.w900,
-//                     color: Colors.white,
-//                     fontFamily: 'Neue',
-//                     fontSize: 35),
-//               ),
-//             ),
-//             //tambah logic Logout
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.of(context).pushAndRemoveUntil(
-//                     MaterialPageRoute(builder: (context) => Login()), (route) => false);
-//               },
-//               style: ElevatedButton.styleFrom(
-//                 elevation: 10,
-//                 enableFeedback: true,
-//                 foregroundColor: const Color(0xFF7077A1),
-//                 backgroundColor: Colors.red,
-//               ),
-//               child: const Text(
-//                 'Log Out',
-//                 style: TextStyle(fontFamily: 'Neue'),
-//               ),
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             )
-//           ],
-//         ));
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 1),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: Column(
+          children: [
+            const ListTile(
+              title: Text(
+                "Log Out",
+                style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    fontFamily: 'Neue',
+                    fontSize: 30),
+              ),
+            ),
+            //tambah logic Logout
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => Login()), (route) => false);
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 10,
+                enableFeedback: true,
+                foregroundColor: const Color(0xFF7077A1),
+                backgroundColor: Colors.red,
+              ),
+              child: const Text(
+                'Log Out',
+                style: TextStyle(fontFamily: 'Neue', color: Colors.white),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            )
+          ],
+        ));
+  }
+}
 
 
 
