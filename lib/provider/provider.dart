@@ -60,24 +60,28 @@ class BikeCategoryProvider extends ChangeNotifier {
   int _selectedCategoryIndex = 0;
   final List<List<Map<String, dynamic>>> _categories = [
     [
-      {'bikepic': 'bike1.webp', 'bikename': 'City'},
-      {'bikepic': 'bike1.webp', 'bikename': 'Bi'},
-      {'bikepic': 'bike1.webp', 'bikename': 'Ke'},
+      //City Bikes"
+      {'bikepic': 'bike10.webp', 'bikename': 'Nakto Classic'},
+      {'bikepic': 'bike11.webp', 'bikename': 'Evelo'},
+      {'bikepic': 'bike12.webp', 'bikename': 'RadCity5'},
     ],
     [
-      {'bikepic': 'bike2.webp', 'bikename': 'Road'},
-      {'bikepic': 'bike2.webp', 'bikename': 'bi'},
-      {'bikepic': 'bike2.webp', 'bikename': 'ke'},
+      //Mountain Bikes
+      {'bikepic': 'bike20.webp', 'bikename': 'MTB Aro 29'},
+      {'bikepic': 'bike21.webp', 'bikename': 'Phoenix MB26'},
+      {'bikepic': 'bike22.webp', 'bikename': 'Dynacraft'},
     ],
     [
-      {'bikepic': 'bike3.webp', 'bikename': 'Sepe'},
-      {'bikepic': 'bike3.webp', 'bikename': 'bi'},
-      {'bikepic': 'bike3.webp', 'bikename': 'ke'},
+      //Road Bikes
+      {'bikepic': 'bike30.webp', 'bikename': 'Bianchi'},
+      {'bikepic': 'bike31.webp', 'bikename': 'Cinelli'},
+      {'bikepic': 'bike32.webp', 'bikename': 'Canyon'},
     ],
     [
-      {'bikepic': 'bike3.webp', 'bikename': 'Sepe'},
-      {'bikepic': 'bike2.webp', 'bikename': 'bi'},
-      {'bikepic': 'bike1.webp', 'bikename': 'ke'},
+      //Hybrid Bikes
+      {'bikepic': 'bike40.webp', 'bikename': 'Pendleton Somerby'},
+      {'bikepic': 'bike41.webp', 'bikename': 'Trek FX Carbon 4'},
+      {'bikepic': 'bike42.webp', 'bikename': 'Schwinn'},
     ],
   ];
 
