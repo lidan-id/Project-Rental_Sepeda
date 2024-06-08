@@ -118,8 +118,8 @@ class BikesProvider extends ChangeNotifier {
     BikesClass(name: 'm', picture: "bike20.webp", price: '330000'),
     BikesClass(name: 'm', picture: "bike21.webp", price: '330000'),
     BikesClass(name: 'm', picture: "bike22.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike23.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike24.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike20.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike21.webp", price: '330000'),
   ];
   List<BikesClass> roadBikes = [
     BikesClass(name: 'r', picture: "bike30.webp", price: '330000'),
