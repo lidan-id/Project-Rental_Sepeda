@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +47,7 @@ class _BikesState extends State<Bikes> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              'assets/${e.picture}'))),
+                                              'assets/bikes/${e.picture}'))),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -102,7 +100,7 @@ class _BikesState extends State<Bikes> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              'assets/${e.picture}'))),
+                                              'assets/bikes/${e.picture}'))),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -155,7 +153,7 @@ class _BikesState extends State<Bikes> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              'assets/${e.picture}'))),
+                                              'assets/bikes/${e.picture}'))),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -208,7 +206,7 @@ class _BikesState extends State<Bikes> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              'assets/${e.picture}'))),
+                                              'assets/bikes/${e.picture}'))),
                                 ),
                                 SizedBox(
                                   width: 10,

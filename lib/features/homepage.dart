@@ -39,11 +39,11 @@ class NavHomeBawah extends StatelessWidget {
     final bottomNavProvider = Provider.of<BottomNavProvider>(context);
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.095,
       color: const Color(0xFF2D3250),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+            topLeft: Radius.circular(20), topRight: Radius.circular(25)),
         child: BottomNavigationBar(
             items: const [
               BottomNavigationBarItem(
@@ -68,7 +68,7 @@ class NavHomeBawah extends StatelessWidget {
               ),
             ],
             showUnselectedLabels: false,
-            iconSize: MediaQuery.of(context).size.height * 0.05,
+            iconSize: MediaQuery.of(context).size.height * 0.04,
             selectedFontSize: MediaQuery.of(context).size.height * 0.02,
             unselectedFontSize: MediaQuery.of(context).size.height * 0.02,
             selectedLabelStyle: const TextStyle(fontFamily: 'Neue'),
@@ -186,13 +186,14 @@ class BikeCategory extends StatelessWidget {
       "City Bikes",
       "Mountain Bikes",
       "Road Bikes",
-      "Sport Bikes",
+      "Hybrid Bikes",
     ];
-    final bikeCategoryProvider = Provider.of<BikeCategoryProvider>(context);
-    final isActive0 = bikeCategoryProvider.selectedCategoryIndex == 0;
-    final isActive1 = bikeCategoryProvider.selectedCategoryIndex == 1;
-    final isActive2 = bikeCategoryProvider.selectedCategoryIndex == 2;
-    final isActive3 = bikeCategoryProvider.selectedCategoryIndex == 3;
+    final TopbikeCategoryProvider =
+        Provider.of<TopBikeCategoryProvider>(context);
+    final isActive0 = TopbikeCategoryProvider.selectedCategoryIndex == 0;
+    final isActive1 = TopbikeCategoryProvider.selectedCategoryIndex == 1;
+    final isActive2 = TopbikeCategoryProvider.selectedCategoryIndex == 2;
+    final isActive3 = TopbikeCategoryProvider.selectedCategoryIndex == 3;
 
     return Container(
       padding: const EdgeInsets.all(25),
@@ -213,7 +214,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive0
                 ? null
                 : () {
-                    bikeCategoryProvider.setSelectedCategoryIndex(0);
+                    TopbikeCategoryProvider.setSelectedCategoryIndex(0);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -241,7 +242,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive1
                 ? null
                 : () {
-                    bikeCategoryProvider.setSelectedCategoryIndex(1);
+                    TopbikeCategoryProvider.setSelectedCategoryIndex(1);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -269,7 +270,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive2
                 ? null
                 : () {
-                    bikeCategoryProvider.setSelectedCategoryIndex(2);
+                    TopbikeCategoryProvider.setSelectedCategoryIndex(2);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -297,7 +298,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive3
                 ? null
                 : () {
-                    bikeCategoryProvider.setSelectedCategoryIndex(3);
+                    TopbikeCategoryProvider.setSelectedCategoryIndex(3);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -313,7 +314,7 @@ class BikeCategory extends StatelessWidget {
                 Icon(Icons.directions_bike),
                 Spacer(),
                 Text(
-                  "Sport Bikes",
+                  "Hybrid Bikes",
                   style: TextStyle(
                       fontFamily: "Neue", fontSize: 20, letterSpacing: 10),
                 ),
@@ -322,7 +323,7 @@ class BikeCategory extends StatelessWidget {
           ),
           const SizedBox(height: 25),
           Text(
-            "Top ${bikecategory[Provider.of<BikeCategoryProvider>(context).selectedCategoryIndex]}",
+            "Top ${bikecategory[Provider.of<TopBikeCategoryProvider>(context).selectedCategoryIndex]}",
             style: const TextStyle(
               color: Color(0xFFF6B17A),
               fontFamily: 'Neue',
@@ -342,7 +343,7 @@ class BikeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> bikeList =
-        Provider.of<BikeCategoryProvider>(context).currentCategory;
+        Provider.of<TopBikeCategoryProvider>(context).currentCategory;
 
     return SizedBox(
       height: 250,
@@ -362,8 +363,8 @@ class BikeList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/${bikeList[index]['bikepic']}",
-                  height: 160,
+                  "assets/bikes/${bikeList[index]['bikepic']}",
+                  height: 180,
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 10),

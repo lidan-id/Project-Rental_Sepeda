@@ -56,7 +56,7 @@ class BottomNavProvider extends ChangeNotifier {
   }
 }
 
-class BikeCategoryProvider extends ChangeNotifier {
+class TopBikeCategoryProvider extends ChangeNotifier {
   int _selectedCategoryIndex = 0;
   final List<List<Map<String, dynamic>>> _categories = [
     [
@@ -105,39 +105,39 @@ class BikesClass {
 
 class BikesProvider extends ChangeNotifier {
   List<BikesClass> cityBikes = [
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike10.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike11.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike12.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike10.webp", price: '330000'),
+    BikesClass(name: 'c', picture: "bike11.webp", price: '330000'),
   ];
   List<BikesClass> mountainBikes = [
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike20.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike21.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike22.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike20.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike21.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike22.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike23.webp", price: '330000'),
+    BikesClass(name: 'm', picture: "bike24.webp", price: '330000'),
   ];
   List<BikesClass> roadBikes = [
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike30.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike31.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike32.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike30.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike31.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike32.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike30.webp", price: '330000'),
+    BikesClass(name: 'r', picture: "bike31.webp", price: '330000'),
   ];
   List<BikesClass> sportBikes = [
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike40.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike41.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike42.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike40.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike41.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike42.webp", price: '330000'),
+    BikesClass(name: 's', picture: "bike40.webp", price: '330000'),
   ];
 }
