@@ -22,6 +22,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/bikes/
   uses-material-design: true
 
   fonts:
