@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
           color: const Color(0xFF2D3250),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [WelcomeBanner(), BikeCategory()],
+            children: [WelcomeBoard(), BikeCategory()],
           ),
         ),
       ),
@@ -121,8 +121,8 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class WelcomeBanner extends StatelessWidget {
-  const WelcomeBanner({super.key});
+class WelcomeBoard extends StatelessWidget {
+  const WelcomeBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -351,12 +351,13 @@ class BikeList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: bikeList.length,
         itemBuilder: (context, index) {
-          return Container(
+          return Card(
             margin: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              color: const Color(0xFF424769),
-              borderRadius: BorderRadius.circular(15),
-            ),
+            // decoration: BoxDecoration(
+            //   color: const Color(0xFF424769),
+            //   borderRadius: BorderRadius.circular(15),
+            // ),
+            color: const Color(0xFF424769),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
