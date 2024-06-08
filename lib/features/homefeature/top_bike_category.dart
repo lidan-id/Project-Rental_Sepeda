@@ -1,184 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/bikes.dart';
-import 'package:flutter_application_1/features/profile.dart';
-import 'package:flutter_application_1/features/toppup.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
 
-class HomeMenu extends StatefulWidget {
-  const HomeMenu({super.key});
-
-  @override
-  State<HomeMenu> createState() => _HomeMenuState();
-}
-
-class _HomeMenuState extends State<HomeMenu> {
-  static const List<Widget> menus = [
-    HomePage(),
-    Bikes(),
-    TopUp(),
-    Profile(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    final bottomNavProvider = Provider.of<BottomNavProvider>(context);
-
-    return Scaffold(
-      body: menus.elementAt(bottomNavProvider.selectedIndex),
-      bottomNavigationBar: const NavHomeBawah(),
-    );
-  }
-}
-
-class NavHomeBawah extends StatelessWidget {
-  const NavHomeBawah({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final bottomNavProvider = Provider.of<BottomNavProvider>(context);
-
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.095,
-      color: const Color(0xFF2D3250),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20), topRight: Radius.circular(25)),
-        child: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
-                  label: "Home", icon: Icon(Icons.home_outlined)),
-              BottomNavigationBarItem(
-                label: ("Bikes"),
-                icon: Icon(
-                  Icons.pedal_bike_outlined,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Top Up",
-                icon: Icon(
-                  Icons.account_balance_wallet_outlined,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Profile",
-                icon: Icon(
-                  Icons.account_circle_outlined,
-                ),
-              ),
-            ],
-            showUnselectedLabels: false,
-            iconSize: MediaQuery.of(context).size.height * 0.04,
-            selectedFontSize: MediaQuery.of(context).size.height * 0.02,
-            unselectedFontSize: MediaQuery.of(context).size.height * 0.02,
-            selectedLabelStyle: const TextStyle(fontFamily: 'Neue'),
-            unselectedLabelStyle: const TextStyle(fontFamily: 'Neue'),
-            fixedColor: const Color(0xFFF6B17A),
-            backgroundColor: const Color(0xFF424769),
-            type: BottomNavigationBarType.fixed,
-            currentIndex: bottomNavProvider.selectedIndex,
-            onTap: (index) {
-              bottomNavProvider.onItemTapped(index);
-            }),
-      ),
-    );
-  }
-}
-
-class FabHome extends StatelessWidget {
-  const FabHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {},
-      backgroundColor: Color(0xFFFF6B17A),
-      shape: CircleBorder(),
-      child: Icon(Icons.location_on),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: const FabHome(),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          color: const Color(0xFF2D3250),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [WelcomeBoard(), BikeCategory()],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class WelcomeBoard extends StatelessWidget {
-  const WelcomeBoard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          "assets/banner.jpg",
-          width: MediaQuery.of(context).size.width,
-          filterQuality: FilterQuality.high,
-          height: MediaQuery.of(context).size.height * 0.3,
-          fit: BoxFit.cover,
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.3,
-          color: const Color(0xFF2D3250).withOpacity(0.85),
-          padding: const EdgeInsets.all(25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Row(
-                children: [
-                  Icon(
-                    Icons.widgets,
-                    size: 30,
-                    color: Color(0xFFF6B17A),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              const Text("Hello,",
-                  style: TextStyle(
-                    color: Colors.white,
-                    letterSpacing: 5,
-                    fontFamily: 'Neue',
-                    fontSize: 25,
-                  )),
-              Text(Provider.of<LoginProvider>(context).user,
-                  style: const TextStyle(
-                    color: Color(0xFFF6B17A),
-                    letterSpacing: 5,
-                    fontFamily: 'Neue',
-                    fontSize: 35,
-                  )),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class BikeCategory extends StatelessWidget {
-  const BikeCategory({super.key});
+class TopBikeCategory extends StatelessWidget {
+  const TopBikeCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -188,12 +13,12 @@ class BikeCategory extends StatelessWidget {
       "Road Bikes",
       "Hybrid Bikes",
     ];
-    final TopbikeCategoryProvider =
+    final topBikeCategoryProvider =
         Provider.of<TopBikeCategoryProvider>(context);
-    final isActive0 = TopbikeCategoryProvider.selectedCategoryIndex == 0;
-    final isActive1 = TopbikeCategoryProvider.selectedCategoryIndex == 1;
-    final isActive2 = TopbikeCategoryProvider.selectedCategoryIndex == 2;
-    final isActive3 = TopbikeCategoryProvider.selectedCategoryIndex == 3;
+    final isActive0 = topBikeCategoryProvider.selectedCategoryIndex == 0;
+    final isActive1 = topBikeCategoryProvider.selectedCategoryIndex == 1;
+    final isActive2 = topBikeCategoryProvider.selectedCategoryIndex == 2;
+    final isActive3 = topBikeCategoryProvider.selectedCategoryIndex == 3;
 
     return Container(
       padding: const EdgeInsets.all(25),
@@ -214,7 +39,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive0
                 ? null
                 : () {
-                    TopbikeCategoryProvider.setSelectedCategoryIndex(0);
+                    topBikeCategoryProvider.setSelectedCategoryIndex(0);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -242,7 +67,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive1
                 ? null
                 : () {
-                    TopbikeCategoryProvider.setSelectedCategoryIndex(1);
+                    topBikeCategoryProvider.setSelectedCategoryIndex(1);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -270,7 +95,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive2
                 ? null
                 : () {
-                    TopbikeCategoryProvider.setSelectedCategoryIndex(2);
+                    topBikeCategoryProvider.setSelectedCategoryIndex(2);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -298,7 +123,7 @@ class BikeCategory extends StatelessWidget {
             onPressed: isActive3
                 ? null
                 : () {
-                    TopbikeCategoryProvider.setSelectedCategoryIndex(3);
+                    topBikeCategoryProvider.setSelectedCategoryIndex(3);
                   },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
