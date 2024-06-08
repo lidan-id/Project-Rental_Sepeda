@@ -12,8 +12,7 @@ class User {
 class RegisterProvider extends ChangeNotifier {
   List<User> users = [
     User(email: 'eden@gmail.com', username: 'eden', password: 'Eden123@'),
-    User(
-        email: 'lidannn012@gmail.com', username: 'kevin', password: 'Kevin123@')
+    User(email: 'eden1@gmail.com', username: 'e', password: 'e'),
   ];
   void addUser(User user) {
     users.add(user);
@@ -101,39 +100,35 @@ class BikesClass {
 
 class BikesProvider extends ChangeNotifier {
   List<BikesClass> cityBikes = [
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'c', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'citie 223', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'masive city', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'futuries', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'bikers 331', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'poulu 22', picture: "bike1.webp", price: '330000'),
   ];
   List<BikesClass> mountainBikes = [
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'm', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'mountain 223', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'mutual bike', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'lambo 11', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'bikes 2000cc', picture: "bike1.webp", price: '330000'),
+    BikesClass(
+        name: 'mountains lite 332', picture: "bike1.webp", price: '330000'),
   ];
   List<BikesClass> roadBikes = [
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 'r', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'road 7', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'river road', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'roronoa road', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'paradise', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'hell', picture: "bike1.webp", price: '330000'),
   ];
   List<BikesClass> sportBikes = [
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
-    BikesClass(name: 's', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'sprite', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'sport bike 22', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'srr 889', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'super main 21', picture: "bike1.webp", price: '330000'),
+    BikesClass(name: 'paramedic', picture: "bike1.webp", price: '330000'),
   ];
+  //  checkInput() {
+  //   return null
+  // }
 }
