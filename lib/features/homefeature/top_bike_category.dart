@@ -155,15 +155,15 @@ class TopBikeCategory extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          const BikeList(),
+          const TopBikeCategoryList(),
         ],
       ),
     );
   }
 }
 
-class BikeList extends StatelessWidget {
-  const BikeList({super.key});
+class TopBikeCategoryList extends StatelessWidget {
+  const TopBikeCategoryList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -172,36 +172,54 @@ class BikeList extends StatelessWidget {
 
     return SizedBox(
       height: 250,
-      width: 20,
+      // width: 20,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: bikeList.length,
         itemBuilder: (context, index) {
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            // decoration: BoxDecoration(
-            //   color: const Color(0xFF424769),
-            //   borderRadius: BorderRadius.circular(15),
-            // ),
-            color: const Color(0xFF424769),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/bikes/${bikeList[index]['bikepic']}",
-                  height: 180,
-                  fit: BoxFit.cover,
+          final imageDirectory = "assets/bikes/${bikeList[index]['bikepic']}";
+          final bikeName = bikeList[index]['bikename'];
+          final bikeCat = bikeList[index]['bikecat'];
+          final heroTag = "TBCinfo_$bikeName";
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => tbcInfo(
+                        context,
+                        bikeName,
+                        bikeCat,
+                        imageDirectory,
+                        heroTag,
+                      )));
+            },
+            child: Hero(
+              tag: heroTag,
+              child: Card(
+                // decoration: BoxDecoration(
+                //   color: const Color(0xFF424769),
+                //   borderRadius: BorderRadius.circular(15),
+                // ),
+                color: const Color(0xFF424769),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      imageDirectory,
+                      height: 180,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      bikeName,
+                      style: const TextStyle(
+                        fontFamily: 'Neue',
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  bikeList[index]['bikename'],
-                  style: const TextStyle(
-                    fontFamily: 'Neue',
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
+              ),
             ),
           );
         },
@@ -209,3 +227,62 @@ class BikeList extends StatelessWidget {
     );
   }
 }
+
+Widget tbcInfo(BuildContext context, String bikeName, String bikeCat,
+        String imageDirectory, String heroTag) =>
+    Scaffold(
+      body: InkWell(
+        onTap: () => Navigator.pop(context),
+        child: Hero(
+          // transitionOnUserGestures: true,
+          tag: heroTag,
+          child: Center(
+            child: Container(
+              color: const Color(0xFF2D3250),
+              padding: const EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    child: Image.asset(
+                      imageDirectory,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        //Left Row
+                        const Column(
+                          children: [
+                            Text("BIKE NAME: "),
+                            Text("BIKE CATEGORY: ")
+                          ],
+                        ),
+                        //Right Row
+                        Column(
+                          children: [Text(bikeName), Text(bikeCat)],
+                        )
+                      ],
+                    )
+                        // ListTile(
+                        //   title: Text(bikeName),
+                        //   subtitle: Text(bikeCat),
+
+                        // ),
+                        ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
