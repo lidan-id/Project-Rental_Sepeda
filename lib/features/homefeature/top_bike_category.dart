@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -180,14 +181,16 @@ class TopBikeCategoryList extends StatelessWidget {
           final imageDirectory = "assets/bikes/${bikeList[index]['bikepic']}";
           final bikeName = bikeList[index]['bikename'];
           final bikeCat = bikeList[index]['bikecat'];
+          final bikeDesc = bikeList[index]['bikedesc'];
           final heroTag = "TBCinfo_$bikeName";
-          return InkWell(
+          return GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => tbcInfo(
                         context,
                         bikeName,
                         bikeCat,
+                        bikeDesc,
                         imageDirectory,
                         heroTag,
                       )));
@@ -229,10 +232,18 @@ class TopBikeCategoryList extends StatelessWidget {
 }
 
 Widget tbcInfo(BuildContext context, String bikeName, String bikeCat,
-        String imageDirectory, String heroTag) =>
+        String bikeDesc, String imageDirectory, String heroTag) =>
     Scaffold(
-      body: InkWell(
-        onTap: () => Navigator.pop(context),
+      appBar: AppBar(
+        foregroundColor: const Color(0xFF7077A1),
+        backgroundColor: Colors.transparent,
+        title: const Text(
+          'Bike info',
+          style: TextStyle(fontFamily: 'Neue', fontSize: 30),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
         child: Hero(
           // transitionOnUserGestures: true,
           tag: heroTag,
@@ -241,7 +252,7 @@ Widget tbcInfo(BuildContext context, String bikeName, String bikeCat,
               color: const Color(0xFF2D3250),
               padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.9,
+              // height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -253,31 +264,34 @@ Widget tbcInfo(BuildContext context, String bikeName, String bikeCat,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    width: double.infinity,
                     child: Card(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        //Left Row
-                        const Column(
+                        color: const Color(0xFF424769),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("BIKE NAME: "),
-                            Text("BIKE CATEGORY: ")
+                            Text(bikeName,
+                                style: const TextStyle(
+                                    fontFamily: 'Neue',
+                                    fontWeight: FontWeight.w900,
+                                    color: Color(0xFFF6B17A),
+                                    fontSize: 50)),
+                            // Spacer(),
+                            Text(bikeCat,
+                                style: const TextStyle(
+                                    fontFamily: 'Neue',
+                                    color: Colors.white,
+                                    fontSize: 20)),
+                            Text(bikeDesc,
+                                style: const TextStyle(
+                                  fontFamily: 'Neue',
+                                  color: Colors.white,
+                                )),
                           ],
-                        ),
-                        //Right Row
-                        Column(
-                          children: [Text(bikeName), Text(bikeCat)],
-                        )
-                      ],
-                    )
-                        // ListTile(
-                        //   title: Text(bikeName),
-                        //   subtitle: Text(bikeCat),
-
-                        // ),
-                        ),
+                        )),
                   )
                 ],
               ),

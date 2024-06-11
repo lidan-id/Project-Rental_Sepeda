@@ -61,13 +61,20 @@ class TopBikeCategoryProvider extends ChangeNotifier {
       {
         'bikepic': 'bike10.webp',
         'bikename': 'Nakto Classic',
-        'bikecat': 'City Bikes'
+        'bikecat': 'City Bikes',
+        'bikedesc': ''
       },
-      {'bikepic': 'bike11.webp', 'bikename': 'Evelo', 'bikecat': 'City Bikes'},
+      {
+        'bikepic': 'bike11.webp',
+        'bikename': 'Evelo',
+        'bikecat': 'City Bikes',
+        'bikedesc': ''
+      },
       {
         'bikepic': 'bike12.webp',
         'bikename': 'RadCity5',
-        'bikecat': 'City Bikes'
+        'bikecat': 'City Bikes',
+        'bikedesc': ''
       },
     ],
     [
@@ -75,17 +82,20 @@ class TopBikeCategoryProvider extends ChangeNotifier {
       {
         'bikepic': 'bike20.webp',
         'bikename': 'MTB Aro 29',
-        'bikecat': 'Mountain Bikes'
+        'bikecat': 'Mountain Bikes',
+        'bikedesc': ''
       },
       {
         'bikepic': 'bike21.webp',
         'bikename': 'Phoenix MB26',
-        'bikecat': 'Mountain Bikes'
+        'bikecat': 'Mountain Bikes',
+        'bikedesc': ''
       },
       {
         'bikepic': 'bike22.webp',
         'bikename': 'Dynacraft',
-        'bikecat': 'Mountain Bikes'
+        'bikecat': 'Mountain Bikes',
+        'bikedesc': ''
       },
     ],
     [
@@ -93,31 +103,41 @@ class TopBikeCategoryProvider extends ChangeNotifier {
       {
         'bikepic': 'bike30.webp',
         'bikename': 'Bianchi',
-        'bikecat': 'Road Bikes'
+        'bikecat': 'Road Bikes',
+        'bikedesc': ''
       },
       {
         'bikepic': 'bike31.webp',
         'bikename': 'Cinelli',
-        'bikecat': 'Road Bikes'
+        'bikecat': 'Road Bikes',
+        'bikedesc': ''
       },
-      {'bikepic': 'bike32.webp', 'bikename': 'Canyon', 'bikecat': 'Road Bikes'},
+      {
+        'bikepic': 'bike32.webp',
+        'bikename': 'Canyon',
+        'bikecat': 'Road Bikes',
+        'bikedesc': ''
+      },
     ],
     [
       //Hybrid Bikes
       {
         'bikepic': 'bike40.webp',
         'bikename': 'Pendleton Somerby',
-        'bikecat': 'Hybrid Bikes'
+        'bikecat': 'Hybrid Bikes',
+        'bikedesc': ''
       },
       {
         'bikepic': 'bike41.webp',
         'bikename': 'Trek FX Carbon 4',
-        'bikecat': 'Hybrid Bikes'
+        'bikecat': 'Hybrid Bikes',
+        'bikedesc': ''
       },
       {
         'bikepic': 'bike42.webp',
         'bikename': 'Schwinn',
-        'bikecat': 'Hybrid Bikes'
+        'bikecat': 'Hybrid Bikes',
+        'bikedesc': ''
       },
     ],
   ];
