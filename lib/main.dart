@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/login.dart';
-import 'package:flutter_application_1/features/profile.dart';
 import 'package:flutter_application_1/features/profilefeature/permission.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BottomNavProvider()),
         ChangeNotifierProvider(create: (context) => NotificationProvider()),
         ChangeNotifierProvider(create: (context) => PermissionProvider()),
-        ChangeNotifierProvider(create: (context) => BikeCategoryProvider()),
+        ChangeNotifierProvider(create: (context) => TopBikeCategoryProvider()),
         ChangeNotifierProvider(create: (context) => BikesProvider()),
       ],
       child: MaterialApp(

@@ -37,32 +37,32 @@ class _BikesState extends State<Bikes> {
                 setState(() {});
               },
               controller: searchInput,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               maxLength: 20,
               maxLines: 1,
               decoration: InputDecoration(
                 counterText: "",
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff424769)),
+                    borderSide: const BorderSide(color: Color(0xff424769)),
                     borderRadius: BorderRadius.circular(100)),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff424769)),
+                    borderSide: const BorderSide(color: Color(0xff424769)),
                     borderRadius: BorderRadius.circular(100)),
                 filled: true,
-                fillColor: Color(0XFF424769),
+                fillColor: const Color(0XFF424769),
                 labelText: 'Search',
-                suffixIcon: Icon(
+                suffixIcon: const Icon(
                   Icons.search,
                   color: Colors.white,
                 ),
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: const TextStyle(color: Colors.white),
                 floatingLabelBehavior: FloatingLabelBehavior.never,
               ),
             ),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             splashFactory: NoSplash.splashFactory,
             indicatorColor: Color(0xFFF6B17A),
             labelColor: Color(0xFFF6B17A),
@@ -85,288 +85,284 @@ class _BikesState extends State<Bikes> {
           ),
         ),
         body: TabBarView(children: [
-          Container(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(17),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "City Bikes",
-                    style: TextStyle(
-                        color: Color(0xFFF6B17A),
-                        fontSize: 25,
-                        fontFamily: 'Neue'),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    children: Provider.of<BikesProvider>(context)
-                        .cityBikes
-                        .map((e) => isSearched(e)
-                            ? Column(children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    color: Color(0xFFF424769),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 70,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/${e.picture}'))),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name : " + e.name,
-                                                style: TextStyle(
-                                                    color: Color(0xFFF6B17A)),
-                                              ),
-                                              Text('Price : ' + e.price,
-                                                  style: TextStyle(
-                                                      color: Color(0xFFF6B17A)))
-                                            ])
-                                      ],
-                                    ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(17),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "City Bikes",
+                  style: TextStyle(
+                      color: Color(0xFFF6B17A),
+                      fontSize: 25,
+                      fontFamily: 'Neue'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  children: Provider.of<BikesProvider>(context)
+                      .cityBikes
+                      .map((e) => isSearched(e)
+                          ? Column(children: [
+                              Card(
+                                clipBehavior: Clip.hardEdge,
+                                // borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  color: const Color(0xFF424769),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/bikes/${e.picture}'))),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Name : ${e.name}",
+                                              style: const TextStyle(
+                                                  color: Color(0xFFF6B17A)),
+                                            ),
+                                            Text('Price : ${e.price}',
+                                                style: const TextStyle(
+                                                    color: Color(0xFFF6B17A)))
+                                          ])
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ])
-                            : SizedBox())
-                        .toList(),
-                  ),
-                ],
-              ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              )
+                            ])
+                          : const SizedBox())
+                      .toList(),
+                ),
+              ],
             ),
           ),
-          Container(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(17),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Mountain Bikes',
-                    style: TextStyle(
-                        color: Color(0xFFF6B17A),
-                        fontSize: 25,
-                        fontFamily: 'neue'),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    children: Provider.of<BikesProvider>(context)
-                        .mountainBikes
-                        .map((e) => e.name.contains(searchInput.text)
-                            ? Column(children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    color: Color(0xFFF424769),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 70,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/${e.picture}'))),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name : " + e.name,
-                                                style: TextStyle(
-                                                    color: Color(0xFFF6B17A)),
-                                              ),
-                                              Text('Price : ' + e.price,
-                                                  style: TextStyle(
-                                                      color: Color(0xFFF6B17A)))
-                                            ])
-                                      ],
-                                    ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(17),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Mountain Bikes',
+                  style: TextStyle(
+                      color: Color(0xFFF6B17A),
+                      fontSize: 25,
+                      fontFamily: 'neue'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  children: Provider.of<BikesProvider>(context)
+                      .mountainBikes
+                      .map((e) => e.name.contains(searchInput.text)
+                          ? Column(children: [
+                              Card(
+                                clipBehavior: Clip.hardEdge,
+                                // borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  color: const Color(0xFF424769),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/bikes/${e.picture}'))),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Name : ${e.name}",
+                                              style: const TextStyle(
+                                                  color: Color(0xFFF6B17A)),
+                                            ),
+                                            Text('Price : ${e.price}',
+                                                style: const TextStyle(
+                                                    color: Color(0xFFF6B17A)))
+                                          ])
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ])
-                            : SizedBox())
-                        .toList(),
-                  ),
-                ],
-              ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              )
+                            ])
+                          : const SizedBox())
+                      .toList(),
+                ),
+              ],
             ),
           ),
-          Container(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(17),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Road Bikes',
-                    style: TextStyle(
-                        color: Color(0xFFF6B17A),
-                        fontSize: 25,
-                        fontFamily: 'neue'),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    children: Provider.of<BikesProvider>(context)
-                        .roadBikes
-                        .map((e) => e.name.contains(searchInput.text)
-                            ? Column(children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    color: Color(0xFFF424769),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 70,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/${e.picture}'))),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name : " + e.name,
-                                                style: TextStyle(
-                                                    color: Color(0xFFF6B17A)),
-                                              ),
-                                              Text('Price : ' + e.price,
-                                                  style: TextStyle(
-                                                      color: Color(0xFFF6B17A)))
-                                            ])
-                                      ],
-                                    ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(17),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Road Bikes',
+                  style: TextStyle(
+                      color: Color(0xFFF6B17A),
+                      fontSize: 25,
+                      fontFamily: 'neue'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  children: Provider.of<BikesProvider>(context)
+                      .roadBikes
+                      .map((e) => e.name.contains(searchInput.text)
+                          ? Column(children: [
+                              Card(
+                                clipBehavior: Clip.hardEdge,
+                                // borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  color: const Color(0xFF424769),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/bikes/${e.picture}'))),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Name : ${e.name}",
+                                              style: const TextStyle(
+                                                  color: Color(0xFFF6B17A)),
+                                            ),
+                                            Text('Price : ${e.price}',
+                                                style: const TextStyle(
+                                                    color: Color(0xFFF6B17A)))
+                                          ])
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ])
-                            : SizedBox())
-                        .toList(),
-                  ),
-                ],
-              ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              )
+                            ])
+                          : const SizedBox())
+                      .toList(),
+                ),
+              ],
             ),
           ),
-          Container(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(17),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Sport Bikes',
-                    style: TextStyle(
-                        color: Color(0xFFF6B17A),
-                        fontSize: 25,
-                        fontFamily: 'neue'),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Column(
-                    children: Provider.of<BikesProvider>(context)
-                        .sportBikes
-                        .map((e) => e.name.contains(searchInput.text)
-                            ? Column(children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    color: Color(0xFFF424769),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 70,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/${e.picture}'))),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Name : " + e.name,
-                                                style: TextStyle(
-                                                    color: Color(0xFFF6B17A)),
-                                              ),
-                                              Text('Price : ' + e.price,
-                                                  style: TextStyle(
-                                                      color: Color(0xFFF6B17A)))
-                                            ])
-                                      ],
-                                    ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(17),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Sport Bikes',
+                  style: TextStyle(
+                      color: Color(0xFFF6B17A),
+                      fontSize: 25,
+                      fontFamily: 'neue'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  children: Provider.of<BikesProvider>(context)
+                      .sportBikes
+                      .map((e) => e.name.contains(searchInput.text)
+                          ? Column(children: [
+                              Card(
+                                clipBehavior: Clip.hardEdge,
+                                // borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  color: const Color(0xFF424769),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/bikes/${e.picture}'))),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Name : ${e.name}",
+                                              style: const TextStyle(
+                                                  color: Color(0xFFF6B17A)),
+                                            ),
+                                            Text('Price : ${e.price}',
+                                                style: const TextStyle(
+                                                    color: Color(0xFFF6B17A)))
+                                          ])
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ])
-                            : SizedBox())
-                        .toList(),
-                  ),
-                ],
-              ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              )
+                            ])
+                          : const SizedBox())
+                      .toList(),
+                ),
+              ],
             ),
           ),
         ]),
