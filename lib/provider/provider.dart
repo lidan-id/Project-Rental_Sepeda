@@ -59,27 +59,67 @@ class TopBikeCategoryProvider extends ChangeNotifier {
   final List<List<Map<String, dynamic>>> _categories = [
     [
       //City Bikes"
-      {'bikepic': 'bike10.webp', 'bikename': 'Nakto Classic'},
-      {'bikepic': 'bike11.webp', 'bikename': 'Evelo'},
-      {'bikepic': 'bike12.webp', 'bikename': 'RadCity5'},
+      {
+        'bikepic': 'bike10.webp',
+        'bikename': 'Nakto Classic',
+        'bikecat': 'City Bikes'
+      },
+      {'bikepic': 'bike11.webp', 'bikename': 'Evelo', 'bikecat': 'City Bikes'},
+      {
+        'bikepic': 'bike12.webp',
+        'bikename': 'RadCity5',
+        'bikecat': 'City Bikes'
+      },
     ],
     [
       //Mountain Bikes
-      {'bikepic': 'bike20.webp', 'bikename': 'MTB Aro 29'},
-      {'bikepic': 'bike21.webp', 'bikename': 'Phoenix MB26'},
-      {'bikepic': 'bike22.webp', 'bikename': 'Dynacraft'},
+      {
+        'bikepic': 'bike20.webp',
+        'bikename': 'MTB Aro 29',
+        'bikecat': 'Mountain Bikes'
+      },
+      {
+        'bikepic': 'bike21.webp',
+        'bikename': 'Phoenix MB26',
+        'bikecat': 'Mountain Bikes'
+      },
+      {
+        'bikepic': 'bike22.webp',
+        'bikename': 'Dynacraft',
+        'bikecat': 'Mountain Bikes'
+      },
     ],
     [
       //Road Bikes
-      {'bikepic': 'bike30.webp', 'bikename': 'Bianchi'},
-      {'bikepic': 'bike31.webp', 'bikename': 'Cinelli'},
-      {'bikepic': 'bike32.webp', 'bikename': 'Canyon'},
+      {
+        'bikepic': 'bike30.webp',
+        'bikename': 'Bianchi',
+        'bikecat': 'Road Bikes'
+      },
+      {
+        'bikepic': 'bike31.webp',
+        'bikename': 'Cinelli',
+        'bikecat': 'Road Bikes'
+      },
+      {'bikepic': 'bike32.webp', 'bikename': 'Canyon', 'bikecat': 'Road Bikes'},
     ],
     [
       //Hybrid Bikes
-      {'bikepic': 'bike40.webp', 'bikename': 'Pendleton Somerby'},
-      {'bikepic': 'bike41.webp', 'bikename': 'Trek FX Carbon 4'},
-      {'bikepic': 'bike42.webp', 'bikename': 'Schwinn'},
+      {
+        'bikepic': 'bike40.webp',
+        'bikename': 'Pendleton Somerby',
+        'bikecat': 'Hybrid Bikes'
+      },
+      {
+        'bikepic': 'bike41.webp',
+        'bikename': 'Trek FX Carbon 4',
+        'bikecat': 'Hybrid Bikes'
+      },
+      {
+        'bikepic': 'bike42.webp',
+        'bikename': 'Schwinn',
+        'bikecat': 'Hybrid Bikes'
+      },
     ],
   ];
 
