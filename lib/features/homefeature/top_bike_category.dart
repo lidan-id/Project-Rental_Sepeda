@@ -237,21 +237,19 @@ Widget tbcInfo(BuildContext context, String bikeName, String bikeCat,
         foregroundColor: const Color(0xFF7077A1),
         backgroundColor: Colors.transparent,
         title: const Text(
-          'Bike info',
+          'Top Bike info',
           style: TextStyle(fontFamily: 'Neue', fontSize: 30),
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Hero(
-          // transitionOnUserGestures: true,
           tag: heroTag,
           child: Center(
             child: Container(
               color: const Color(0xFF2D3250),
               padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width * 0.9,
-              // height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -291,10 +289,10 @@ Widget tbcInfo(BuildContext context, String bikeName, String bikeCat,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w100,
                                       fontSize: 15)),
-                              Divider(
-                                color: Color(0xFF2D3250),
+                              const Divider(
+                                color: Color.fromARGB(255, 44, 52, 97),
                               ),
-                              Text('\t \t \t \t \t $bikeDesc',
+                              Text(bikeDesc,
                                   textAlign: TextAlign.justify,
                                   overflow: TextOverflow.clip,
                                   style: const TextStyle(

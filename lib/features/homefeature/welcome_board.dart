@@ -36,7 +36,7 @@ class WelcomeBoard extends StatelessWidget {
               const SizedBox(
                 height: 100,
               ),
-              const Text("Hello,",
+              const Text("Hello",
                   style: TextStyle(
                     color: Colors.white,
                     letterSpacing: 5,

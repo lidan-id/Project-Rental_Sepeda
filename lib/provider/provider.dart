@@ -11,6 +11,7 @@ class RegisterProvider extends ChangeNotifier {
   List<User> users = [
     User(email: 'eden@gmail.com', username: 'eden', password: 'Eden123@'),
     User(email: 'eden1@gmail.com', username: 'e', password: 'e'),
+    User(email: 'eden2@gmail.com', username: 'Dummybot', password: 'd'),
   ];
   void addUser(User user) {
     users.add(user);
