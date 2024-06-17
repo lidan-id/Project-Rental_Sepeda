@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -269,28 +268,41 @@ Widget tbcInfo(BuildContext context, String bikeName, String bikeCat,
                     width: double.infinity,
                     child: Card(
                         color: const Color(0xFF424769),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(bikeName,
-                                style: const TextStyle(
-                                    fontFamily: 'Neue',
-                                    fontWeight: FontWeight.w900,
-                                    color: Color(0xFFF6B17A),
-                                    fontSize: 50)),
-                            // Spacer(),
-                            Text(bikeCat,
-                                style: const TextStyle(
-                                    fontFamily: 'Neue',
-                                    color: Colors.white,
-                                    fontSize: 20)),
-                            Text(bikeDesc,
-                                style: const TextStyle(
-                                  fontFamily: 'Neue',
-                                  color: Colors.white,
-                                )),
-                          ],
+                        child: Container(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(bikeName,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(
+                                      fontFamily: 'Neue',
+                                      fontWeight: FontWeight.w900,
+                                      color: Color(0xFFF6B17A),
+                                      fontSize: 45)),
+                              // Spacer(),
+                              Text(bikeCat,
+                                  style: const TextStyle(
+                                      fontFamily: 'Neue',
+                                      letterSpacing: 4,
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 15)),
+                              Divider(
+                                color: Color(0xFF2D3250),
+                              ),
+                              Text('\t \t \t \t \t $bikeDesc',
+                                  textAlign: TextAlign.justify,
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(
+                                      fontFamily: 'Neue',
+                                      color: Colors.white,
+                                      fontSize: 20)),
+                            ],
+                          ),
                         )),
                   )
                 ],
