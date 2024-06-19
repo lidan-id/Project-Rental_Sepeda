@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/bikes.dart';
-import 'package:flutter_application_1/features/profile.dart';
-import 'package:flutter_application_1/features/toppup.dart';
+import 'package:flutter_application_1/features/rentfeature/bikes.dart';
+import 'package:flutter_application_1/features/profilefeature/profile.dart';
+import 'package:flutter_application_1/features/topupfeature/toppup.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
 import 'nav_home_bawah.dart';
