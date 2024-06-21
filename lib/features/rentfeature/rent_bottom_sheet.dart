@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-Widget rentNowBottomSheet(
-  BuildContext context,
-  /*PostData p*/
-) {
+import 'rent_option_buttons.dart';
+
+Widget rentBottomSheet(BuildContext context, eachbike, namakategori
+    /*PostData p*/
+    ) {
   return ClipRRect(
     borderRadius: const BorderRadius.only(
       topLeft: Radius.circular(20),
       topRight: Radius.circular(20),
     ),
     child: Container(
-      color: const Color(0xFFF6B17A),
-      height: MediaQuery.of(context).size.height * 0.8,
+      color: const Color(0xFF7077A1),
+      height: MediaQuery.of(context).size.height * 0.85,
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -27,33 +28,11 @@ Widget rentNowBottomSheet(
             ),
           ),
           const SizedBox(height: 10),
-          const Expanded(
-            child: Text(
-              "Rent Now",
-              style: TextStyle(fontFamily: "Neue", fontSize: 40),
+          Expanded(
+            child: RentBikeInfo(
+              eachbike: eachbike,
+              namakategori: namakategori,
             ),
-            // ListView.builder(
-            //     shrinkWrap: true,
-            //     itemCount: 4,
-            //     itemBuilder: (context, index) {
-            //       return ListTile(
-            //           isThreeLine: true,
-            //           title: const Text(
-            //             "Sample1",
-            //             style: TextStyle(fontWeight: FontWeight.w600),
-            //           ),
-            //           subtitle: Text(
-            //             "Sample2",
-            //             style: TextStyle(
-            //                 color: Theme.of(context).colorScheme.outline),
-            //           ),
-            //           leading: CircleAvatar(
-            //               backgroundColor:
-            //                   Theme.of(context).colorScheme.outline,
-            //               foregroundColor:
-            //                   Theme.of(context).colorScheme.background,
-            //               child: const Icon(Icons.person)));
-            //     }),
           ),
         ],
       ),
@@ -61,40 +40,65 @@ Widget rentNowBottomSheet(
   );
 }
 
-Widget rentLaterBottomSheet(
-  BuildContext context,
-) {
-  return ClipRRect(
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(20),
-      topRight: Radius.circular(20),
-    ),
-    child: Container(
-      color: const Color(0xFFF6B17A),
-      height: MediaQuery.of(context).size.height * 0.8,
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+class RentBikeInfo extends StatelessWidget {
+  const RentBikeInfo({
+    super.key,
+    required this.eachbike,
+    required this.namakategori,
+  });
+
+  final dynamic eachbike;
+  final String namakategori;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 10),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: 5,
-              color: const Color(0xFF2D3250),
+          Container(
+            height: 110,
+            width: 110,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              image: DecorationImage(
+                image: AssetImage("assets/bikes/${eachbike.picture}"),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-          const SizedBox(height: 10),
-          const Expanded(
-            child: Text(
-              "Rent For Later",
-              style: TextStyle(fontFamily: "Neue", fontSize: 40),
-            ),
+          const SizedBox(
+            width: 20,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                namakategori,
+                style: const TextStyle(
+                    fontFamily: "Neue",
+                    fontSize: 15,
+                    color: Colors.white,
+                    letterSpacing: 2),
+              ),
+              Text(
+                eachbike.name,
+                style: const TextStyle(
+                    fontFamily: "Neue", fontSize: 35, color: Color(0xFF2D3250)),
+              ),
+            ],
           ),
         ],
       ),
-    ),
-  );
+      const SizedBox(
+        height: 20,
+      ),
+      const RentsButton(),
+      const SizedBox(
+        height: 15,
+      ),
+      const RentOptionShow(),
+    ]);
+  }
 }
