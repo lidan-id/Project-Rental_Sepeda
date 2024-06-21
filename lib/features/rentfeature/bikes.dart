@@ -124,7 +124,6 @@ class _BikesState extends State<Bikes> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            // "City Bikes",
             namakategori,
             style: const TextStyle(
                 color: Colors.white, fontSize: 25, fontFamily: 'Neue'),
@@ -137,7 +136,6 @@ class _BikesState extends State<Bikes> {
                 .map((eachbike) => isSearched(eachbike)
                     ? Column(children: [
                         InkWell(
-                          // trigger dialog
                           onTap: () {
                             showModalBottomSheet<void>(
                                 context: context,
@@ -146,92 +144,6 @@ class _BikesState extends State<Bikes> {
                                   return rentBottomSheet(
                                       context, eachbike, namakategori);
                                 });
-
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (BuildContext context) {
-                            //       return AlertDialog(
-                            //         surfaceTintColor: Color(0xFF7077A1),
-                            //         backgroundColor: Colors.white,
-                            //         title: const Text("Rent Option",
-                            //             textAlign: TextAlign.center,
-                            //             style: TextStyle(
-                            //                 fontFamily: "Neue",
-                            //                 color: Color(0xFF7077A1))),
-                            //         content: Text(
-                            //             "You can rent '${eachbike.name} - $namakategori' now or schedule for later (up to 2 weeks)",
-                            //             style: const TextStyle(
-                            //                 fontFamily: "Neue",
-                            //                 fontSize: 15,
-                            //                 color: Color(0xFF424769))),
-                            //         actions: [
-                            //           Row(
-                            //             crossAxisAlignment:
-                            //                 CrossAxisAlignment.center,
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.spaceBetween,
-                            //             children: [
-                            //               TextButton(
-                            //                   onPressed: () {
-                            //                     Navigator.pop(context);
-                            //                   },
-                            //                   child: const Text("Cancel",
-                            //                       style: TextStyle(
-                            //                           fontFamily: "Neue",
-                            //                           color:
-                            //                               Color(0xFFF6B17A)))),
-                            //               ElevatedButton(
-                            //                   style: ButtonStyle(
-                            //                     backgroundColor:
-                            //                         MaterialStateProperty.all<
-                            //                                 Color>(
-                            //                             Color(0xFF424769)),
-                            //                   ),
-                            //                   onPressed: () {
-                            //                     Navigator.pop(context);
-                            //                     showModalBottomSheet<void>(
-                            //                         context: context,
-                            //                         isScrollControlled: true,
-                            //                         builder:
-                            //                             (BuildContext context) {
-                            //                           return rentLaterBottomSheet(
-                            //                               context);
-                            //                         });
-                            //                   },
-                            //                   child: const Text(
-                            //                       "Rent for later",
-                            //                       style: TextStyle(
-                            //                           fontFamily: "Neue",
-                            //                           color:
-                            //                               Color(0xFFF6B17A)))),
-                            //               ElevatedButton(
-                            //                   style: ButtonStyle(
-                            //                     backgroundColor:
-                            //                         MaterialStateProperty.all<
-                            //                                 Color>(
-                            //                             Color(0xFF2D3250)),
-                            //                   ),
-                            //                   onPressed: () {
-                            //                     Navigator.pop(context);
-                            //                     showModalBottomSheet<void>(
-                            //                         context: context,
-                            //                         isScrollControlled: true,
-                            //                         builder:
-                            //                             (BuildContext context) {
-                            //                           return rentNowBottomSheet(
-                            //                               context);
-                            //                         });
-                            //                   },
-                            //                   child: const Text("Rent Now",
-                            //                       style: TextStyle(
-                            //                           fontFamily: "Neue",
-                            //                           color:
-                            //                               Color(0xFFF6B17A)))),
-                            //             ],
-                            //           )
-                            //         ],
-                            //       );
-                            //     });
                           },
                           child: kategoriCard(eachbike),
                         ),

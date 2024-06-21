@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'rent_option_buttons.dart';
 
-Widget rentBottomSheet(BuildContext context, eachbike, namakategori
-    /*PostData p*/
-    ) {
+Widget rentBottomSheet(BuildContext context, eachbike, namakategori) {
   return ClipRRect(
     borderRadius: const BorderRadius.only(
       topLeft: Radius.circular(20),
@@ -94,10 +91,7 @@ class RentBikeInfo extends StatelessWidget {
       const SizedBox(
         height: 20,
       ),
-      const RentsButton(),
-      const SizedBox(
-        height: 15,
-      ),
+      RentsButton(eachbike: eachbike),
       const RentOptionShow(),
     ]);
   }

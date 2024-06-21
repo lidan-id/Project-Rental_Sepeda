@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/rentfeature/bikes.dart';
 import 'package:flutter_application_1/features/profilefeature/profile.dart';
 import 'package:flutter_application_1/features/topupfeature/toppup.dart';
-import 'package:flutter_application_1/provider/provider.dart';
+import 'package:flutter_application_1/provider/provider_component.dart';
 import 'package:provider/provider.dart';
 import 'nav_home_bawah.dart';
 import 'top_bike_category.dart';
