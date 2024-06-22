@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'rent_option_buttons.dart';
 
 Widget rentBottomSheet(BuildContext context, eachbike, namakategori) {
@@ -44,7 +45,7 @@ class RentBikeInfo extends StatelessWidget {
     required this.namakategori,
   });
 
-  final dynamic eachbike;
+  final BikesClass eachbike;
   final String namakategori;
 
   @override
@@ -92,7 +93,9 @@ class RentBikeInfo extends StatelessWidget {
         height: 20,
       ),
       RentsButton(eachbike: eachbike),
-      const RentOptionShow(),
+      RentOptionShow(
+        eachbike: eachbike,
+      ),
     ]);
   }
 }
