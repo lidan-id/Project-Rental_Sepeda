@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
@@ -46,23 +48,27 @@ class _RentNowComponentState extends State<RentNowComponent> {
                 _updateHargaBayar(widget.eachbike);
               });
             },
-            keyboardType: TextInputType.datetime,
+            cursorColor: const Color(0xFF2D3250),
+            style: const TextStyle(
+                color: Color(0xFF2D3250), fontFamily: "Neue", letterSpacing: 3),
+            keyboardType: TextInputType.number,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
             ],
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
+                suffixText: _selectedOption,
                 labelText: 'Duration',
-                labelStyle:
-                    TextStyle(color: Color(0xFF2D3250), fontFamily: "Neue"),
-                prefixIcon: Icon(
+                labelStyle: const TextStyle(
+                    color: Color(0xFF2D3250), fontFamily: "Neue"),
+                prefixIcon: const Icon(
                   Icons.hourglass_bottom_outlined,
                   color: Color(0xFFF6B17A),
                 ),
-                hintStyle:
-                    TextStyle(color: Color(0xFFF6B17A), fontFamily: "Neue"),
-                enabledBorder: UnderlineInputBorder(
+                hintStyle: const TextStyle(
+                    color: Color(0xFFF6B17A), fontFamily: "Neue"),
+                enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFF6B17A))),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFF6B17A)))),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -79,10 +85,21 @@ class _RentNowComponentState extends State<RentNowComponent> {
           ),
           DropdownButtonFormField<String>(
             value: _selectedOption,
+            dropdownColor: Color(0xFF2D3250),
+            icon: const Icon(
+              Icons.arrow_drop_down,
+              color: Color(0xFFF6B17A),
+            ),
             items: <String>['Hour(s)', 'Day(s)', 'Week(s)'].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                      color: Color(0xFFF6B17A),
+                      fontFamily: "Neue",
+                      letterSpacing: 3),
+                ),
               );
             }).toList(),
             decoration: const InputDecoration(
@@ -90,7 +107,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
               labelStyle:
                   TextStyle(color: Color(0xFF2D3250), fontFamily: "Neue"),
               prefixIcon: Icon(
-                Icons.arrow_drop_down,
+                Icons.timer_outlined,
                 color: Color(0xFFF6B17A),
               ),
               hintStyle:
@@ -140,18 +157,20 @@ class _RentNowComponentState extends State<RentNowComponent> {
           const SizedBox(
             height: 30,
           ),
-          RentOptionButton(
-              eachbike: widget.eachbike,
-              buttonlabel: "Rent Now",
-              isActive: false,
-              bgcolor: const Color(0xFF2D3250),
-              onTap: () {
-                if (_rentNowKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-                }
-              }),
+          Center(
+            child: RentOptionButton(
+                eachbike: widget.eachbike,
+                buttonlabel: "Rent Now",
+                isActive: false,
+                bgcolor: const Color(0xFF2D3250),
+                onTap: () {
+                  if (_rentNowKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                  }
+                }),
+          ),
         ],
       ),
     );
