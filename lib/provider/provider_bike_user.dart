@@ -37,7 +37,7 @@ class LoginProvider extends ChangeNotifier {
 }
 
 class SaldoProvider extends ChangeNotifier {
-  double saldo = 250000;
+  double saldo = 350000;
 
   void topUp(amount) {
     saldo = saldo + amount;

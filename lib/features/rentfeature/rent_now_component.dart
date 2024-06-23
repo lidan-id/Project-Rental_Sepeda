@@ -4,10 +4,6 @@ import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.d
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 
-Future<Widget> rentNowComponent(eachbike) async {
-  return const Text("Sampleduration * price for now");
-}
-
 class RentNowComponent extends StatefulWidget {
   const RentNowComponent({super.key, required this.eachbike});
 
@@ -20,10 +16,23 @@ class RentNowComponent extends StatefulWidget {
 class _RentNowComponentState extends State<RentNowComponent> {
   final _rentNowKey = GlobalKey<FormState>();
   String _selectedOption = 'Hour(s)';
+  double _durasi = 0;
+  double _hargaBayar = 0;
+
+  void _updateHargaBayar(eachbike) {
+    setState(() {
+      if (_selectedOption == 'Hour(s)') {
+        _hargaBayar = _durasi * eachbike.price * 1;
+      } else if (_selectedOption == 'Day(s)') {
+        _hargaBayar = _durasi * eachbike.price * 24;
+      } else if (_selectedOption == 'Week(s)') {
+        _hargaBayar = _durasi * eachbike.price * 168;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    double durasi = 0;
-    double hargaBayar = 0;
     double balance = Provider.of<SaldoProvider>(context).saldo;
     return Form(
       key: _rentNowKey,
@@ -31,8 +40,13 @@ class _RentNowComponentState extends State<RentNowComponent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
-            onChanged: (value) => durasi = double.parse(value),
-            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              setState(() {
+                _durasi = double.tryParse(value) ?? 0;
+                _updateHargaBayar(widget.eachbike);
+              });
+            },
+            keyboardType: TextInputType.datetime,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
             ],
@@ -53,6 +67,9 @@ class _RentNowComponentState extends State<RentNowComponent> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter rent duration';
+              }
+              if (_hargaBayar > balance) {
+                return "Not enough balance. Please adjust accordingly";
               }
               return null;
             },
@@ -88,23 +105,15 @@ class _RentNowComponentState extends State<RentNowComponent> {
             onChanged: (String? newValue) {
               setState(() {
                 _selectedOption = newValue!;
-                if (newValue == 'Hour(s)') {
-                  hargaBayar = durasi * 1;
-                }
-                if (newValue == 'Day(s)') {
-                  hargaBayar = durasi * 24;
-                }
-                if (newValue == 'Week(s)') {
-                  hargaBayar = durasi * 168;
-                }
+                _updateHargaBayar(widget.eachbike);
               });
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please select an option';
               }
-              if (hargaBayar > balance) {
-                return "Not enough balance. Adjust";
+              if (_hargaBayar > balance) {
+                return "Not enough balance. Please adjust accordingly";
               }
 
               return null;
@@ -115,7 +124,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
           ),
           Center(
             child: Text(
-              "Rp${hargaBayar.toString()}",
+              "Rp${_hargaBayar.toString()}",
               style: const TextStyle(
                   fontFamily: "Neue", color: Color(0xFF2D3250), fontSize: 30),
             ),
@@ -148,8 +157,3 @@ class _RentNowComponentState extends State<RentNowComponent> {
     );
   }
 }
-
-/*
-- Balance update continuosly
-- Validator adjustment
-*/
