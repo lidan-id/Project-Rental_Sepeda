@@ -43,6 +43,10 @@ class SaldoProvider extends ChangeNotifier {
     saldo = saldo + amount;
     notifyListeners();
   }
+
+  void bayar(amount) {
+    saldo = saldo - amount;
+  }
 }
 
 class BikesClass {

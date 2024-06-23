@@ -84,14 +84,6 @@ class RentOptionButton extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: isActive ? const Color(0xFF7077A1) : bgcolor,
-              // border: isActive
-              //     ? const Border(
-              //         bottom: BorderSide(
-              //             color: Color(0xFFF6B17A),
-              //             style: BorderStyle.solid,
-              //             width: 2,
-              //             strokeAlign: 2))
-              //     : null,
               borderRadius: const BorderRadius.all(Radius.circular(15))),
           child: Center(
             child: Text(buttonlabel,

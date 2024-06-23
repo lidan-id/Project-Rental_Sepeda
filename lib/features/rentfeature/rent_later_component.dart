@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
@@ -68,7 +67,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
 
   @override
   Widget build(BuildContext context) {
-    double balance = Provider.of<SaldoProvider>(context).saldo;
+    SaldoProvider balance = Provider.of<SaldoProvider>(context);
     return Form(
       key: _rentLaterKey,
       child: Column(
@@ -107,8 +106,8 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
               if (value == null || value.isEmpty) {
                 return 'Please enter rent duration';
               }
-              if (_hargaBayar > balance) {
-                return "Not enough balance. Please adjust accordingly";
+              if (_hargaBayar > balance.saldo) {
+                return "Not enough balance. Please top-up or adjust";
               }
               return null;
             },
@@ -141,8 +140,8 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
               if (value == null || value.isEmpty) {
                 return 'Please choose date & time';
               }
-              if (_hargaBayar > balance) {
-                return "Not enough balance. Please adjust accordingly";
+              if (_hargaBayar > balance.saldo) {
+                return "Not enough balance. Please top-up or adjust";
               }
               return null;
             },
@@ -163,7 +162,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: Rp${balance.toString()}",
+            "Your Balance: Rp${balance.saldo.toString()}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
@@ -178,6 +177,8 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                 bgcolor: const Color(0xFF424769),
                 onTap: () {
                   if (_rentLaterKey.currentState!.validate()) {
+                    balance.bayar(_hargaBayar);
+                    Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')),
                     );

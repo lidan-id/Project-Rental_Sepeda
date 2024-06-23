@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
@@ -33,9 +31,17 @@ class _RentNowComponentState extends State<RentNowComponent> {
     });
   }
 
+  // void _handleSubmit() {
+  //   if (_rentNowKey.currentState?.validate() ?? false) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Processing Data')),
+  //     );
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
-    double balance = Provider.of<SaldoProvider>(context).saldo;
+    SaldoProvider balance = Provider.of<SaldoProvider>(context);
     return Form(
       key: _rentNowKey,
       child: Column(
@@ -74,8 +80,8 @@ class _RentNowComponentState extends State<RentNowComponent> {
               if (value == null || value.isEmpty) {
                 return 'Please enter rent duration';
               }
-              if (_hargaBayar > balance) {
-                return "Not enough balance. Please adjust accordingly";
+              if (_hargaBayar > balance.saldo) {
+                return "Not enough balance. Please top-up or adjust";
               }
               return null;
             },
@@ -85,7 +91,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
           ),
           DropdownButtonFormField<String>(
             value: _selectedOption,
-            dropdownColor: Color(0xFF2D3250),
+            dropdownColor: const Color(0xFF2D3250),
             icon: const Icon(
               Icons.arrow_drop_down,
               color: Color(0xFFF6B17A),
@@ -129,8 +135,8 @@ class _RentNowComponentState extends State<RentNowComponent> {
               if (value == null || value.isEmpty) {
                 return 'Please select an option';
               }
-              if (_hargaBayar > balance) {
-                return "Not enough balance. Please adjust accordingly";
+              if (_hargaBayar > balance.saldo) {
+                return "Not enough balance. Please top-up or adjust";
               }
 
               return null;
@@ -150,7 +156,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: Rp${balance.toString()}",
+            "Your Balance: Rp${balance.saldo.toString()}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
@@ -164,7 +170,9 @@ class _RentNowComponentState extends State<RentNowComponent> {
                 isActive: false,
                 bgcolor: const Color(0xFF2D3250),
                 onTap: () {
-                  if (_rentNowKey.currentState!.validate()) {
+                  if (_rentNowKey.currentState?.validate() ?? false) {
+                    balance.bayar(_hargaBayar);
+                    Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')),
                     );
