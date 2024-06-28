@@ -118,9 +118,6 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
               if (value == null || value.isEmpty) {
                 return 'Please choose date & time';
               }
-              if (_hargaBayar > balance.saldo) {
-                return "Not enough balance. Please top-up or adjust";
-              }
               if (_scheduleTimeLeft!.isNegative ||
                   // _scheduleTimeLeft!.inSeconds <= 3540) {
                   _scheduleTimeLeft!.inMinutes < 59) {
