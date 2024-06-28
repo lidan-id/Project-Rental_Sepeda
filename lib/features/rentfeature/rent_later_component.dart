@@ -122,7 +122,8 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                 return "Not enough balance. Please top-up or adjust";
               }
               if (_scheduleTimeLeft!.isNegative ||
-                  _scheduleTimeLeft!.inSeconds <= 3600) {
+                  // _scheduleTimeLeft!.inSeconds <= 3540) {
+                  _scheduleTimeLeft!.inMinutes < 59) {
                 return "Please enter valid time. At least 1 hour from current time";
               }
               return null;
