@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class User {
@@ -21,6 +23,7 @@ class RegisterProvider extends ChangeNotifier {
 
 class LoginProvider extends ChangeNotifier {
   String user = '';
+  File? profilePic;
   bool checkUser(List users, String username, String password) {
     bool result = false;
     for (int i = 0; i < users.length; i++) {
@@ -33,6 +36,11 @@ class LoginProvider extends ChangeNotifier {
       }
     }
     return result;
+  }
+
+  void changeProfilePic(newPic) {
+    profilePic = newPic;
+    notifyListeners();
   }
 }
 
