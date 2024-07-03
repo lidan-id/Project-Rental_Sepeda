@@ -107,31 +107,26 @@ class RentedBikes {
   Duration rentduration;
   Duration timetoscheduledtime;
 
-  RentedBikes(
-      {required this.rentID,
-      required this.name,
-      required this.picture,
-      required this.paidprice,
-      required this.rentduration,
-      required this.timetoscheduledtime});
+  RentedBikes({
+    required this.rentID,
+    required this.name,
+    required this.picture,
+    required this.paidprice,
+    required this.rentduration,
+    required this.timetoscheduledtime,
+  });
 }
 
 class RentedBikeProvider extends ChangeNotifier {
   List<RentedBikes> bikeInRent = [
     RentedBikes(
-        rentID: "AD0",
-        name: 'Bike 1',
-        picture: 'bike40.webp',
-        paidprice: 10.0,
-        rentduration: const Duration(seconds: 6),
-        timetoscheduledtime: const Duration(seconds: 0)),
-    RentedBikes(
-        rentID: "AD1",
-        name: 'Bike 2',
-        picture: 'bike40.webp',
-        paidprice: 15.0,
-        rentduration: const Duration(hours: 2),
-        timetoscheduledtime: const Duration(seconds: 0)),
+      rentID: "AD0",
+      name: 'Bike 1',
+      picture: 'bike40.webp',
+      paidprice: 10.0,
+      rentduration: const Duration(seconds: 6),
+      timetoscheduledtime: const Duration(seconds: 0),
+    ),
   ];
   List<RentedBikes> bookedBike = [
     RentedBikes(
@@ -152,16 +147,7 @@ class RentedBikeProvider extends ChangeNotifier {
     ),
   ];
 
-  List<RentedBikes> rentCompleteBike = [
-    RentedBikes(
-      rentID: "AD4",
-      name: 'Bike Complete',
-      picture: 'bike40.webp',
-      paidprice: 12.0,
-      rentduration: const Duration(seconds: 0),
-      timetoscheduledtime: const Duration(seconds: 0),
-    ),
-  ];
+  List<RentedBikes> rentCompleteBike = [];
 
   final Map<String, Timer> _timers = {};
   final Map<String, Duration> remainingDurations = {};
@@ -169,16 +155,41 @@ class RentedBikeProvider extends ChangeNotifier {
   RentedBikeProvider() {
     for (var bike in bookedBike) {
       remainingDurations[bike.rentID] = bike.timetoscheduledtime;
+      _startTimer(bike, isBooked: true);
     }
     for (var bike in bikeInRent) {
       remainingDurations[bike.rentID] = bike.rentduration;
+      _startTimer(bike, isBooked: false);
     }
   }
+
+  // void addNewBookedBike({
+  //   required String rentID,
+  //   required String name,
+  //   required String picture,
+  //   required double paidprice,
+  //   required Duration rentduration,
+  //   required Duration timetoscheduledtime,
+  // }) {
+  //   final newBike = RentedBikes(
+  //     rentID: rentID,
+  //     name: name,
+  //     picture: picture,
+  //     paidprice: paidprice,
+  //     rentduration: rentduration,
+  //     timetoscheduledtime: timetoscheduledtime,
+  //   );
+  //   bookedBike.add(newBike);
+  //   remainingDurations[newBike.rentID] = newBike.timetoscheduledtime;
+  //   _startTimer(newBike, isBooked: true);
+  //   notifyListeners();
+  // }
 
   void startRentBike(RentedBikes bike) {
     bookedBike.remove(bike);
     bikeInRent.add(bike);
     remainingDurations[bike.rentID] = bike.rentduration;
+    _startTimer(bike, isBooked: false);
     notifyListeners();
   }
 
@@ -192,5 +203,30 @@ class RentedBikeProvider extends ChangeNotifier {
   void updateRemainingDuration(String rentID, Duration newDuration) {
     remainingDurations[rentID] = newDuration;
     notifyListeners();
+  }
+
+  void _startTimer(RentedBikes bike, {required bool isBooked}) {
+    _timers[bike.rentID] = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (remainingDurations[bike.rentID]! > Duration.zero) {
+        remainingDurations[bike.rentID] =
+            remainingDurations[bike.rentID]! - const Duration(seconds: 1);
+        notifyListeners();
+      } else {
+        _timers[bike.rentID]?.cancel();
+        if (isBooked) {
+          startRentBike(bike);
+        } else {
+          finishRentBike(bike);
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    for (var timer in _timers.values) {
+      timer.cancel();
+    }
+    super.dispose();
   }
 }

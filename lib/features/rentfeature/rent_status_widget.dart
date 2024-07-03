@@ -1,66 +1,23 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 
-class CountdownTimerWidget extends StatefulWidget {
+class CountdownTimerWidget extends StatelessWidget {
   final String rentID;
-  final Duration initialDuration;
-  final VoidCallback onTimerFinish;
 
-  const CountdownTimerWidget({
-    super.key,
-    required this.rentID,
-    required this.initialDuration,
-    required this.onTimerFinish,
-  });
-
-  @override
-  CountdownTimerWidgetState createState() => CountdownTimerWidgetState();
-}
-
-class CountdownTimerWidgetState extends State<CountdownTimerWidget> {
-  Duration remainingDuration = Duration.zero;
-  late Timer _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    remainingDuration = widget.initialDuration;
-
-    final provider = Provider.of<RentedBikeProvider>(context, listen: false);
-    if (provider.remainingDurations.containsKey(widget.rentID)) {
-      remainingDuration = provider.remainingDurations[widget.rentID]!;
-    }
-
-    startTimer();
-  }
-
-  void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (remainingDuration > Duration.zero) {
-          remainingDuration -= const Duration(seconds: 1);
-          Provider.of<RentedBikeProvider>(context, listen: false)
-              .updateRemainingDuration(widget.rentID, remainingDuration);
-        } else {
-          _timer.cancel();
-          widget.onTimerFinish();
-        }
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
+  const CountdownTimerWidget({super.key, required this.rentID});
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Remaining: ${remainingDuration.inHours}:${(remainingDuration.inMinutes % 60).toString().padLeft(2, '0')}:${(remainingDuration.inSeconds % 60).toString().padLeft(2, '0')}',
+    return Consumer<RentedBikeProvider>(
+      builder: (context, provider, child) {
+        final remainingDuration =
+            provider.remainingDurations[rentID] ?? Duration.zero;
+
+        return Text(
+          'Remaining: ${remainingDuration.inHours}:${(remainingDuration.inMinutes % 60).toString().padLeft(2, '0')}:${(remainingDuration.inSeconds % 60).toString().padLeft(2, '0')}',
+        );
+      },
     );
   }
 }
@@ -96,8 +53,7 @@ class BikeInRentList extends StatelessWidget {
                             final bike = inRentBikeProvider[index];
 
                             return ListTile(
-                              key: ValueKey(bike
-                                  .rentID), // Ensure each tile has a unique key
+                              key: ValueKey(bike.rentID),
                               leading:
                                   Image.asset('assets/bikes/${bike.picture}'),
                               title: Column(
@@ -106,13 +62,7 @@ class BikeInRentList extends StatelessWidget {
                                   Text(bike.name),
                                   Text(
                                       'Paid: \$${bike.paidprice.toStringAsFixed(2)}'),
-                                  CountdownTimerWidget(
-                                    rentID: bike.rentID,
-                                    initialDuration: bike.rentduration,
-                                    onTimerFinish: () {
-                                      rentedBikeProvider.finishRentBike(bike);
-                                    },
-                                  ),
+                                  CountdownTimerWidget(rentID: bike.rentID),
                                 ],
                               ),
                             );
@@ -176,13 +126,7 @@ class BookedBikeList extends StatelessWidget {
                                   Text(bike.name),
                                   Text(
                                       'Paid: \$${bike.paidprice.toStringAsFixed(2)}'),
-                                  CountdownTimerWidget(
-                                    initialDuration: bike.timetoscheduledtime,
-                                    rentID: bike.rentID,
-                                    onTimerFinish: () {
-                                      rentedBikeProvider.startRentBike(bike);
-                                    },
-                                  ),
+                                  CountdownTimerWidget(rentID: bike.rentID),
                                 ],
                               ),
                             );

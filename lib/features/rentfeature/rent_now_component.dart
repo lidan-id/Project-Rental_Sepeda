@@ -80,6 +80,15 @@ class _RentNowComponentState extends State<RentNowComponent> {
                 onTap: () {
                   if (_rentNowKey.currentState?.validate() ?? false) {
                     balance.bayar(_hargaBayar);
+                    // Provider.of<RentedBikeProvider>(context, listen: false)
+                    //     .addNewBookedBike(
+                    //   rentID: "NEW1",
+                    //   name: 'New Bike',
+                    //   picture: 'new_bike.png',
+                    //   paidprice: 15.0,
+                    //   rentduration: const Duration(hours: 1),
+                    //   timetoscheduledtime: const Duration(minutes: 10),
+                    // );
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')),
