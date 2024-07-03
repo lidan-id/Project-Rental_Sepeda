@@ -43,7 +43,10 @@ class WelcomeBoard extends StatelessWidget {
                     fontFamily: 'Neue',
                     fontSize: 25,
                   )),
-              Text(Provider.of<LoginProvider>(context).user,
+              Text(
+                  Provider.of<LoginProvider>(context).user.isEmpty
+                      ? "DummyBot"
+                      : Provider.of<LoginProvider>(context).user,
                   style: const TextStyle(
                     color: Color(0xFFF6B17A),
                     letterSpacing: 5,

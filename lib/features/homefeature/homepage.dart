@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/homefeature/my_dashboard.dart';
 import 'package:flutter_application_1/features/rentfeature/bikes.dart';
 import 'package:flutter_application_1/features/profilefeature/profile.dart';
 import 'package:flutter_application_1/features/topupfeature/toppup.dart';
@@ -44,11 +45,10 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
           color: const Color(0xFF2D3250),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [WelcomeBoard(), TopBikeCategory()],
+            children: [WelcomeBoard(), MyDashboard(), TopBikeCategory()],
           ),
         ),
       ),

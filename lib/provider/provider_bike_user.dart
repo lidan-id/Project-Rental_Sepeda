@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class User {
@@ -97,4 +97,100 @@ class BikesProvider extends ChangeNotifier {
   //  checkInput() {
   //   return null
   // }
+}
+
+class RentedBikes {
+  String rentID;
+  String name;
+  String picture;
+  double paidprice;
+  Duration rentduration;
+  Duration timetoscheduledtime;
+
+  RentedBikes(
+      {required this.rentID,
+      required this.name,
+      required this.picture,
+      required this.paidprice,
+      required this.rentduration,
+      required this.timetoscheduledtime});
+}
+
+class RentedBikeProvider extends ChangeNotifier {
+  List<RentedBikes> bikeInRent = [
+    RentedBikes(
+        rentID: "AD0",
+        name: 'Bike 1',
+        picture: 'bike40.webp',
+        paidprice: 10.0,
+        rentduration: const Duration(seconds: 6),
+        timetoscheduledtime: const Duration(seconds: 0)),
+    RentedBikes(
+        rentID: "AD1",
+        name: 'Bike 2',
+        picture: 'bike40.webp',
+        paidprice: 15.0,
+        rentduration: const Duration(hours: 2),
+        timetoscheduledtime: const Duration(seconds: 0)),
+  ];
+  List<RentedBikes> bookedBike = [
+    RentedBikes(
+      rentID: "AD2",
+      name: 'Bike A',
+      picture: 'bike40.webp',
+      paidprice: 12.0,
+      rentduration: const Duration(hours: 1, minutes: 30),
+      timetoscheduledtime: const Duration(seconds: 5),
+    ),
+    RentedBikes(
+      rentID: "AD3",
+      name: 'Bike B',
+      picture: 'bike40.webp',
+      paidprice: 12.0,
+      rentduration: const Duration(hours: 1, minutes: 30),
+      timetoscheduledtime: const Duration(seconds: 40),
+    ),
+  ];
+
+  List<RentedBikes> rentCompleteBike = [
+    RentedBikes(
+      rentID: "AD4",
+      name: 'Bike Complete',
+      picture: 'bike40.webp',
+      paidprice: 12.0,
+      rentduration: const Duration(seconds: 0),
+      timetoscheduledtime: const Duration(seconds: 0),
+    ),
+  ];
+
+  final Map<String, Timer> _timers = {};
+  final Map<String, Duration> remainingDurations = {};
+
+  RentedBikeProvider() {
+    for (var bike in bookedBike) {
+      remainingDurations[bike.rentID] = bike.timetoscheduledtime;
+    }
+    for (var bike in bikeInRent) {
+      remainingDurations[bike.rentID] = bike.rentduration;
+    }
+  }
+
+  void startRentBike(RentedBikes bike) {
+    bookedBike.remove(bike);
+    bikeInRent.add(bike);
+    remainingDurations[bike.rentID] = bike.rentduration;
+    notifyListeners();
+  }
+
+  void finishRentBike(RentedBikes bike) {
+    bikeInRent.remove(bike);
+    rentCompleteBike.add(bike);
+    _timers[bike.rentID]?.cancel();
+    notifyListeners();
+  }
+
+  void updateRemainingDuration(String rentID, Duration newDuration) {
+    remainingDurations[rentID] = newDuration;
+    notifyListeners();
+  }
 }
