@@ -18,23 +18,24 @@ class _RentNowComponentState extends State<RentNowComponent> {
   final _rentNowKey = GlobalKey<FormState>();
   String _selectedOption = 'Hour(s)';
   double _durasi = 0;
+  double durasi = 0;
   double _hargaBayar = 0;
 
   void _updateHargaBayar(eachbike) {
     setState(() {
       if (_selectedOption == 'Hour(s)') {
-        _durasi *= 1;
-        _hargaBayar = _durasi * eachbike.price * 90 / 100;
+        durasi = _durasi * 1;
+        _hargaBayar = durasi * eachbike.price * 90 / 100;
         return;
       }
       if (_selectedOption == 'Day(s)') {
-        _durasi *= 24;
-        _hargaBayar = _durasi * eachbike.price;
+        durasi = _durasi * 24;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
       if (_selectedOption == 'Week(s)') {
-        _durasi *= 168;
-        _hargaBayar = _durasi * eachbike.price;
+        durasi = _durasi * 168;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
     });
@@ -99,7 +100,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
                       name: widget.eachbike.name,
                       picture: widget.eachbike.picture,
                       paidprice: _hargaBayar,
-                      rentduration: Duration(hours: _durasi.toInt()),
+                      rentduration: Duration(hours: durasi.toInt()),
                       timetoscheduledtime: const Duration(seconds: 0),
                     );
                     Navigator.of(context).pop();

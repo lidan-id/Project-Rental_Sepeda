@@ -19,6 +19,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
   final TextEditingController _dateController = TextEditingController();
   DateTime? _selectedDateTime;
   double _durasi = 0;
+  double durasi = 0;
   double _hargaBayar = 0;
   String _selectedOption = 'Hour(s)';
   Duration? _scheduleTimeLeft;
@@ -26,18 +27,18 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
   void _updateHargaBayar(eachbike) {
     setState(() {
       if (_selectedOption == 'Hour(s)') {
-        _durasi *= 1;
-        _hargaBayar = _durasi * eachbike.price * 90 / 100;
+        durasi = _durasi * 1;
+        _hargaBayar = durasi * eachbike.price * 90 / 100;
         return;
       }
       if (_selectedOption == 'Day(s)') {
-        _durasi *= 24;
-        _hargaBayar = _durasi * eachbike.price;
+        durasi = _durasi * 24;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
       if (_selectedOption == 'Week(s)') {
-        _durasi *= 168;
-        _hargaBayar = _durasi * eachbike.price;
+        durasi = _durasi * 168;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
     });
@@ -52,12 +53,13 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
         builder: (context, widget) {
           return Theme(
               data: ThemeData.light().copyWith(
-                  colorScheme: ColorScheme.light(
+                  colorScheme: const ColorScheme.light(
                     primary: Color(0xffF6B17A),
                     surface: Color(0xff2D3250),
                     onSurface: Color(0xffF6B17A),
                   ),
-                  dividerTheme: DividerThemeData(color: Color(0xffF6B17A))),
+                  dividerTheme:
+                      const DividerThemeData(color: Color(0xffF6B17A))),
               child: widget!);
         });
 
@@ -70,12 +72,13 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
           builder: (context, widget) {
             return Theme(
                 data: ThemeData.light().copyWith(
-                    colorScheme: ColorScheme.light(
+                    colorScheme: const ColorScheme.light(
                         primary: Color(0xffF6B17A),
                         surface: Color(0xff2D3250),
                         onSurface: Color(0xffF6B17A),
                         secondary: Color(0xffF6B17A)),
-                    dividerTheme: DividerThemeData(color: Color(0xffF6B17A))),
+                    dividerTheme:
+                        const DividerThemeData(color: Color(0xffF6B17A))),
                 child: widget!);
           });
 
@@ -202,7 +205,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                       name: widget.eachbike.name,
                       picture: widget.eachbike.picture,
                       paidprice: _hargaBayar,
-                      rentduration: Duration(hours: _durasi.toInt()),
+                      rentduration: Duration(hours: durasi.toInt()),
                       timetoscheduledtime: _scheduleTimeLeft!,
                     );
                     Navigator.of(context).pop();
