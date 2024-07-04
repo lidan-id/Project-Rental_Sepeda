@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CountdownTimerWidget extends StatelessWidget {
@@ -214,6 +215,11 @@ class RentCompleteBikeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
     final rentCompleteBikeProvider =
         Provider.of<RentedBikeProvider>(context).rentCompleteBike;
     return Card(
@@ -262,7 +268,7 @@ class RentCompleteBikeList extends StatelessWidget {
                           color: Colors.white,
                         ),
                         trailing: Text(
-                          "Rp${bike.paidprice}",
+                          currencyFormat.format(bike.paidprice),
                           maxLines: 1,
                         ),
                         titleAlignment: ListTileTitleAlignment.center,

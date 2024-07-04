@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RentNowComponent extends StatefulWidget {
@@ -23,7 +24,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
     setState(() {
       if (_selectedOption == 'Hour(s)') {
         _durasi *= 1;
-        _hargaBayar = _durasi * eachbike.price;
+        _hargaBayar = _durasi * eachbike.price * 90 / 100;
         return;
       }
       if (_selectedOption == 'Day(s)') {
@@ -49,6 +50,11 @@ class _RentNowComponentState extends State<RentNowComponent> {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
     SaldoProvider balance = Provider.of<SaldoProvider>(context);
     return Form(
       key: _rentNowKey,
@@ -56,9 +62,13 @@ class _RentNowComponentState extends State<RentNowComponent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           durationTextField(balance),
+          const Text(
+            "App Discount: 10%",
+            style: TextStyle(fontFamily: "Neue", color: Colors.white),
+          ),
           Center(
             child: Text(
-              "Rp${_hargaBayar.toString()}",
+              currencyFormat.format(_hargaBayar),
               style: const TextStyle(
                   fontFamily: "Neue", color: Color(0xFF2D3250), fontSize: 30),
             ),
@@ -67,7 +77,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: Rp${balance.saldo.toString()}",
+            "Your Balance: ${currencyFormat.format(balance.saldo)}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
