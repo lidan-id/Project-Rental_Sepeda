@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/profilefeature/user_information.dart';
 import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:flutter_application_1/features/profilefeature/permission.dart';
 import 'package:flutter_application_1/features/profilefeature/notification.dart';
+import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
 //suggest: change username/password
@@ -100,7 +105,9 @@ class Profile extends StatelessWidget {
           color: const Color(0xFF2D3250),
           padding: const EdgeInsets.all(10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              ProfilePicture(),
               ProfileMenuWidget(
                 menuTitle: "User Information",
                 onPress: () {
@@ -158,6 +165,97 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+}
+
+class ProfilePicture extends StatefulWidget {
+  const ProfilePicture({super.key});
+
+  @override
+  State<ProfilePicture> createState() => _ProfilePictureState();
+}
+
+class _ProfilePictureState extends State<ProfilePicture> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 10),
+      height: 60,
+      child: Row(children: [
+        InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  backgroundColor: Color(0xff7077A1),
+                  child: Container(
+                    width: 10,
+                    height: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              _pickImageFromGallery(context);
+                            },
+                            child: Text(
+                              'Add photo from gallery',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        TextButton(
+                            onPressed: () {
+                              _pickImageFromCamera(context);
+                            },
+                            child: Text('Add photo from camera',
+                                style: TextStyle(color: Colors.white)))
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: CircleAvatar(
+            radius: 25,
+            child: ClipOval(
+              child: Provider.of<LoginProvider>(context).profilePic == null
+                  ? Icon(Icons.person)
+                  : Image.file(
+                      Provider.of<LoginProvider>(context).profilePic!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Text(
+          Provider.of<LoginProvider>(context).user,
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        )
+      ]),
+    );
+  }
+}
+
+Future _pickImageFromGallery(BuildContext context) async {
+  final returnedImage =
+      await ImagePicker().pickImage(source: ImageSource.gallery);
+  if (returnedImage == null) return;
+  Provider.of<LoginProvider>(context, listen: false)
+      .changeProfilePic(File(returnedImage.path));
+}
+
+Future _pickImageFromCamera(BuildContext context) async {
+  final returnedImage =
+      await ImagePicker().pickImage(source: ImageSource.camera);
+  print(returnedImage);
+  if (returnedImage == null) return;
+  Provider.of<LoginProvider>(context, listen: false)
+      .changeProfilePic(File(returnedImage.path));
 }
 
 class ProfileMenuWidget extends StatelessWidget {

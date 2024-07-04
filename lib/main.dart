@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:flutter_application_1/provider/provider_component.dart';
 import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:flutter_application_1/provider/provider_component.dart';
@@ -32,5 +34,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// gradle m ver :8.5
