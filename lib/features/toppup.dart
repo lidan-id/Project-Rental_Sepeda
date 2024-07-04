@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/banktopup.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+
 
 class TopUp extends StatefulWidget {
   const TopUp({super.key});
@@ -113,7 +115,12 @@ class Saldo extends StatefulWidget {
 class _SaldoState extends State<Saldo> {
   @override
   Widget build(BuildContext context) {
-    final _saldo = Provider.of<SaldoProvider>(context,listen: false).saldo;
+    final _saldo = Provider.of<SaldoProvider>(context, listen: false).saldo;
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
     return SizedBox(
       child: (
           Row(
@@ -126,7 +133,7 @@ class _SaldoState extends State<Saldo> {
                 ),
               ),
               const SizedBox(width: 10,),
-              Text("Rp${_saldo.toStringAsFixed(0)}",
+              Text(currencyFormat.format(_saldo),
                 style: const TextStyle(
                     color: Color(0xFFFFFFFF),
                     fontSize: 30,
