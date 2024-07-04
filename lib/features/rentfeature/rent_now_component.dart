@@ -104,7 +104,16 @@ class _RentNowComponentState extends State<RentNowComponent> {
                     );
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                      const SnackBar(
+                          backgroundColor: Colors.white,
+                          closeIconColor: Color(0xFF2D3250),
+                          duration: Duration(seconds: 8),
+                          showCloseIcon: true,
+                          content: Text(
+                            'Thank you for renting with us. Enjoy your ride!',
+                            style: TextStyle(
+                                fontFamily: "Neue", color: Color(0xFF2D3250)),
+                          )),
                     );
                   }
                 }),

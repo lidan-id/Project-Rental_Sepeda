@@ -182,9 +182,16 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                       timetoscheduledtime: _scheduleTimeLeft!,
                     );
                     Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        showCloseIcon: true,
+                        backgroundColor: Colors.white,
+                        closeIconColor: Color(0xFF2D3250),
+                        duration: Duration(seconds: 8),
+                        content: Text(
+                          'Bike booked. Thank you for renting with us!',
+                          style: TextStyle(
+                              fontFamily: "Neue", color: Color(0xFF2D3250)),
+                        )));
                   }
                 }),
           ),

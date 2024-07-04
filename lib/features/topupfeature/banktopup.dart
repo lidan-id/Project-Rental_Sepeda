@@ -60,14 +60,24 @@ class _TopUpState extends State<BankTopUp> {
                     await Future.delayed(Duration(seconds: 2));
 
                     setState(() {
-                      String nominalText = nominalInput.text.replaceAll('.', '');
+                      String nominalText =
+                          nominalInput.text.replaceAll('.', '');
                       double nominal = double.parse(nominalText);
                       if (nominal >= 5000) {
                         Provider.of<SaldoProvider>(context, listen: false)
                             .topUp(nominal);
                         isPass = true;
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Top Up berhasil!'))
+                          SnackBar(
+                              backgroundColor: Colors.white,
+                              closeIconColor: Color(0xFF2D3250),
+                              duration: Duration(seconds: 2),
+                              content: Text(
+                                'Top-up sucessfully',
+                                style: TextStyle(
+                                    fontFamily: "Neue",
+                                    color: Color(0xFF2D3250)),
+                              )),
                         );
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (context) => HomeMenu()),
