@@ -132,7 +132,6 @@ class _SaldoState extends State<Saldo> {
   @override
   Widget build(BuildContext context) {
     final _saldo = Provider.of<SaldoProvider>(context, listen: false).saldo;
-<<<<<<< HEAD:lib/features/toppup.dart
     final NumberFormat currencyFormat = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp ',
@@ -160,26 +159,6 @@ class _SaldoState extends State<Saldo> {
             ],
           )
       ),
-=======
-    return SizedBox(
-      child: (Row(
-        children: [
-          const Text(
-            "Saldo",
-            style: TextStyle(
-                color: Color(0xFFF6B17A), fontSize: 30, fontFamily: 'Neue'),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            "Rp${_saldo.toStringAsFixed(0)}",
-            style: const TextStyle(
-                color: Color(0xFFFFFFFF), fontSize: 30, fontFamily: 'Neue'),
-          ),
-        ],
-      )),
->>>>>>> main:lib/features/topupfeature/toppup.dart
     );
   }
 }
