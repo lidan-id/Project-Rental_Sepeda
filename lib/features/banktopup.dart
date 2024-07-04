@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/homepage.dart';
 import 'package:flutter_application_1/provider/provider.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:provider/provider.dart';
 
 class BankTopUp extends StatefulWidget {
@@ -11,8 +12,13 @@ class BankTopUp extends StatefulWidget {
 }
 
 class _TopUpState extends State<BankTopUp> {
-  TextEditingController nominalInput = TextEditingController();
+  final MoneyMaskedTextController nominalInput = MoneyMaskedTextController(
+    decimalSeparator: '',
+    thousandSeparator: '.',
+    precision: 0,
+  );
   bool isPass = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +45,30 @@ class _TopUpState extends State<BankTopUp> {
                   labelStyle: TextStyle(color: Color(0xFFF6B17A)),
                   hintText: "Masukkan Nominal TopUp",
                   hintStyle: TextStyle(color: Colors.grey),
-                  errorText: isPass ? null : "Minimal Top Up Rp.5000",
+                  errorText: isPass ? null : "Minimal Top Up Rp 5.000",
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
-                      double nominal = double.parse(nominalInput.text);
+                      isLoading = true;
+                    });
+
+                    await Future.delayed(Duration(seconds: 2));
+
+                    setState(() {
+                      String nominalText = nominalInput.text.replaceAll('.', '');
+                      double nominal = double.parse(nominalText);
                       if (nominal >= 5000) {
                         Provider.of<SaldoProvider>(context, listen: false)
                             .topUp(nominal);
+                        isPass = true;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Top Up berhasil!'))
+                        );
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (context) => HomeMenu()),
                           (route) => false,
@@ -59,9 +76,16 @@ class _TopUpState extends State<BankTopUp> {
                       } else {
                         isPass = false;
                       }
+                      isLoading = false;
                     });
                   },
-                  child: Text("Top Up"))
+                  child: Text("Top Up")),
+              if (isLoading)
+                SizedBox(
+                  height: 35,
+                  width: 35,
+                  child: CircularProgressIndicator(color: Colors.orange),
+                ),
             ],
           ),
         ),
