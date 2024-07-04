@@ -355,7 +355,10 @@ class _RegisterState extends State<Register> {
                               email: emailInput.text,
                               username: usernameInput.text,
                               password: passwordInput.text,
-                              saldo: 0));
+                              saldo: 0,
+                              bikeInRent: [],
+                              bookedBike: [],
+                              rentCompleteBike: []));
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => HomeMenu()));
                     }

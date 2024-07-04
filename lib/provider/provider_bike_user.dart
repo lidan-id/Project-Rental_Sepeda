@@ -8,11 +8,18 @@ class User {
   String username;
   String password;
   double saldo;
+  List<RentedBikes> bikeInRent;
+  List<RentedBikes> bookedBike;
+  List<RentedBikes> rentCompleteBike;
+
   User(
       {required this.email,
       required this.username,
       required this.password,
-      required this.saldo});
+      required this.saldo,
+      required this.bikeInRent,
+      required this.bookedBike,
+      required this.rentCompleteBike});
 }
 
 class RegisterProvider extends ChangeNotifier {
@@ -21,14 +28,26 @@ class RegisterProvider extends ChangeNotifier {
         email: 'eden@gmail.com',
         username: 'eden',
         password: 'Eden123@',
-        saldo: 1000000),
+        saldo: 1000000,
+        bikeInRent: [],
+        bookedBike: [],
+        rentCompleteBike: []),
     User(
-        email: 'eden1@gmail.com', username: 'e', password: 'e', saldo: 1000000),
+        email: 'eden1@gmail.com',
+        username: 'e',
+        password: 'e',
+        saldo: 1000000000,
+        bikeInRent: [],
+        bookedBike: [],
+        rentCompleteBike: []),
     User(
         email: 'eden2@gmail.com',
         username: 'Dummybot',
         password: 'd',
-        saldo: 1000000),
+        saldo: 1000000,
+        bikeInRent: [],
+        bookedBike: [],
+        rentCompleteBike: []),
   ];
   void addUser(User user) {
     users.add(user);
@@ -40,10 +59,24 @@ class LoginProvider extends ChangeNotifier {
   String user = '';
   File? profilePic;
   User currentUser = User(
-      email: 'eden2@gmail.com',
-      username: 'Dummybot',
-      password: 'd',
-      saldo: 1000000);
+      email: 'Guest',
+      username: 'Guest',
+      password: 'g',
+      saldo: 1000000,
+      bikeInRent: [],
+      bookedBike: [
+        RentedBikes(
+            rentID: "AD2",
+            name: 'Bike A',
+            picture: 'bike40.webp',
+            paidprice: 33000,
+            rentduration: const Duration(seconds: 10),
+            timetoscheduledtime: const Duration(seconds: 10),
+            rentDate: "10 January 2021",
+            bookedDate: '30 December 2024 15:15',
+            completeDate: '11 January 23'),
+      ],
+      rentCompleteBike: []);
 
   bool checkUser(List users, String username, String password) {
     bool result = false;
@@ -52,12 +85,18 @@ class LoginProvider extends ChangeNotifier {
         result = true;
         currentUser = users[i];
         user = username;
+        notifyListeners();
         break;
       } else {
         result = false;
       }
     }
     return result;
+  }
+
+  void setUser(User user) {
+    currentUser = user;
+    notifyListeners();
   }
 
   void topUp(double amount) {
@@ -143,25 +182,16 @@ class RentedBikes {
 
 class RentedBikeProvider extends ChangeNotifier {
   List<RentedBikes> bikeInRent = [];
-  List<RentedBikes> bookedBike = [
-    RentedBikes(
-        rentID: "AD2",
-        name: 'Bike A',
-        picture: 'bike40.webp',
-        paidprice: 33000,
-        rentduration: const Duration(seconds: 10),
-        timetoscheduledtime: const Duration(seconds: 10),
-        rentDate: "10 January 2021",
-        bookedDate: '30 December 2024 15:15',
-        completeDate: '11 January 23'),
-  ];
-
+  List<RentedBikes> bookedBike = [];
   List<RentedBikes> rentCompleteBike = [];
 
   final Map<String, Timer> _timers = {};
   final Map<String, Duration> remainingDurations = {};
 
   RentedBikeProvider() {
+    bookedBike = LoginProvider().currentUser.bookedBike;
+    bikeInRent = LoginProvider().currentUser.bikeInRent;
+    rentCompleteBike = LoginProvider().currentUser.rentCompleteBike;
     for (var bike in bookedBike) {
       remainingDurations[bike.rentID] = bike.timetoscheduledtime;
       _startTimer(bike, isBooked: true);
