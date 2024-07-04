@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_bottom_sheet.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Bikes extends StatefulWidget {
@@ -160,6 +161,11 @@ class _BikesState extends State<Bikes> {
   }
 
   Card kategoriCard(BikesClass e) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
     return Card(
       clipBehavior: Clip.hardEdge,
       child: Container(
@@ -185,7 +191,7 @@ class _BikesState extends State<Bikes> {
                 style: const TextStyle(
                     fontSize: 20, fontFamily: 'Neue', color: Color(0xFFF6B17A)),
               ),
-              Text('Price : ${e.price}',
+              Text("${currencyFormat.format(e.price)}/hour",
                   style: const TextStyle(
                       fontSize: 20,
                       fontFamily: 'Neue',

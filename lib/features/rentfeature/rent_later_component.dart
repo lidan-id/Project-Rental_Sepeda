@@ -26,15 +26,18 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
   void _updateHargaBayar(eachbike) {
     setState(() {
       if (_selectedOption == 'Hour(s)') {
-        _hargaBayar = _durasi * eachbike.price * 1;
+        _durasi *= 1;
+        _hargaBayar = _durasi * eachbike.price * 90 / 100;
         return;
       }
       if (_selectedOption == 'Day(s)') {
-        _hargaBayar = _durasi * eachbike.price * 24;
+        _durasi *= 24;
+        _hargaBayar = _durasi * eachbike.price;
         return;
       }
       if (_selectedOption == 'Week(s)') {
-        _hargaBayar = _durasi * eachbike.price * 168;
+        _durasi *= 168;
+        _hargaBayar = _durasi * eachbike.price;
         return;
       }
     });
@@ -105,6 +108,11 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
     SaldoProvider balance = Provider.of<SaldoProvider>(context);
     return Form(
       key: _rentLaterKey,
@@ -138,11 +146,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
               if (value == null || value.isEmpty) {
                 return 'Please choose date & time';
               }
-              if (_hargaBayar > balance.saldo) {
-                return "Not enough balance. Please top-up or adjust";
-              }
               if (_scheduleTimeLeft!.isNegative ||
-                  // _scheduleTimeLeft!.inSeconds <= 3540) {
                   _scheduleTimeLeft!.inMinutes < 59) {
                 return "Please enter valid time. At least 1 hour from current time";
               }
@@ -152,9 +156,13 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
           const SizedBox(
             height: 20,
           ),
+          const Text(
+            "App Discount: 10%",
+            style: TextStyle(fontFamily: "Neue", color: Colors.white),
+          ),
           Center(
             child: Text(
-              "Rp${_hargaBayar.toString()}",
+              currencyFormat.format(_hargaBayar),
               style: const TextStyle(
                   fontFamily: "Neue", color: Color(0xFF2D3250), fontSize: 30),
             ),
@@ -163,7 +171,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: Rp${balance.saldo.toString()}",
+            "Your Balance: ${currencyFormat.format(balance.saldo)}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
@@ -186,10 +194,26 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                 onTap: () {
                   if (_rentLaterKey.currentState!.validate()) {
                     balance.bayar(_hargaBayar);
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                    Provider.of<RentedBikeProvider>(context, listen: false)
+                        .addNewBookedBike(
+                      rentID: UniqueKey().toString(),
+                      name: widget.eachbike.name,
+                      picture: widget.eachbike.picture,
+                      paidprice: _hargaBayar,
+                      rentduration: Duration(hours: _durasi.toInt()),
+                      timetoscheduledtime: _scheduleTimeLeft!,
                     );
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        showCloseIcon: true,
+                        backgroundColor: Colors.white,
+                        closeIconColor: Color(0xFF2D3250),
+                        duration: Duration(seconds: 8),
+                        content: Text(
+                          'Bike booked. Thank you for renting with us!',
+                          style: TextStyle(
+                              fontFamily: "Neue", color: Color(0xFF2D3250)),
+                        )));
                   }
                 }),
           ),

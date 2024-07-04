@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:intl/intl.dart';
 import 'rent_option_buttons.dart';
 
 Widget rentBottomSheet(BuildContext context, eachbike, namakategori) {
@@ -10,7 +11,7 @@ Widget rentBottomSheet(BuildContext context, eachbike, namakategori) {
     ),
     child: Container(
       color: const Color(0xFF7077A1),
-      height: MediaQuery.of(context).size.height * 0.85,
+      height: MediaQuery.of(context).size.height * 0.9,
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -50,6 +51,11 @@ class RentBikeInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
     return Column(children: [
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,6 +91,14 @@ class RentBikeInfo extends StatelessWidget {
                 style: const TextStyle(
                     fontFamily: "Neue", fontSize: 35, color: Color(0xFF2D3250)),
               ),
+              Text(
+                '${currencyFormat.format(eachbike.price)}/hour',
+                style: const TextStyle(
+                  fontFamily: "Neue",
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
+              )
             ],
           ),
         ],
