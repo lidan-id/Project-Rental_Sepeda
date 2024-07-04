@@ -152,6 +152,10 @@ class Profile extends StatelessWidget {
               ProfileMenuWidget(
                 menuTitle: "Log out",
                 onPress: () {
+                  Provider.of<RegisterProvider>(context, listen: false)
+                      .changeRent(Provider.of<RentedBikeProvider>(context,
+                              listen: false)
+                          .bookedBike);
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => const Login()),
                       (route) => false);

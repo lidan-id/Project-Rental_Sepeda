@@ -53,7 +53,16 @@ class RegisterProvider extends ChangeNotifier {
     users.add(user);
     notifyListeners();
   }
+
+  void changeRent(List<RentedBikes> newBooked) {
+    users[indexUser].bookedBike = newBooked;
+    print(users[indexUser].bookedBike.length);
+    print(users[1].bookedBike.length);
+    notifyListeners();
+  }
 }
+
+int indexUser = 0;
 
 class LoginProvider extends ChangeNotifier {
   String user = '';
@@ -85,6 +94,8 @@ class LoginProvider extends ChangeNotifier {
         result = true;
         currentUser = users[i];
         user = username;
+        indexUser = i;
+
         notifyListeners();
         break;
       } else {
@@ -181,17 +192,21 @@ class RentedBikes {
 }
 
 class RentedBikeProvider extends ChangeNotifier {
-  List<RentedBikes> bikeInRent = [];
-  List<RentedBikes> bookedBike = [];
-  List<RentedBikes> rentCompleteBike = [];
+  List<RentedBikes> bikeInRent = RegisterProvider().users[indexUser].bikeInRent;
+  List<RentedBikes> bookedBike = RegisterProvider().users[indexUser].bookedBike;
+  List<RentedBikes> rentCompleteBike =
+      RegisterProvider().users[indexUser].rentCompleteBike;
+  void refreshRent(newBook, newInRent, newCompleteRent) {
+    bikeInRent = newInRent;
+    bookedBike = newBook;
+    rentCompleteBike = newCompleteRent;
+    notifyListeners();
+  }
 
   final Map<String, Timer> _timers = {};
   final Map<String, Duration> remainingDurations = {};
 
   RentedBikeProvider() {
-    bookedBike = LoginProvider().currentUser.bookedBike;
-    bikeInRent = LoginProvider().currentUser.bikeInRent;
-    rentCompleteBike = LoginProvider().currentUser.rentCompleteBike;
     for (var bike in bookedBike) {
       remainingDurations[bike.rentID] = bike.timetoscheduledtime;
       _startTimer(bike, isBooked: true);
@@ -225,6 +240,7 @@ class RentedBikeProvider extends ChangeNotifier {
     DateFormat formatter = DateFormat('dd MMMM yyyy HH:mm');
     newBike.rentDate = formatter.format(now);
     bookedBike.add(newBike);
+    // refreshRented();
     remainingDurations[newBike.rentID] = newBike.timetoscheduledtime;
     _startTimer(newBike, isBooked: true);
     notifyListeners();
