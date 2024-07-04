@@ -42,19 +42,39 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
 
   Future<void> _selectDateTime(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 30)),
-    );
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 30)),
+        builder: (context, widget) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                  colorScheme: ColorScheme.light(
+                    primary: Color(0xffF6B17A),
+                    surface: Color(0xff2D3250),
+                    onSurface: Color(0xffF6B17A),
+                  ),
+                  dividerTheme: DividerThemeData(color: Color(0xffF6B17A))),
+              child: widget!);
+        });
 
     if (pickedDate != null) {
       TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.fromDateTime(
-          DateTime.now().add(const Duration(hours: 1)),
-        ),
-      );
+          context: context,
+          initialTime: TimeOfDay.fromDateTime(
+            DateTime.now().add(const Duration(hours: 1)),
+          ),
+          builder: (context, widget) {
+            return Theme(
+                data: ThemeData.light().copyWith(
+                    colorScheme: ColorScheme.light(
+                        primary: Color(0xffF6B17A),
+                        surface: Color(0xff2D3250),
+                        onSurface: Color(0xffF6B17A),
+                        secondary: Color(0xffF6B17A)),
+                    dividerTheme: DividerThemeData(color: Color(0xffF6B17A))),
+                child: widget!);
+          });
 
       if (pickedTime != null) {
         setState(() {
