@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/profilefeature/user_information.dart';
 import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:flutter_application_1/features/profilefeature/permission.dart';
 import 'package:flutter_application_1/features/profilefeature/notification.dart';
@@ -109,7 +110,10 @@ class Profile extends StatelessWidget {
               ProfilePicture(),
               ProfileMenuWidget(
                 menuTitle: "User Information",
-                onPress: () {},
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const UserInformation()));
+                },
               ),
               ProfileMenuWidget(
                 menuTitle: "My Balance",
