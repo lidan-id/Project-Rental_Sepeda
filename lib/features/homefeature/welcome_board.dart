@@ -24,15 +24,15 @@ class WelcomeBoard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Row(
-                children: [
-                  Icon(
-                    Icons.widgets,
-                    size: 30,
-                    color: Color(0xFFF6B17A),
-                  ),
-                ],
-              ),
+              // const Row(
+              //   children: [
+              //     Icon(
+              //       Icons.widgets,
+              //       size: 30,
+              //       color: Color(0xFFF6B17A),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(
                 height: 100,
               ),

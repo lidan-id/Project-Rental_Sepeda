@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const FabHome(),
+      // floatingActionButton: const FabHome(),
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -56,16 +56,16 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class FabHome extends StatelessWidget {
-  const FabHome({super.key});
+// class FabHome extends StatelessWidget {
+//   const FabHome({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {},
-      backgroundColor: const Color(0xFFF6B17A),
-      shape: const CircleBorder(),
-      child: const Icon(Icons.location_on),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FloatingActionButton(
+//       onPressed: () {},
+//       backgroundColor: const Color(0xFFF6B17A),
+//       shape: const CircleBorder(),
+//       child: const Icon(Icons.location_on),
+//     );
+//   }
+// }
