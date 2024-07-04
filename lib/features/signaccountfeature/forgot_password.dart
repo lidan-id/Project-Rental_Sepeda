@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/provider/provider.dart';
-import 'package:provider/provider.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -19,14 +16,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     showDialog(
       context: context,
       builder: (context) {
-        Future.delayed(Duration(seconds: 3), () {
+        Future.delayed(const Duration(seconds: 3), () {
           Navigator.of(context).pop();
         });
 
         return AlertDialog(
-          backgroundColor: Color(0xFFF7077A1),
-          title: Text("Verification sended to email"),
-          content: TextField(
+          backgroundColor: const Color(0xFFF7077A1),
+          title: const Text("Verification sended to email"),
+          content: const TextField(
             style: TextStyle(color: Colors.white),
             maxLines: 1,
             decoration: InputDecoration(
@@ -43,13 +40,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Back')),
+                child: const Text('Back')),
             ElevatedButton(
               onPressed: () {},
-              child: Text('Submit'),
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFFF6B17A),
+                  backgroundColor: const Color(0xFFFF6B17A),
                   foregroundColor: Colors.white),
+              child: const Text('Submit'),
             )
           ],
         );
@@ -61,9 +58,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forgot Password'),
-        foregroundColor: Color(0xFFF6B17A),
-        backgroundColor: Color(0xFFF2D3250),
+        title: const Text('Forgot Password'),
+        foregroundColor: const Color(0xFFF6B17A),
+        backgroundColor: const Color(0xFFF2D3250),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -87,23 +84,23 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   });
                 },
                 controller: emailInput,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 maxLines: 1,
                 decoration: InputDecoration(
                     labelText: 'Email',
-                    labelStyle: TextStyle(color: Color(0xFFF6B17A)),
+                    labelStyle: const TextStyle(color: Color(0xFFF6B17A)),
                     errorText: errorText,
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.email,
                       color: Colors.white,
                     ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    enabledBorder: OutlineInputBorder(
+                    hintStyle: const TextStyle(color: Colors.white),
+                    enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white))),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   FocusScope.of(context).unfocus();
@@ -111,10 +108,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   emailTempInput = emailInput.text;
                   emailInput.text = '';
                 },
-                child: Text('Submit'),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFF6B17A),
+                    backgroundColor: const Color(0xFFF6B17A),
                     foregroundColor: Colors.white),
+                child: const Text('Submit'),
               )
             ],
           ),

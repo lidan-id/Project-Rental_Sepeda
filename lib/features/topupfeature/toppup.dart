@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/banktopup.dart';
-import 'package:flutter_application_1/provider/provider.dart';
+import 'package:flutter_application_1/features/topupfeature/banktopup.dart';
+import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -39,61 +39,77 @@ class _TopUpState extends State<TopUp> {
               Saldo(),
               Garis(),
               InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => BankTopUp())
-                  );
+                      MaterialPageRoute(builder: (context) => BankTopUp()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("BCA",
-                    style: TextStyle(
-                        color: Color(0xFFF6B17A),
-                        fontSize: 30,
-                        fontFamily: 'Neue'
+                  children: [
+                    Text(
+                      "BCA",
+                      style: TextStyle(
+                          color: Color(0xFFF6B17A),
+                          fontSize: 30,
+                          fontFamily: 'Neue'),
                     ),
-                  ),
-                    Image(image: AssetImage("assets/logo_BCA.png"),width: 60,fit: BoxFit.cover,)
+                    Image(
+                      image: AssetImage("assets/logo_BCA.png"),
+                      width: 60,
+                      fit: BoxFit.cover,
+                    )
                   ],
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => BankTopUp())
-                  );
+                      MaterialPageRoute(builder: (context) => BankTopUp()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("BRI",
-                    style: TextStyle(
-                        color: Color(0xFFF6B17A),
-                        fontSize: 30,
-                        fontFamily: 'Neue'
+                  children: [
+                    Text(
+                      "BRI",
+                      style: TextStyle(
+                          color: Color(0xFFF6B17A),
+                          fontSize: 30,
+                          fontFamily: 'Neue'),
                     ),
-                  ),
-                    Image(image: AssetImage("assets/Logo_BRI.png"),width: 60,fit: BoxFit.cover,)
+                    Image(
+                      image: AssetImage("assets/Logo_BRI.png"),
+                      width: 60,
+                      fit: BoxFit.cover,
+                    )
                   ],
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => BankTopUp())
-                  );
+                      MaterialPageRoute(builder: (context) => BankTopUp()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Mandiri",
-                    style: TextStyle(
-                        color: Color(0xFFF6B17A),
-                        fontSize: 30,
-                        fontFamily: 'Neue'
+                  children: [
+                    Text(
+                      "Mandiri",
+                      style: TextStyle(
+                          color: Color(0xFFF6B17A),
+                          fontSize: 30,
+                          fontFamily: 'Neue'),
                     ),
-                  ),
-                    Image(image: AssetImage("assets/Logo_Mandiri.png"),width: 60,fit: BoxFit.cover,)
+                    Image(
+                      image: AssetImage("assets/Logo_Mandiri.png"),
+                      width: 60,
+                      fit: BoxFit.cover,
+                    )
                   ],
                 ),
               )
@@ -116,6 +132,7 @@ class _SaldoState extends State<Saldo> {
   @override
   Widget build(BuildContext context) {
     final _saldo = Provider.of<SaldoProvider>(context, listen: false).saldo;
+<<<<<<< HEAD:lib/features/toppup.dart
     final NumberFormat currencyFormat = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp ',
@@ -143,6 +160,26 @@ class _SaldoState extends State<Saldo> {
             ],
           )
       ),
+=======
+    return SizedBox(
+      child: (Row(
+        children: [
+          const Text(
+            "Saldo",
+            style: TextStyle(
+                color: Color(0xFFF6B17A), fontSize: 30, fontFamily: 'Neue'),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            "Rp${_saldo.toStringAsFixed(0)}",
+            style: const TextStyle(
+                color: Color(0xFFFFFFFF), fontSize: 30, fontFamily: 'Neue'),
+          ),
+        ],
+      )),
+>>>>>>> main:lib/features/topupfeature/toppup.dart
     );
   }
 }
@@ -160,5 +197,3 @@ class Garis extends StatelessWidget {
     );
   }
 }
-
-

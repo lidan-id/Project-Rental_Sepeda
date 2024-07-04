@@ -12,9 +12,11 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.6
   provider: ^6.1.2
+  intl:
   http: ^0.13.3
-  intl: ^0.17.0
   flutter_masked_text2:
+  image_picker: ^0.8.6
+
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +26,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/bikes/
   uses-material-design: true
 
   fonts:

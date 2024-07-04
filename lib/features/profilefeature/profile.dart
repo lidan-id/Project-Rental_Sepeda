@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/login.dart';
+import 'package:flutter_application_1/features/profilefeature/user_information.dart';
+import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:flutter_application_1/features/profilefeature/permission.dart';
 import 'package:flutter_application_1/features/profilefeature/notification.dart';
+import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 //suggest: change username/password
 
@@ -89,27 +95,69 @@ class Profile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF2D3250),
-        title: Text("Profile",
-        style: TextStyle(color: Colors.white,fontFamily: 'Neue'),
+        title: const Text(
+          "Profile",
+          style: TextStyle(color: Colors.white, fontFamily: 'Neue'),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
           color: const Color(0xFF2D3250),
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
-            
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProfileMenuWidget(menuTitle: "User Information",onPress: () {},),
-              ProfileMenuWidget(menuTitle: "My Balance",onPress: () {},),
-              ProfileMenuWidget(menuTitle: "History",onPress: () {},),
-              ProfileMenuWidget(menuTitle: "Help Center",onPress: () {},),
-              ProfileMenuWidget(menuTitle: "Notification",onPress: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotificationSettings()));},),
-              ProfileMenuWidget(menuTitle: "Permission",onPress: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => PermissionManager()));},),
-              ProfileMenuWidget(menuTitle: "Privacy Policy",onPress: () {},),
-              ProfileMenuWidget(menuTitle: "Terms of Service",onPress: () {},),
-              ProfileMenuWidget(menuTitle: "Log out",onPress: () {Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => Login()), (route) => false);},endIcon: false,),
+              ProfilePicture(),
+              ProfileMenuWidget(
+                menuTitle: "User Information",
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const UserInformation()));
+                },
+              ),
+              ProfileMenuWidget(
+                menuTitle: "My Balance",
+                onPress: () {},
+              ),
+              ProfileMenuWidget(
+                menuTitle: "History",
+                onPress: () {},
+              ),
+              ProfileMenuWidget(
+                menuTitle: "Help Center",
+                onPress: () {},
+              ),
+              ProfileMenuWidget(
+                menuTitle: "Notification",
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const NotificationSettings()));
+                },
+              ),
+              ProfileMenuWidget(
+                menuTitle: "Permission",
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PermissionManager()));
+                },
+              ),
+              ProfileMenuWidget(
+                menuTitle: "Privacy Policy",
+                onPress: () {},
+              ),
+              ProfileMenuWidget(
+                menuTitle: "Terms of Service",
+                onPress: () {},
+              ),
+              ProfileMenuWidget(
+                menuTitle: "Log out",
+                onPress: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => const Login()),
+                      (route) => false);
+                },
+                endIcon: false,
+              ),
               // LogOut()
             ],
           ),
@@ -119,15 +167,104 @@ class Profile extends StatelessWidget {
   }
 }
 
+class ProfilePicture extends StatefulWidget {
+  const ProfilePicture({super.key});
+
+  @override
+  State<ProfilePicture> createState() => _ProfilePictureState();
+}
+
+class _ProfilePictureState extends State<ProfilePicture> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 10),
+      height: 60,
+      child: Row(children: [
+        InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  backgroundColor: Color(0xff7077A1),
+                  child: Container(
+                    width: 10,
+                    height: 100,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              _pickImageFromGallery(context);
+                            },
+                            child: Text(
+                              'Add photo from gallery',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        TextButton(
+                            onPressed: () {
+                              _pickImageFromCamera(context);
+                            },
+                            child: Text('Add photo from camera',
+                                style: TextStyle(color: Colors.white)))
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: CircleAvatar(
+            radius: 25,
+            child: ClipOval(
+              child: Provider.of<LoginProvider>(context).profilePic == null
+                  ? Icon(Icons.person)
+                  : Image.file(
+                      Provider.of<LoginProvider>(context).profilePic!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Text(
+          Provider.of<LoginProvider>(context).user,
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        )
+      ]),
+    );
+  }
+}
+
+Future _pickImageFromGallery(BuildContext context) async {
+  final returnedImage =
+      await ImagePicker().pickImage(source: ImageSource.gallery);
+  if (returnedImage == null) return;
+  Provider.of<LoginProvider>(context, listen: false)
+      .changeProfilePic(File(returnedImage.path));
+}
+
+Future _pickImageFromCamera(BuildContext context) async {
+  final returnedImage =
+      await ImagePicker().pickImage(source: ImageSource.camera);
+  print(returnedImage);
+  if (returnedImage == null) return;
+  Provider.of<LoginProvider>(context, listen: false)
+      .changeProfilePic(File(returnedImage.path));
+}
+
 class ProfileMenuWidget extends StatelessWidget {
   const ProfileMenuWidget({
-    Key? key,
+    super.key,
     required this.menuTitle,
     required this.onPress,
     this.endIcon = true,
-    
-
-  }) : super(key: key);
+  });
 
   final String menuTitle;
   final VoidCallback onPress;
@@ -137,15 +274,26 @@ class ProfileMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onPress,
-      title: Text(menuTitle, style: TextStyle(color: Colors.white, fontSize: 30, fontFamily: 'Neue'),),
-      trailing:
-      endIcon ?
-      Container(
-        width: 30,
-        height: 50,
-        decoration: ShapeDecoration(shape: CircleBorder(side: BorderSide(color: Colors.grey,))),
-        child: const Icon(Icons.arrow_right,color: Color(0xFFF6B17A),),
-      ) : null,
+      title: Text(
+        menuTitle,
+        style: const TextStyle(
+            color: Colors.white, fontSize: 30, fontFamily: 'Neue'),
+      ),
+      trailing: endIcon
+          ? Container(
+              width: 30,
+              height: 50,
+              decoration: const ShapeDecoration(
+                  shape: CircleBorder(
+                      side: BorderSide(
+                color: Colors.grey,
+              ))),
+              child: const Icon(
+                Icons.arrow_right,
+                color: Color(0xFFF6B17A),
+              ),
+            )
+          : null,
     );
   }
 }
@@ -513,7 +661,8 @@ class LogOut extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => Login()), (route) => false);
+                    MaterialPageRoute(builder: (context) => const Login()),
+                    (route) => false);
               },
               style: ElevatedButton.styleFrom(
                 elevation: 10,

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD:lib/features/banktopup.dart
 import 'package:flutter_application_1/features/homepage.dart';
 import 'package:flutter_application_1/provider/provider.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+=======
+import 'package:flutter_application_1/features/homefeature/homepage.dart';
+import 'package:flutter_application_1/provider/provider_bike_user.dart';
+>>>>>>> main:lib/features/topupfeature/banktopup.dart
 import 'package:provider/provider.dart';
 
 class BankTopUp extends StatefulWidget {
