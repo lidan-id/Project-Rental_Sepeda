@@ -13,6 +13,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   provider: ^6.1.2
   http: ^0.13.3
+  intl: ^0.17.0
+  flutter_masked_text2:
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +30,5 @@ flutter:
     - family: "Neue"
       fonts:
         - asset: fonts/BebasNeue-Regular.ttf
+
+
