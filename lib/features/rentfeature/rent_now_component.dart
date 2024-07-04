@@ -55,7 +55,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
       symbol: 'Rp ',
       decimalDigits: 0,
     );
-    SaldoProvider balance = Provider.of<SaldoProvider>(context);
+    LoginProvider balance = Provider.of<LoginProvider>(context);
     return Form(
       key: _rentNowKey,
       child: Column(
@@ -77,7 +77,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: ${currencyFormat.format(balance.saldo)}",
+            "Your Balance: ${currencyFormat.format(balance.currentUser.saldo)}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
@@ -123,7 +123,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
     );
   }
 
-  Column durationTextField(SaldoProvider balance) {
+  Column durationTextField(LoginProvider loginProvider) {
     return Column(
       children: [
         TextFormField(
@@ -159,7 +159,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
             if (value == null || value.isEmpty) {
               return 'Please enter rent duration';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
             return null;
@@ -212,7 +212,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
             if (value == null || value.isEmpty) {
               return 'Please select an option';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
 

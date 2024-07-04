@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:flutter_application_1/provider/provider_component.dart';
+import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => RegisterProvider()),
-        ChangeNotifierProvider(create: (context) => SaldoProvider()),
         ChangeNotifierProvider(create: (context) => LoginProvider()),
         ChangeNotifierProvider(create: (context) => BottomNavProvider()),
         ChangeNotifierProvider(create: (context) => NotificationProvider()),

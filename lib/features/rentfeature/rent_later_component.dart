@@ -91,7 +91,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
       symbol: 'Rp ',
       decimalDigits: 0,
     );
-    SaldoProvider balance = Provider.of<SaldoProvider>(context);
+    LoginProvider balance = Provider.of<LoginProvider>(context);
     return Form(
       key: _rentLaterKey,
       child: Column(
@@ -149,7 +149,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: ${currencyFormat.format(balance.saldo)}",
+            "Your Balance: ${currencyFormat.format(balance.currentUser.saldo)}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
@@ -171,7 +171,9 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                 bgcolor: const Color(0xFF424769),
                 onTap: () {
                   if (_rentLaterKey.currentState!.validate()) {
-                    balance.bayar(_hargaBayar);
+                    balance.bayar(
+                      _hargaBayar,
+                    );
                     Provider.of<RentedBikeProvider>(context, listen: false)
                         .addNewBookedBike(
                       rentID: UniqueKey().toString(),
@@ -200,7 +202,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
     );
   }
 
-  Column durationTextField(SaldoProvider balance) {
+  Column durationTextField(LoginProvider loginProvider) {
     return Column(
       children: [
         TextFormField(
@@ -236,7 +238,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             if (value == null || value.isEmpty) {
               return 'Please enter rent duration';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
             return null;
@@ -289,7 +291,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             if (value == null || value.isEmpty) {
               return 'Please select an option';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
 

@@ -7,14 +7,28 @@ class User {
   String email;
   String username;
   String password;
-  User({required this.email, required this.username, required this.password});
+  double saldo;
+  User(
+      {required this.email,
+      required this.username,
+      required this.password,
+      required this.saldo});
 }
 
 class RegisterProvider extends ChangeNotifier {
   List<User> users = [
-    User(email: 'eden@gmail.com', username: 'eden', password: 'Eden123@'),
-    User(email: 'eden1@gmail.com', username: 'e', password: 'e'),
-    User(email: 'eden2@gmail.com', username: 'Dummybot', password: 'd'),
+    User(
+        email: 'eden@gmail.com',
+        username: 'eden',
+        password: 'Eden123@',
+        saldo: 1000000),
+    User(
+        email: 'eden1@gmail.com', username: 'e', password: 'e', saldo: 1000000),
+    User(
+        email: 'eden2@gmail.com',
+        username: 'Dummybot',
+        password: 'd',
+        saldo: 1000000),
   ];
   void addUser(User user) {
     users.add(user);
@@ -25,11 +39,18 @@ class RegisterProvider extends ChangeNotifier {
 class LoginProvider extends ChangeNotifier {
   String user = '';
   File? profilePic;
+  User currentUser = User(
+      email: 'eden2@gmail.com',
+      username: 'Dummybot',
+      password: 'd',
+      saldo: 1000000);
+
   bool checkUser(List users, String username, String password) {
     bool result = false;
     for (int i = 0; i < users.length; i++) {
       if (users[i].username == username && users[i].password == password) {
         result = true;
+        currentUser = users[i];
         user = username;
         break;
       } else {
@@ -39,22 +60,18 @@ class LoginProvider extends ChangeNotifier {
     return result;
   }
 
+  void topUp(double amount) {
+    currentUser.saldo = currentUser.saldo + amount;
+    notifyListeners();
+  }
+
+  void bayar(double amount) {
+    currentUser.saldo = currentUser.saldo - amount;
+  }
+
   void changeProfilePic(newPic) {
     profilePic = newPic;
     notifyListeners();
-  }
-}
-
-class SaldoProvider extends ChangeNotifier {
-  double saldo = 350000;
-
-  void topUp(amount) {
-    saldo = saldo + amount;
-    notifyListeners();
-  }
-
-  void bayar(amount) {
-    saldo = saldo - amount;
   }
 }
 

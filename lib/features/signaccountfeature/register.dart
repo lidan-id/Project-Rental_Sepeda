@@ -354,7 +354,8 @@ class _RegisterState extends State<Register> {
                           .addUser(User(
                               email: emailInput.text,
                               username: usernameInput.text,
-                              password: passwordInput.text));
+                              password: passwordInput.text,
+                              saldo: 0));
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => HomeMenu()));
                     }

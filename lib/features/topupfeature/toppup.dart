@@ -4,7 +4,6 @@ import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-
 class TopUp extends StatefulWidget {
   const TopUp({super.key});
 
@@ -33,17 +32,17 @@ class _TopUpState extends State<TopUp> {
       body: SingleChildScrollView(
         child: Container(
           color: const Color(0xFF2D3250),
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Saldo(),
-              Garis(),
+              const Saldo(),
+              const Garis(),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => BankTopUp()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const BankTopUp()));
                 },
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -61,15 +60,15 @@ class _TopUpState extends State<TopUp> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => BankTopUp()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const BankTopUp()));
                 },
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -87,15 +86,15 @@ class _TopUpState extends State<TopUp> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => BankTopUp()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const BankTopUp()));
                 },
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -131,34 +130,31 @@ class Saldo extends StatefulWidget {
 class _SaldoState extends State<Saldo> {
   @override
   Widget build(BuildContext context) {
-    final _saldo = Provider.of<SaldoProvider>(context, listen: false).saldo;
+    final saldo =
+        Provider.of<LoginProvider>(context, listen: false).currentUser.saldo;
     final NumberFormat currencyFormat = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp ',
       decimalDigits: 0,
     );
     return SizedBox(
-      child: (
-          Row(
-            children: [
-              const Text("Saldo",
-                style: TextStyle(
-                    color: Color(0xFFF6B17A),
-                    fontSize: 30,
-                    fontFamily: 'Neue'
-                ),
-              ),
-              const SizedBox(width: 10,),
-              Text(currencyFormat.format(_saldo),
-                style: const TextStyle(
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 30,
-                    fontFamily: 'Neue'
-                ),
-              ),
-            ],
-          )
-      ),
+      child: (Row(
+        children: [
+          const Text(
+            "Saldo",
+            style: TextStyle(
+                color: Color(0xFFF6B17A), fontSize: 30, fontFamily: 'Neue'),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            currencyFormat.format(saldo),
+            style: const TextStyle(
+                color: Color(0xFFFFFFFF), fontSize: 30, fontFamily: 'Neue'),
+          ),
+        ],
+      )),
     );
   }
 }
