@@ -26,15 +26,18 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
   void _updateHargaBayar(eachbike) {
     setState(() {
       if (_selectedOption == 'Hour(s)') {
-        _hargaBayar = _durasi * eachbike.price * 1;
+        _durasi *= 1;
+        _hargaBayar = _durasi * eachbike.price;
         return;
       }
       if (_selectedOption == 'Day(s)') {
-        _hargaBayar = _durasi * eachbike.price * 24;
+        _durasi *= 24;
+        _hargaBayar = _durasi * eachbike.price;
         return;
       }
       if (_selectedOption == 'Week(s)') {
-        _hargaBayar = _durasi * eachbike.price * 168;
+        _durasi *= 168;
+        _hargaBayar = _durasi * eachbike.price;
         return;
       }
     });
@@ -51,9 +54,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
     if (pickedDate != null) {
       TimeOfDay? pickedTime = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.fromDateTime(
-          DateTime.now().add(const Duration(hours: 1)),
-        ),
+        initialTime: TimeOfDay.fromDateTime(DateTime.now()),
       );
 
       if (pickedTime != null) {
@@ -119,7 +120,6 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                 return 'Please choose date & time';
               }
               if (_scheduleTimeLeft!.isNegative ||
-                  // _scheduleTimeLeft!.inSeconds <= 3540) {
                   _scheduleTimeLeft!.inMinutes < 59) {
                 return "Please enter valid time. At least 1 hour from current time";
               }
@@ -163,6 +163,15 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                 onTap: () {
                   if (_rentLaterKey.currentState!.validate()) {
                     balance.bayar(_hargaBayar);
+                    Provider.of<RentedBikeProvider>(context, listen: false)
+                        .addNewBookedBike(
+                      rentID: UniqueKey().toString(),
+                      name: widget.eachbike.name,
+                      picture: widget.eachbike.picture,
+                      paidprice: _hargaBayar,
+                      rentduration: Duration(hours: _durasi.toInt()),
+                      timetoscheduledtime: _scheduleTimeLeft!,
+                    );
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class User {
   String email;
@@ -106,6 +107,9 @@ class RentedBikes {
   double paidprice;
   Duration rentduration;
   Duration timetoscheduledtime;
+  String rentDate;
+  String bookedDate;
+  String completeDate;
 
   RentedBikes({
     required this.rentID,
@@ -114,37 +118,25 @@ class RentedBikes {
     required this.paidprice,
     required this.rentduration,
     required this.timetoscheduledtime,
+    required this.rentDate,
+    required this.bookedDate,
+    required this.completeDate,
   });
 }
 
 class RentedBikeProvider extends ChangeNotifier {
-  List<RentedBikes> bikeInRent = [
-    RentedBikes(
-      rentID: "AD0",
-      name: 'Bike 1',
-      picture: 'bike40.webp',
-      paidprice: 10.0,
-      rentduration: const Duration(seconds: 6),
-      timetoscheduledtime: const Duration(seconds: 0),
-    ),
-  ];
+  List<RentedBikes> bikeInRent = [];
   List<RentedBikes> bookedBike = [
     RentedBikes(
-      rentID: "AD2",
-      name: 'Bike A',
-      picture: 'bike40.webp',
-      paidprice: 12.0,
-      rentduration: const Duration(hours: 1, minutes: 30),
-      timetoscheduledtime: const Duration(seconds: 5),
-    ),
-    RentedBikes(
-      rentID: "AD3",
-      name: 'Bike B',
-      picture: 'bike40.webp',
-      paidprice: 12.0,
-      rentduration: const Duration(hours: 1, minutes: 30),
-      timetoscheduledtime: const Duration(seconds: 40),
-    ),
+        rentID: "AD2",
+        name: 'Bike A',
+        picture: 'bike40.webp',
+        paidprice: 33000,
+        rentduration: const Duration(seconds: 10),
+        timetoscheduledtime: const Duration(seconds: 10),
+        rentDate: "10 January 2021",
+        bookedDate: '30 December 2024 15:15',
+        completeDate: '11 January 23'),
   ];
 
   List<RentedBikes> rentCompleteBike = [];
@@ -163,30 +155,39 @@ class RentedBikeProvider extends ChangeNotifier {
     }
   }
 
-  // void addNewBookedBike({
-  //   required String rentID,
-  //   required String name,
-  //   required String picture,
-  //   required double paidprice,
-  //   required Duration rentduration,
-  //   required Duration timetoscheduledtime,
-  // }) {
-  //   final newBike = RentedBikes(
-  //     rentID: rentID,
-  //     name: name,
-  //     picture: picture,
-  //     paidprice: paidprice,
-  //     rentduration: rentduration,
-  //     timetoscheduledtime: timetoscheduledtime,
-  //   );
-  //   bookedBike.add(newBike);
-  //   remainingDurations[newBike.rentID] = newBike.timetoscheduledtime;
-  //   _startTimer(newBike, isBooked: true);
-  //   notifyListeners();
-  // }
+  void addNewBookedBike({
+    required String rentID,
+    required String name,
+    required String picture,
+    required double paidprice,
+    required Duration rentduration,
+    required Duration timetoscheduledtime,
+  }) {
+    final newBike = RentedBikes(
+      rentID: rentID,
+      name: name,
+      picture: picture,
+      paidprice: paidprice,
+      rentduration: rentduration,
+      timetoscheduledtime: timetoscheduledtime,
+      rentDate: '',
+      bookedDate: '',
+      completeDate: '',
+    );
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('dd MMMM yyyy HH:mm');
+    newBike.rentDate = formatter.format(now);
+    bookedBike.add(newBike);
+    remainingDurations[newBike.rentID] = newBike.timetoscheduledtime;
+    _startTimer(newBike, isBooked: true);
+    notifyListeners();
+  }
 
   void startRentBike(RentedBikes bike) {
     bookedBike.remove(bike);
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('dd MMMM yyyy HH:mm');
+    bike.rentDate = formatter.format(now);
     bikeInRent.add(bike);
     remainingDurations[bike.rentID] = bike.rentduration;
     _startTimer(bike, isBooked: false);
@@ -195,6 +196,9 @@ class RentedBikeProvider extends ChangeNotifier {
 
   void finishRentBike(RentedBikes bike) {
     bikeInRent.remove(bike);
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('dd MMMM yyyy HH:mm');
+    bike.completeDate = formatter.format(now);
     rentCompleteBike.add(bike);
     _timers[bike.rentID]?.cancel();
     notifyListeners();
