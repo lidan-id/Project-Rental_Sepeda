@@ -89,7 +89,71 @@ class PermissionManager extends StatelessWidget {
                 },
               ),
             ],
-          )),
-    );
+          ))
+        // child: Column(
+        //   children: [
+        //     SwitchListTile(
+        //       title: const Text(
+        //         'Camera',
+        //         style: TextStyle(
+        //           fontSize: 25,
+        //           fontFamily: 'Neue',
+        //           color: Color(0xFFF6B17A),
+        //         ),
+        //       ),
+        //       value: permissionProvider.cameraEnabled,
+        //       activeColor: const Color(0xFFF6B17A),
+        //       onChanged: (value) {
+        //         permissionProvider.toggleCamera();
+        //       },
+        //     ),
+        //     SwitchListTile(
+        //       title: const Text(
+        //         'Location',
+        //         style: TextStyle(
+        //           fontSize: 25,
+        //           fontFamily: 'Neue',
+        //           color: Color(0xFFF6B17A),
+        //         ),
+        //       ),
+        //       value: permissionProvider.locationEnabled,
+        //       activeColor: const Color(0xFFF6B17A),
+        //       onChanged: (value) {
+        //         permissionProvider.toggleLocation();
+        //       },
+        //     ),
+        //     SwitchListTile(
+        //       title: const Text(
+        //         'Microphone',
+        //         style: TextStyle(
+        //           fontSize: 25,
+        //           fontFamily: 'Neue',
+        //           color: Color(0xFFF6B17A),
+        //         ),
+        //       ),
+        //       value: permissionProvider.microphoneEnabled,
+        //       activeColor: const Color(0xFFF6B17A),
+        //       onChanged: (value) {
+        //         permissionProvider.toggleMicrophone();
+        //       },
+        //     ),
+        //     SwitchListTile(
+        //       title: const Text(
+        //         'History',
+        //         style: TextStyle(
+        //           fontSize: 25,
+        //           fontFamily: 'Neue',
+        //           color: Color(0xFFF6B17A),
+        //         ),
+        //       ),
+        //       value: permissionProvider.historyEnabled,
+        //       activeColor: const Color(0xFFF6B17A),
+        //       onChanged: (value) {
+        //         permissionProvider.toggleHistory();
+        //       },
+        //     ),
+        //   ],
+        // )
+        );
   }
 }
