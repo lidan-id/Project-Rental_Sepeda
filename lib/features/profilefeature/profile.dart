@@ -181,52 +181,17 @@ class _ProfilePictureState extends State<ProfilePicture> {
       padding: EdgeInsets.only(left: 10),
       height: 60,
       child: Row(children: [
-        InkWell(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  backgroundColor: Color(0xff7077A1),
-                  child: Container(
-                    width: 10,
-                    height: 100,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              _pickImageFromGallery(context);
-                            },
-                            child: Text(
-                              'Add photo from gallery',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                        TextButton(
-                            onPressed: () {
-                              _pickImageFromCamera(context);
-                            },
-                            child: Text('Add photo from camera',
-                                style: TextStyle(color: Colors.white)))
-                      ],
-                    ),
+        CircleAvatar(
+          radius: 25,
+          child: ClipOval(
+            child: Provider.of<LoginProvider>(context).profilePic == null
+                ? Icon(Icons.person)
+                : Image.file(
+                    Provider.of<LoginProvider>(context).profilePic!,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
                   ),
-                );
-              },
-            );
-          },
-          child: CircleAvatar(
-            radius: 25,
-            child: ClipOval(
-              child: Provider.of<LoginProvider>(context).profilePic == null
-                  ? Icon(Icons.person)
-                  : Image.file(
-                      Provider.of<LoginProvider>(context).profilePic!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
-            ),
           ),
         ),
         SizedBox(
@@ -239,23 +204,6 @@ class _ProfilePictureState extends State<ProfilePicture> {
       ]),
     );
   }
-}
-
-Future _pickImageFromGallery(BuildContext context) async {
-  final returnedImage =
-      await ImagePicker().pickImage(source: ImageSource.gallery);
-  if (returnedImage == null) return;
-  Provider.of<LoginProvider>(context, listen: false)
-      .changeProfilePic(File(returnedImage.path));
-}
-
-Future _pickImageFromCamera(BuildContext context) async {
-  final returnedImage =
-      await ImagePicker().pickImage(source: ImageSource.camera);
-  print(returnedImage);
-  if (returnedImage == null) return;
-  Provider.of<LoginProvider>(context, listen: false)
-      .changeProfilePic(File(returnedImage.path));
 }
 
 class ProfileMenuWidget extends StatelessWidget {
