@@ -14,7 +14,9 @@ dependencies:
   provider: ^6.1.2
   intl:
   http: ^0.13.3
+  flutter_masked_text2:
   image_picker: ^0.8.6
+
 
 dev_dependencies:
   flutter_test:
@@ -31,3 +33,5 @@ flutter:
     - family: "Neue"
       fonts:
         - asset: fonts/BebasNeue-Regular.ttf
+
+
