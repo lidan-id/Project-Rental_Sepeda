@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.dart';
+import 'package:flutter_application_1/features/rentfeature/rent_status_page.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -209,16 +210,37 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                       timetoscheduledtime: _scheduleTimeLeft!,
                     );
                     Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
                         showCloseIcon: true,
                         backgroundColor: Colors.white,
-                        closeIconColor: Color(0xFF2D3250),
-                        duration: Duration(seconds: 8),
-                        content: Text(
-                          'Bike booked!',
-                          style: TextStyle(
-                              fontFamily: "Neue", color: Color(0xFF2D3250)),
-                        )));
+                        closeIconColor: const Color(0xFF2D3250),
+                        content: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Bike Booked!',
+                              style: TextStyle(
+                                  fontFamily: "Neue", color: Color(0xFF2D3250)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RentStatusPage()));
+                              },
+                              child: const Text(
+                                'See Rent Status',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "Neue",
+                                    color: Color(0xFF424769)),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
                   }
                 }),
           ),
