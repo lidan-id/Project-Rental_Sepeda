@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.dart';
-import 'package:flutter_application_1/features/rentfeature/rent_status_page.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -211,33 +210,14 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                     );
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         showCloseIcon: true,
                         backgroundColor: Colors.white,
-                        closeIconColor: const Color(0xFF2D3250),
-                        content: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Bike Booked!',
-                              style: TextStyle(
-                                  fontFamily: "Neue", color: Color(0xFF2D3250)),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RentStatusPage()));
-                              },
-                              child: const Text(
-                                'See Rent Status',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "Neue",
-                                    color: Color(0xFF424769)),
-                              ),
-                            )
-                          ],
+                        closeIconColor: Color(0xFF2D3250),
+                        content: Text(
+                          'Bike Booked!',
+                          style: TextStyle(
+                              fontFamily: "Neue", color: Color(0xFF2D3250)),
                         ),
                       ),
                     );
