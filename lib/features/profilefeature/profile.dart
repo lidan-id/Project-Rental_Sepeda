@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/profilefeature/user_information.dart';
+import 'package:flutter_application_1/features/rentfeature/rent_status_page.dart';
 import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:flutter_application_1/features/profilefeature/permission.dart';
 import 'package:flutter_application_1/features/profilefeature/notification.dart';
+import 'package:flutter_application_1/features/topupfeature/toppup.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -117,11 +119,15 @@ class Profile extends StatelessWidget {
               ),
               ProfileMenuWidget(
                 menuTitle: "My Balance",
-                onPress: () {},
+                onPress: () {
+                   Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const TopUp()));
+                },
               ),
               ProfileMenuWidget(
                 menuTitle: "History",
-                onPress: () {},
+                onPress: () {Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const RentStatusPage()));},
               ),
               ProfileMenuWidget(
                 menuTitle: "Help Center",

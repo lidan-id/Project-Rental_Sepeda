@@ -1,3 +1,5 @@
+import 'dart:async';
+// import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,15 +7,68 @@ import 'package:flutter/material.dart';
 class User {
   String email;
   String username;
+  String name;
   String password;
-  User({required this.email, required this.username, required this.password});
+  String gender;
+  DateTime tglLahir;
+  double noTlp;
+  double saldo;
+  List<RentedBikes> bikeInRent;
+  List<RentedBikes> bookedBike;
+  List<RentedBikes> rentCompleteBike;
+
+  User(
+      {required this.email,
+      required this.username,
+      required this.name,
+      required this.password,
+      required this.saldo,
+      required this.gender,
+      required this.tglLahir,
+      required this.noTlp,
+      required this.bikeInRent,
+      required this.bookedBike,
+      required this.rentCompleteBike});
 }
 
 class RegisterProvider extends ChangeNotifier {
   List<User> users = [
-    User(email: 'eden@gmail.com', username: 'eden', password: 'Eden123@'),
-    User(email: 'eden1@gmail.com', username: 'e', password: 'e'),
-    User(email: 'eden2@gmail.com', username: 'Dummybot', password: 'd'),
+    User(
+        email: 'eden@gmail.com',
+        username: 'eden',
+        name: "eden",
+        password: 'Eden123@',
+        saldo: 1000000,
+        gender: "Laki-Laki",
+        tglLahir: DateTime(2022, 2, 2),
+        noTlp: 0812345678,
+        bikeInRent: [],
+        bookedBike: [],
+        rentCompleteBike: []),
+    User(
+        email: 'eden1@gmail.com',
+        username: 'e',
+        name: "e",
+        password: 'e',
+        saldo: 1000000000,
+        gender: "",
+        tglLahir: DateTime(0, 0, 0),
+        noTlp: 0812345678,
+        bikeInRent: [],
+        bookedBike: [],
+        rentCompleteBike: []),
+    User(
+        email: 'eden2@gmail.com',
+        username: 'Dummybot',
+        name: 'Dummybot',
+        password: 'd',
+        saldo: 1000000,
+        gender: "Perempuan",
+        tglLahir: DateTime(2011, 3, 3),
+        noTlp: 0812345678,
+        bikeInRent: [],
+        bookedBike: [],
+        rentCompleteBike: []),
   ];
   void addUser(User user) {
     users.add(user);
@@ -24,6 +79,30 @@ class RegisterProvider extends ChangeNotifier {
 class LoginProvider extends ChangeNotifier {
   String user = '';
   File? profilePic;
+  User currentUser = User(
+      email: 'Guest',
+      username: 'Guest',
+      name: 'Guest',
+      password: 'g',
+      saldo: 1000000,
+      gender: "Perempuan",
+        tglLahir: DateTime(2011, 3, 3),
+        noTlp: 0812345678,
+      bikeInRent: [],
+      bookedBike: [
+        RentedBikes(
+            rentID: "AD2",
+            name: 'Bike A',
+            picture: 'bike40.webp',
+            paidprice: 33000,
+            rentduration: const Duration(seconds: 10),
+            timetoscheduledtime: const Duration(seconds: 10),
+            rentDate: "10 January 2021",
+            bookedDate: '30 December 2024 15:15',
+            completeDate: '11 January 23'),
+      ],
+      rentCompleteBike: []);
+
   bool checkUser(List users, String username, String password) {
     bool result = false;
     for (int i = 0; i < users.length; i++) {

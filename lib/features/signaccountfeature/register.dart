@@ -354,7 +354,36 @@ class _RegisterState extends State<Register> {
                           .addUser(User(
                               email: emailInput.text,
                               username: usernameInput.text,
-                              password: passwordInput.text));
+                              name: usernameInput.text,
+                              password: passwordInput.text,
+                              saldo: 0,
+                              gender: "",
+                              tglLahir: DateTime(0, 0, 0),
+                              noTlp: 0,
+                              bikeInRent: [],
+                              bookedBike: [],
+                              rentCompleteBike: []));
+                      Provider.of<LoginProvider>(context, listen: false)
+                          .checkUser(
+                              Provider.of<RegisterProvider>(context,
+                                      listen: false)
+                                  .users,
+                              usernameInput.text,
+                              passwordInput.text);
+                      Provider.of<RentedBikeProvider>(context, listen: false)
+                          .refreshRent(
+                              Provider.of<RegisterProvider>(context,
+                                      listen: false)
+                                  .users[indexUser]
+                                  .bookedBike,
+                              Provider.of<RegisterProvider>(context,
+                                      listen: false)
+                                  .users[indexUser]
+                                  .bikeInRent,
+                              Provider.of<RegisterProvider>(context,
+                                      listen: false)
+                                  .users[indexUser]
+                                  .rentCompleteBike);
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => HomeMenu()));
                     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/homefeature/my_wallet.dart';
 import 'package:flutter_application_1/features/rentfeature/bikes.dart';
 import 'package:flutter_application_1/features/profilefeature/profile.dart';
 import 'package:flutter_application_1/features/topupfeature/toppup.dart';
@@ -48,7 +49,7 @@ class HomePage extends StatelessWidget {
           color: const Color(0xFF2D3250),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [WelcomeBoard(), TopBikeCategory()],
+            children: [WelcomeBoard(), MyDashboard(), TopBikeCategory()],
           ),
         ),
       ),
