@@ -1,92 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/profilefeature/user_information.dart';
 import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:flutter_application_1/features/profilefeature/permission.dart';
 import 'package:flutter_application_1/features/profilefeature/notification.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 
-//suggest: change username/password
-
-// Provider
-// class NotificationProvider extends ChangeNotifier {
-//   int _notificationRadio = 0;
-//   int get notificationRadio => _notificationRadio;
-//   bool transactionsChecked = false;
-//   bool nearYouChecked = false;
-//   bool weeklySummaryChecked = false;
-//   bool specialOffersChecked = false;
-//   bool eventChecked = false;
-//   bool appUpdatesChecked = false;
-
-//   void setNotificationRadio(int value) {
-//     _notificationRadio = value;
-//     notifyListeners();
-//   }
-
-//   void setTransactionsChecked(bool value) {
-//     transactionsChecked = value;
-//     notifyListeners();
-//   }
-
-//   void setNearYouChecked(bool value) {
-//     nearYouChecked = value;
-//     notifyListeners();
-//   }
-
-//   void setWeeklySummaryChecked(bool value) {
-//     weeklySummaryChecked = value;
-//     notifyListeners();
-//   }
-
-//   void setSpecialOffersChecked(bool value) {
-//     specialOffersChecked = value;
-//     notifyListeners();
-//   }
-
-//   void setEventChecked(bool value) {
-//     eventChecked = value;
-//     notifyListeners();
-//   }
-
-//   void setAppUpdatesChecked(bool value) {
-//     appUpdatesChecked = value;
-//     notifyListeners();
-//   }
-// }
-
-// class PermissionProvider with ChangeNotifier {
-//   bool cameraEnabled = false;
-//   bool locationEnabled = true;
-//   bool microphoneEnabled = false;
-//   bool historyEnabled = false;
-
-//   void toggleCamera() {
-//     cameraEnabled = !cameraEnabled;
-//     notifyListeners();
-//   }
-
-//   void toggleLocation() {
-//     locationEnabled = !locationEnabled;
-//     notifyListeners();
-//   }
-
-//   void toggleMicrophone() {
-//     microphoneEnabled = !microphoneEnabled;
-//     notifyListeners();
-//   }
-
-//   void toggleHistory() {
-//     historyEnabled = !historyEnabled;
-//     notifyListeners();
-//   }
-// }
-
-// Widget
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
@@ -97,7 +16,7 @@ class Profile extends StatelessWidget {
         backgroundColor: const Color(0xFF2D3250),
         title: const Text(
           "Profile",
-          style: TextStyle(color: Colors.white, fontFamily: 'Neue'),
+          style: TextStyle(color: Color(0xFFF6B17A), fontFamily: 'Neue'),
         ),
       ),
       body: SingleChildScrollView(
@@ -107,7 +26,7 @@ class Profile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProfilePicture(),
+              const ProfilePicture(),
               ProfileMenuWidget(
                 menuTitle: "User Information",
                 onPress: () {
@@ -149,6 +68,9 @@ class Profile extends StatelessWidget {
                 menuTitle: "Terms of Service",
                 onPress: () {},
               ),
+              const SizedBox(
+                height: 20,
+              ),
               ProfileMenuWidget(
                 menuTitle: "Log out",
                 onPress: () {
@@ -161,8 +83,8 @@ class Profile extends StatelessWidget {
                       (route) => false);
                 },
                 endIcon: false,
+                textColor: Colors.red,
               ),
-              // LogOut()
             ],
           ),
         ),
@@ -182,14 +104,14 @@ class _ProfilePictureState extends State<ProfilePicture> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 10),
       height: 60,
       child: Row(children: [
         CircleAvatar(
           radius: 25,
           child: ClipOval(
             child: Provider.of<LoginProvider>(context).profilePic == null
-                ? Icon(Icons.person)
+                ? const Icon(Icons.person)
                 : Image.file(
                     Provider.of<LoginProvider>(context).profilePic!,
                     fit: BoxFit.cover,
@@ -198,13 +120,19 @@ class _ProfilePictureState extends State<ProfilePicture> {
                   ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         Text(
-          Provider.of<LoginProvider>(context).user,
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        )
+          Provider.of<LoginProvider>(context).user.isEmpty
+              ? "DummyBot"
+              : Provider.of<LoginProvider>(context).user,
+          style: const TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+              fontFamily: "Neue",
+              letterSpacing: 2),
+        ),
       ]),
     );
   }
@@ -215,12 +143,14 @@ class ProfileMenuWidget extends StatelessWidget {
     super.key,
     required this.menuTitle,
     required this.onPress,
+    this.textColor = Colors.white,
     this.endIcon = true,
   });
 
   final String menuTitle;
   final VoidCallback onPress;
   final bool endIcon;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -228,8 +158,7 @@ class ProfileMenuWidget extends StatelessWidget {
       onTap: onPress,
       title: Text(
         menuTitle,
-        style: const TextStyle(
-            color: Colors.white, fontSize: 30, fontFamily: 'Neue'),
+        style: TextStyle(color: textColor, fontSize: 30, fontFamily: 'Neue'),
       ),
       trailing: endIcon
           ? Container(
@@ -250,12 +179,11 @@ class ProfileMenuWidget extends StatelessWidget {
   }
 }
 
-// class PermissionManager extends StatelessWidget {
-//   const PermissionManager({super.key});
+// class LogOut extends StatelessWidget {
+//   const LogOut({super.key});
 
 //   @override
 //   Widget build(BuildContext context) {
-//     final permissionProvider = Provider.of<PermissionProvider>(context);
 //     return Container(
 //         decoration: BoxDecoration(
 //           border: Border.all(width: 1),
@@ -265,375 +193,38 @@ class ProfileMenuWidget extends StatelessWidget {
 //           children: [
 //             const ListTile(
 //               title: Text(
-//                 "Permission Manager",
+//                 "Log Out",
 //                 style: TextStyle(
 //                     fontWeight: FontWeight.w900,
-//                     color: Colors.white,
+//                     color: Colors.red,
 //                     fontFamily: 'Neue',
-//                     fontSize: 35),
+//                     fontSize: 30),
 //               ),
 //             ),
-//             SwitchListTile(
-//               title: const Text(
-//                 'Camera',
-//                 style: TextStyle(
-//                   fontSize: 25,
-//                   fontFamily: 'Neue',
-//                   color: Color(0xFFF6B17A),
-//                 ),
-//               ),
-//               value: permissionProvider.cameraEnabled,
-//               activeColor: const Color(0xFFF6B17A),
-//               onChanged: (value) {
-//                 permissionProvider.toggleCamera();
+//             ElevatedButton(
+//               onPressed: () {
+//                 Navigator.of(context).pushAndRemoveUntil(
+//                     MaterialPageRoute(builder: (context) => const Login()),
+//                     (route) => false);
 //               },
-//             ),
-//             SwitchListTile(
-//               title: const Text(
-//                 'Location',
-//                 style: TextStyle(
-//                   fontSize: 25,
-//                   fontFamily: 'Neue',
-//                   color: Color(0xFFF6B17A),
-//                 ),
+//               style: ElevatedButton.styleFrom(
+//                   elevation: 10,
+//                   enableFeedback: true,
+//                   foregroundColor: const Color(0xFF7077A1),
+//                   backgroundColor: Colors.red,
+//                   ),
+//               child: const Text(
+//                 'Log Out',
+//                 style: TextStyle(fontFamily: 'Neue', color: Colors.red),
 //               ),
-//               value: permissionProvider.locationEnabled,
-//               activeColor: const Color(0xFFF6B17A),
-//               onChanged: (value) {
-//                 permissionProvider.toggleLocation();
-//               },
 //             ),
-//             SwitchListTile(
-//               title: const Text(
-//                 'Microphone',
-//                 style: TextStyle(
-//                   fontSize: 25,
-//                   fontFamily: 'Neue',
-//                   color: Color(0xFFF6B17A),
-//                 ),
-//               ),
-//               value: permissionProvider.microphoneEnabled,
-//               activeColor: const Color(0xFFF6B17A),
-//               onChanged: (value) {
-//                 permissionProvider.toggleMicrophone();
-//               },
-//             ),
-//             SwitchListTile(
-//               title: const Text(
-//                 'History',
-//                 style: TextStyle(
-//                   fontSize: 25,
-//                   fontFamily: 'Neue',
-//                   color: Color(0xFFF6B17A),
-//                 ),
-//               ),
-//               value: permissionProvider.historyEnabled,
-//               activeColor: const Color(0xFFF6B17A),
-//               onChanged: (value) {
-//                 permissionProvider.toggleHistory();
-//               },
-//             ),
+//             const SizedBox(
+//               height: 10,
+//             )
 //           ],
 //         ));
 //   }
 // }
-
-// class NotificationSettings extends StatelessWidget {
-//   const NotificationSettings({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final notificationProvider = Provider.of<NotificationProvider>(context);
-//     return Container(
-//       decoration: BoxDecoration(
-//         border: Border.all(width: 1),
-//         borderRadius: BorderRadius.circular(25),
-//       ),
-//       child: Column(
-//         children: [
-//           const ListTile(
-//             title: Text(
-//               "Notification Settings",
-//               style: TextStyle(
-//                   fontWeight: FontWeight.w900,
-//                   color: Colors.white,
-//                   fontFamily: 'Neue',
-//                   fontSize: 35),
-//             ),
-//           ),
-//           RadioListTile(
-//             activeColor: const Color(0xFFF6B17A),
-//             title: const Text(
-//               'All',
-//               style: TextStyle(
-//                   fontSize: 25, fontFamily: 'Neue', color: Color(0xFFF6B17A)),
-//             ),
-//             subtitle: const Text(
-//               'Receive all types of notifications from the app.',
-//               style: TextStyle(
-//                 fontSize: 15,
-//                 fontFamily: 'Neue',
-//                 color: Colors.white,
-//               ),
-//             ),
-//             value: 0,
-//             groupValue: notificationProvider.notificationRadio,
-//             onChanged: (value) {
-//               notificationProvider.setNotificationRadio(value!);
-//             },
-//           ),
-//           RadioListTile(
-//             activeColor: const Color(0xFFF6B17A),
-//             title: const Text(
-//               'Important',
-//               style: TextStyle(
-//                   fontSize: 25, fontFamily: 'Neue', color: Color(0xFFF6B17A)),
-//             ),
-//             subtitle: const Text(
-//               'Only receive  important notifications.',
-//               style: TextStyle(
-//                 fontSize: 15,
-//                 fontFamily: 'Neue',
-//                 color: Colors.white,
-//               ),
-//             ),
-//             value: 1,
-//             groupValue: notificationProvider.notificationRadio,
-//             onChanged: (value) {
-//               notificationProvider.setNotificationRadio(value!);
-//             },
-//           ),
-//           RadioListTile(
-//             activeColor: const Color(0xFFF6B17A),
-//             title: const Text(
-//               'None',
-//               style: TextStyle(
-//                   fontSize: 25, fontFamily: 'Neue', color: Color(0xFFF6B17A)),
-//             ),
-//             subtitle: const Text(
-//               "You won't be disturbed by any notifications.",
-//               style: TextStyle(
-//                 fontSize: 15,
-//                 fontFamily: 'Neue',
-//                 color: Colors.white,
-//               ),
-//             ),
-//             value: 2,
-//             groupValue: notificationProvider.notificationRadio,
-//             onChanged: (value) {
-//               notificationProvider.setNotificationRadio(value!);
-//             },
-//           ),
-//           RadioListTile(
-//             activeColor: const Color(0xFFF6B17A),
-//             title: const Text(
-//               'Custom',
-//               style: TextStyle(
-//                   fontSize: 25, fontFamily: 'Neue', color: Color(0xFFF6B17A)),
-//             ),
-//             subtitle: const Text(
-//               "Customize which notifications you want to receive.",
-//               style: TextStyle(
-//                 fontSize: 15,
-//                 fontFamily: 'Neue',
-//                 color: Colors.white,
-//               ),
-//             ),
-//             value: 3,
-//             groupValue: notificationProvider.notificationRadio,
-//             onChanged: (value) {
-//               notificationProvider.setNotificationRadio(value!);
-//             },
-//           ),
-//           //Custom Notif
-//           if (notificationProvider.notificationRadio == 3)
-//             Container(
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.circular(20),
-//                 color: const Color(0xFF424769),
-//               ),
-//               width: MediaQuery.of(context).size.width * 0.7,
-//               child: Column(
-//                 children: [
-//                   CheckboxListTile(
-//                     activeColor: const Color(0xFFF6B17A),
-//                     side: const BorderSide(
-//                         strokeAlign: 2, color: Color(0xFF2D3250)),
-//                     checkColor: const Color(0xFF2D3250),
-//                     title: const Text(
-//                       'Transactions',
-//                       style: TextStyle(
-//                           fontFamily: 'Neue',
-//                           fontSize: 15,
-//                           color: Colors.white),
-//                     ),
-//                     value: notificationProvider.transactionsChecked,
-//                     onChanged: (value) {
-//                       notificationProvider
-//                           .setTransactionsChecked(value ?? false);
-//                     },
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(0),
-//                     ),
-//                   ),
-//                   CheckboxListTile(
-//                     activeColor: const Color(0xFFF6B17A),
-//                     side: const BorderSide(
-//                         strokeAlign: 2, color: Color(0xFF2D3250)),
-//                     checkColor: const Color(0xFF2D3250),
-//                     title: const Text(
-//                       'Near You',
-//                       style: TextStyle(
-//                           fontFamily: 'Neue',
-//                           fontSize: 15,
-//                           color: Colors.white),
-//                     ),
-//                     value: notificationProvider.nearYouChecked,
-//                     onChanged: (value) {
-//                       notificationProvider.setNearYouChecked(value ?? false);
-//                     },
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(0),
-//                     ),
-//                   ),
-//                   CheckboxListTile(
-//                     activeColor: const Color(0xFFF6B17A),
-//                     side: const BorderSide(
-//                         strokeAlign: 2, color: Color(0xFF2D3250)),
-//                     checkColor: const Color(0xFF2D3250),
-//                     title: const Text(
-//                       'Weekly Summary',
-//                       style: TextStyle(
-//                           fontFamily: 'Neue',
-//                           fontSize: 15,
-//                           color: Colors.white),
-//                     ),
-//                     value: notificationProvider.weeklySummaryChecked,
-//                     onChanged: (value) {
-//                       notificationProvider
-//                           .setWeeklySummaryChecked(value ?? false);
-//                     },
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(0),
-//                     ),
-//                   ),
-//                   CheckboxListTile(
-//                     activeColor: const Color(0xFFF6B17A),
-//                     side: const BorderSide(
-//                         strokeAlign: 2, color: Color(0xFF2D3250)),
-//                     checkColor: const Color(0xFF2D3250),
-//                     title: const Text(
-//                       'Special Offers',
-//                       style: TextStyle(
-//                           fontFamily: 'Neue',
-//                           fontSize: 15,
-//                           color: Colors.white),
-//                     ),
-//                     value: notificationProvider.specialOffersChecked,
-//                     onChanged: (value) {
-//                       notificationProvider
-//                           .setSpecialOffersChecked(value ?? false);
-//                     },
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(0),
-//                     ),
-//                   ),
-//                   CheckboxListTile(
-//                     activeColor: const Color(0xFFF6B17A),
-//                     side: const BorderSide(
-//                         strokeAlign: 2, color: Color(0xFF2D3250)),
-//                     checkColor: const Color(0xFF2D3250),
-//                     title: const Text(
-//                       'Event',
-//                       style: TextStyle(
-//                           fontFamily: 'Neue',
-//                           fontSize: 15,
-//                           color: Colors.white),
-//                     ),
-//                     value: notificationProvider.eventChecked,
-//                     onChanged: (value) {
-//                       notificationProvider.setEventChecked(value ?? false);
-//                     },
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(0),
-//                     ),
-//                   ),
-//                   CheckboxListTile(
-//                     activeColor: const Color(0xFFF6B17A),
-//                     side: const BorderSide(
-//                         strokeAlign: 2, color: Color(0xFF2D3250)),
-//                     checkColor: const Color(0xFF2D3250),
-//                     title: const Text(
-//                       'App Updates',
-//                       style: TextStyle(
-//                           fontFamily: 'Neue',
-//                           fontSize: 15,
-//                           color: Colors.white),
-//                     ),
-//                     value: notificationProvider.appUpdatesChecked,
-//                     onChanged: (value) {
-//                       notificationProvider.setAppUpdatesChecked(value ?? false);
-//                     },
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(0),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-class LogOut extends StatelessWidget {
-  const LogOut({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 1),
-          borderRadius: BorderRadius.circular(25),
-        ),
-        child: Column(
-          children: [
-            const ListTile(
-              title: Text(
-                "Log Out",
-                style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    fontFamily: 'Neue',
-                    fontSize: 30),
-              ),
-            ),
-            //tambah logic Logout
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const Login()),
-                    (route) => false);
-              },
-              style: ElevatedButton.styleFrom(
-                elevation: 10,
-                enableFeedback: true,
-                foregroundColor: const Color(0xFF7077A1),
-                backgroundColor: Colors.red,
-              ),
-              child: const Text(
-                'Log Out',
-                style: TextStyle(fontFamily: 'Neue', color: Colors.white),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            )
-          ],
-        ));
-  }
-}
 
 
 

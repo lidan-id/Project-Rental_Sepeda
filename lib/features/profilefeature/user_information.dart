@@ -1,9 +1,5 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application_1/features/signaccountfeature/login.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +11,17 @@ class UserInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("User Information"),
+        title: const Text(
+          "User Information",
+          style: TextStyle(fontFamily: 'Neue'),
+        ),
+        foregroundColor: const Color(0xFFF6B17A),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -34,7 +36,7 @@ class UserInformation extends StatelessWidget {
                       child: ClipOval(
                         child: Provider.of<LoginProvider>(context).profilePic ==
                                 null
-                            ? Icon(
+                            ? const Icon(
                                 Icons.person,
                                 size: 100,
                               )
@@ -59,8 +61,8 @@ class UserInformation extends StatelessWidget {
                             context: context,
                             builder: (context) {
                               return Dialog(
-                                backgroundColor: Color(0xff7077A1),
-                                child: Container(
+                                backgroundColor: const Color(0xff7077A1),
+                                child: SizedBox(
                                   width: 10,
                                   height: 100,
                                   child: Column(
@@ -72,7 +74,7 @@ class UserInformation extends StatelessWidget {
                                                 context);
                                             Navigator.pop(context);
                                           },
-                                          child: Text(
+                                          child: const Text(
                                             'Add photo from gallery',
                                             style:
                                                 TextStyle(color: Colors.white),
@@ -82,7 +84,8 @@ class UserInformation extends StatelessWidget {
                                             await _pickImageFromCamera(context);
                                             Navigator.pop(context);
                                           },
-                                          child: Text('Add photo from camera',
+                                          child: const Text(
+                                              'Add photo from camera',
                                               style: TextStyle(
                                                   color: Colors.white)))
                                     ],
@@ -93,7 +96,7 @@ class UserInformation extends StatelessWidget {
                           );
                         },
                         backgroundColor: Colors.green,
-                        child: Icon(Icons.camera_alt),
+                        child: const Icon(Icons.camera_alt),
                       ),
                     )
                   ],
