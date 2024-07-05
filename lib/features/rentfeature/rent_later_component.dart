@@ -215,7 +215,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                         closeIconColor: Color(0xFF2D3250),
                         duration: Duration(seconds: 8),
                         content: Text(
-                          'Bike booked. Thank you for renting with us!',
+                          'Bike booked!',
                           style: TextStyle(
                               fontFamily: "Neue", color: Color(0xFF2D3250)),
                         )));
@@ -262,6 +262,9 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter rent duration';
+            }
+            if (int.tryParse(value) == null || int.parse(value) <= 0) {
+              return 'Rent duration must be greater than 0.';
             }
             if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";

@@ -52,10 +52,10 @@ class BikeInRentList extends StatelessWidget {
                 ),
               ),
               SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: inRentBikeProvider.isNotEmpty
-                      ? ListView.builder(
+                child: inRentBikeProvider.isNotEmpty
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: ListView.builder(
                           itemCount: inRentBikeProvider.length,
                           itemBuilder: (context, index) {
                             final bike = inRentBikeProvider[index];
@@ -71,7 +71,7 @@ class BikeInRentList extends StatelessWidget {
                                       'assets/bikes/${bike.picture}')),
                               title: Text(bike.name),
                               titleTextStyle: const TextStyle(
-                                  fontFamily: "neue",
+                                  fontFamily: "Neue",
                                   color: Color(0xFF424769),
                                   fontSize: 20),
                               subtitle: Text(
@@ -79,7 +79,7 @@ class BikeInRentList extends StatelessWidget {
                                 maxLines: 1,
                               ),
                               subtitleTextStyle: const TextStyle(
-                                fontFamily: "neue",
+                                fontFamily: "Neue",
                                 fontStyle: FontStyle.italic,
                                 color: Color(0xFF424769),
                               ),
@@ -90,23 +90,22 @@ class BikeInRentList extends StatelessWidget {
                               ),
                               titleAlignment: ListTileTitleAlignment.center,
                               leadingAndTrailingTextStyle: const TextStyle(
-                                  fontFamily: "neue",
+                                  fontFamily: "Neue",
                                   color: Color(0xFF424769),
                                   fontSize: 15),
                             );
                           },
-                        )
-                      : const Center(
-                          child: Text(
-                            "No Bike in Rent",
-                            style: TextStyle(
-                              fontFamily: "Neue",
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
+                        ))
+                    : const Center(
+                        child: Text(
+                          "No Bike in Rent",
+                          style: TextStyle(
+                            fontFamily: "Neue",
+                            fontSize: 20,
+                            color: Colors.grey,
                           ),
                         ),
-                ),
+                      ),
               )
             ],
           ),
@@ -143,10 +142,10 @@ class BookedBikeList extends StatelessWidget {
                 ),
               ),
               SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: bookedBikeProvider.isNotEmpty
-                      ? ListView.builder(
+                child: bookedBikeProvider.isNotEmpty
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: ListView.builder(
                           itemCount: bookedBikeProvider.length,
                           itemBuilder: (context, index) {
                             final bike = bookedBikeProvider[index];
@@ -162,7 +161,7 @@ class BookedBikeList extends StatelessWidget {
                                       'assets/bikes/${bike.picture}')),
                               title: Text(bike.name),
                               titleTextStyle: const TextStyle(
-                                  fontFamily: "neue",
+                                  fontFamily: "Neue",
                                   color: Color(0xFF2D3250),
                                   fontSize: 20),
                               subtitle: Column(
@@ -184,23 +183,22 @@ class BookedBikeList extends StatelessWidget {
                               titleAlignment: ListTileTitleAlignment.center,
                               isThreeLine: true,
                               subtitleTextStyle: const TextStyle(
-                                fontFamily: "neue",
+                                fontFamily: "Neue",
                                 color: Color(0xFF2D3250),
                               ),
                             );
                           },
-                        )
-                      : const Center(
-                          child: Text(
-                            "No booked bike",
-                            style: TextStyle(
-                              fontFamily: "Neue",
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
+                        ))
+                    : const Center(
+                        child: Text(
+                          "No booked bike",
+                          style: TextStyle(
+                            fontFamily: "Neue",
+                            fontSize: 20,
+                            color: Colors.grey,
                           ),
                         ),
-                ),
+                      ),
               )
             ],
           ),
@@ -238,47 +236,47 @@ class RentCompleteBikeList extends StatelessWidget {
             ),
           ),
           SingleChildScrollView(
-              child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
             child: rentCompleteBikeProvider.isNotEmpty
-                ? ListView.builder(
-                    itemCount: rentCompleteBikeProvider.length,
-                    itemBuilder: (context, index) {
-                      final bike = rentCompleteBikeProvider[index];
-                      return ListTile(
-                        leading: ClipRRect(
-                            clipBehavior: Clip.hardEdge,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            child: Image.asset(
-                                fit: BoxFit.cover,
-                                'assets/bikes/${bike.picture}')),
-                        title: Text(bike.name),
-                        titleTextStyle: const TextStyle(
-                            fontFamily: "neue",
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: ListView.builder(
+                      itemCount: rentCompleteBikeProvider.length,
+                      itemBuilder: (context, index) {
+                        final bike = rentCompleteBikeProvider[index];
+                        return ListTile(
+                          leading: ClipRRect(
+                              clipBehavior: Clip.hardEdge,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              child: Image.asset(
+                                  fit: BoxFit.cover,
+                                  'assets/bikes/${bike.picture}')),
+                          title: Text(bike.name),
+                          titleTextStyle: const TextStyle(
+                              fontFamily: "Neue",
+                              color: Colors.white,
+                              fontSize: 20),
+                          subtitle: Text(
+                            "Completed on ${bike.completeDate}",
+                            maxLines: 1,
+                          ),
+                          subtitleTextStyle: const TextStyle(
+                            fontFamily: "Neue",
+                            fontStyle: FontStyle.italic,
                             color: Colors.white,
-                            fontSize: 20),
-                        subtitle: Text(
-                          "Completed on ${bike.completeDate}",
-                          maxLines: 1,
-                        ),
-                        subtitleTextStyle: const TextStyle(
-                          fontFamily: "neue",
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white,
-                        ),
-                        trailing: Text(
-                          currencyFormat.format(bike.paidprice),
-                          maxLines: 1,
-                        ),
-                        titleAlignment: ListTileTitleAlignment.center,
-                        leadingAndTrailingTextStyle: const TextStyle(
-                            fontFamily: "neue",
-                            color: Colors.white,
-                            fontSize: 15),
-                      );
-                    },
-                  )
+                          ),
+                          trailing: Text(
+                            currencyFormat.format(bike.paidprice),
+                            maxLines: 1,
+                          ),
+                          titleAlignment: ListTileTitleAlignment.center,
+                          leadingAndTrailingTextStyle: const TextStyle(
+                              fontFamily: "Neue",
+                              color: Colors.white,
+                              fontSize: 15),
+                        );
+                      },
+                    ))
                 : const Center(
                     child: Text(
                       "No rent history",
@@ -289,7 +287,7 @@ class RentCompleteBikeList extends StatelessWidget {
                       ),
                     ),
                   ),
-          ))
+          )
         ],
       ),
     );

@@ -139,6 +139,7 @@ class _SaldoState extends State<Saldo> {
     );
     return SizedBox(
       child: (Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
             "Saldo",

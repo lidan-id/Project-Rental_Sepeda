@@ -238,7 +238,7 @@ class RentedBikeProvider extends ChangeNotifier {
     );
     DateTime now = DateTime.now();
     DateFormat formatter = DateFormat('dd MMMM yyyy HH:mm');
-    newBike.rentDate = formatter.format(now);
+    newBike.bookedDate = formatter.format(now);
     bookedBike.add(newBike);
     // refreshRented();
     remainingDurations[newBike.rentID] = newBike.timetoscheduledtime;
