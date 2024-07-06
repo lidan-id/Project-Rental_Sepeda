@@ -21,7 +21,7 @@ class TopBikeCategory extends StatelessWidget {
     final isActive3 = topBikeCategoryProvider.selectedCategoryIndex == 3;
 
     return Container(
-      padding: const EdgeInsets.all(25),
+      padding: const EdgeInsets.fromLTRB(25, 20, 25, 25),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,

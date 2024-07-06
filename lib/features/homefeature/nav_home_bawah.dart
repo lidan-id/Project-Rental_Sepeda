@@ -25,12 +25,12 @@ class NavHomeBawah extends StatelessWidget {
                   Icons.pedal_bike_outlined,
                 ),
               ),
-              BottomNavigationBarItem(
-                label: "Top Up",
-                icon: Icon(
-                  Icons.account_balance_wallet_outlined,
-                ),
-              ),
+              // BottomNavigationBarItem(
+              //   label: "Top Up",
+              //   icon: Icon(
+              //     Icons.account_balance_wallet_outlined,
+              //   ),
+              // ),
               BottomNavigationBarItem(
                 label: "Profile",
                 icon: Icon(

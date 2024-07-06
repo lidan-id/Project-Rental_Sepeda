@@ -3,7 +3,6 @@ import 'package:flutter_application_1/features/homefeature/my_dashboard.dart';
 import 'package:flutter_application_1/features/homefeature/my_wallet.dart';
 import 'package:flutter_application_1/features/rentfeature/bikes.dart';
 import 'package:flutter_application_1/features/profilefeature/profile.dart';
-import 'package:flutter_application_1/features/topupfeature/toppup.dart';
 import 'package:flutter_application_1/provider/provider_component.dart';
 import 'package:provider/provider.dart';
 import 'nav_home_bawah.dart';
@@ -21,7 +20,7 @@ class _HomeMenuState extends State<HomeMenu> {
   static const List<Widget> menus = [
     HomePage(),
     Bikes(),
-    TopUp(),
+    // TopUp(),
     Profile(),
   ];
 
@@ -49,7 +48,12 @@ class HomePage extends StatelessWidget {
           color: const Color(0xFF2D3250),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [WelcomeBoard(), MyDashboard(), MyWalletBoard(),TopBikeCategory()],
+            children: [
+              WelcomeBoard(),
+              MyDashboard(),
+              MyWalletBoard(),
+              TopBikeCategory()
+            ],
           ),
         ),
       ),

@@ -11,10 +11,11 @@ class MyDashboard extends StatelessWidget {
     final rentedBikeProvider =
         Provider.of<RentedBikeProvider>(context, listen: true);
     return Container(
-      padding: const EdgeInsets.all(25),
+      padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 10),
           const Text(
             "My Dashboard",
             style: TextStyle(
