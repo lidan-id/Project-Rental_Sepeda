@@ -1,15 +1,23 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/profilefeature/changeuserinformation/change_gender.dart';
+import 'package:flutter_application_1/features/profilefeature/changeuserinformation/change_name.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class UserInformation extends StatelessWidget {
+class UserInformation extends StatefulWidget {
   const UserInformation({super.key});
 
   @override
+  State<UserInformation> createState() => _UserInformationState();
+}
+
+class _UserInformationState extends State<UserInformation> {
+  @override
   Widget build(BuildContext context) {
+    final currentUserName = Provider.of<LoginProvider>(context).currentUser.name;
     final currentUserGender = Provider.of<LoginProvider>(context).currentUser.gender == ""? "Not Set" : Provider.of<LoginProvider>(context).currentUser.gender;
     final currentUserTglLahir = Provider.of<LoginProvider>(context).currentUser.tglLahir == DateTime(0, 0, 0)? "Not Set" : DateFormat('dd/MM/yyyy').format(Provider.of<LoginProvider>(context).currentUser.tglLahir).toString();
     final currentUserNoTlp = Provider.of<LoginProvider>(context).currentUser.noTlp == 0? "Not Set" : "0"+Provider.of<LoginProvider>(context).currentUser.noTlp.toString();
@@ -110,11 +118,18 @@ class UserInformation extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
+              UserProfileMenuWidget(leadingTitle: "Username", menuTitle: Provider.of<LoginProvider>(context).user, onPress: () {}, endIcon: false,),
               UserProfileMenuWidget(
-                  leadingTitle: "Name", menuTitle: "COba", onPress: () {}),
+                  leadingTitle: "Name", menuTitle: currentUserName, onPress: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangeName()));
+                  }),
               UserProfileMenuWidget(
                   leadingTitle: "Gender", menuTitle: currentUserGender, onPress: () {
                     // RadioListTile(value: 0, groupValue: groupValue, onChanged: onChanged)
+                    showDialog(context: context,
+                    builder: (context) {
+                      return ChangeGender();
+                    },);
                   }),
               UserProfileMenuWidget(
                   leadingTitle: "Birth Date",
@@ -134,7 +149,7 @@ class UserInformation extends StatelessWidget {
   }
 }
 
-class UserProfileMenuWidget extends StatelessWidget {
+class UserProfileMenuWidget extends StatefulWidget {
   const UserProfileMenuWidget({
     super.key,
     required this.leadingTitle,
@@ -149,21 +164,26 @@ class UserProfileMenuWidget extends StatelessWidget {
   final bool endIcon;
 
   @override
+  State<UserProfileMenuWidget> createState() => _UserProfileMenuWidgetState();
+}
+
+class _UserProfileMenuWidgetState extends State<UserProfileMenuWidget> {
+  @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: onPress,
+      onTap: widget.onPress,
       leading: Text(
-        leadingTitle,
+        widget.leadingTitle,
         style: const TextStyle(
             color: Colors.white, fontSize: 30, fontFamily: 'Neue'),
       ),
       title: Text(
         textAlign: TextAlign.end,
-        menuTitle,
+        widget.menuTitle,
         style: const TextStyle(
             color: Colors.white, fontSize: 14, fontFamily: 'Neue'),
       ),
-      trailing: endIcon
+      trailing: widget.endIcon
           ? Container(
               width: 30,
               height: 50,
@@ -177,7 +197,10 @@ class UserProfileMenuWidget extends StatelessWidget {
                 color: Color(0xFFF6B17A),
               ),
             )
-          : null,
+          : Container(
+            width: 30,
+            height: 50,
+          ),
     );
   }
 }

@@ -84,6 +84,7 @@ class Profile extends StatelessWidget {
                   for (int i = 0; i < Provider.of<RegisterProvider>(context, listen: false).users.length; i++) {
                     if (Provider.of<RegisterProvider>(context, listen: false).users[i].username == Provider.of<LoginProvider>(context, listen: false).currentUser.username && 
                     Provider.of<RegisterProvider>(context, listen: false).users[i].password == Provider.of<LoginProvider>(context, listen: false).currentUser.password) {
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].gender = Provider.of<LoginProvider>(context, listen: false).currentUser.gender;
                       Provider.of<RegisterProvider>(context, listen: false).users[i].bikeInRent = Provider.of<LoginProvider>(context, listen: false).currentUser.bikeInRent;
                       Provider.of<RegisterProvider>(context, listen: false).users[i].bookedBike = Provider.of<LoginProvider>(context, listen: false).currentUser.bookedBike;
                       Provider.of<RegisterProvider>(context, listen: false).users[i].rentCompleteBike = Provider.of<LoginProvider>(context, listen: false).currentUser.rentCompleteBike;

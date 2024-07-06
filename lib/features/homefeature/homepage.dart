@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
           color: const Color(0xFF2D3250),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [WelcomeBoard(), MyDashboard(), TopBikeCategory()],
+            children: [WelcomeBoard(), MyDashboard(), MyWalletBoard(),TopBikeCategory()],
           ),
         ),
       ),

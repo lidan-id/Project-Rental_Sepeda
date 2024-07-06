@@ -150,6 +150,11 @@ class LoginProvider extends ChangeNotifier {
     profilePic = newPic;
     notifyListeners();
   }
+
+  void changeGender(String gender) {
+    currentUser.gender = gender;
+    notifyListeners();
+  }
 }
 
 class BikesClass {
