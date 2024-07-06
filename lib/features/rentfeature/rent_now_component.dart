@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/features/rentfeature/rent_option_buttons.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RentNowComponent extends StatefulWidget {
@@ -17,20 +18,24 @@ class _RentNowComponentState extends State<RentNowComponent> {
   final _rentNowKey = GlobalKey<FormState>();
   String _selectedOption = 'Hour(s)';
   double _durasi = 0;
+  double durasi = 0;
   double _hargaBayar = 0;
 
   void _updateHargaBayar(eachbike) {
     setState(() {
       if (_selectedOption == 'Hour(s)') {
-        _hargaBayar = _durasi * eachbike.price * 1;
+        durasi = _durasi * 1;
+        _hargaBayar = durasi * eachbike.price * 90 / 100;
         return;
       }
       if (_selectedOption == 'Day(s)') {
-        _hargaBayar = _durasi * eachbike.price * 24;
+        durasi = _durasi * 24;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
       if (_selectedOption == 'Week(s)') {
-        _hargaBayar = _durasi * eachbike.price * 168;
+        durasi = _durasi * 168;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
     });
@@ -46,16 +51,25 @@ class _RentNowComponentState extends State<RentNowComponent> {
 
   @override
   Widget build(BuildContext context) {
-    SaldoProvider balance = Provider.of<SaldoProvider>(context);
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
+    LoginProvider balance = Provider.of<LoginProvider>(context);
     return Form(
       key: _rentNowKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           durationTextField(balance),
+          const Text(
+            "App Discount: 10%",
+            style: TextStyle(fontFamily: "Neue", color: Colors.white),
+          ),
           Center(
             child: Text(
-              "Rp${_hargaBayar.toString()}",
+              currencyFormat.format(_hargaBayar),
               style: const TextStyle(
                   fontFamily: "Neue", color: Color(0xFF2D3250), fontSize: 30),
             ),
@@ -64,7 +78,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: Rp${balance.saldo.toString()}",
+            "Your Balance: ${currencyFormat.format(balance.currentUser.saldo)}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
@@ -80,9 +94,28 @@ class _RentNowComponentState extends State<RentNowComponent> {
                 onTap: () {
                   if (_rentNowKey.currentState?.validate() ?? false) {
                     balance.bayar(_hargaBayar);
+                    Provider.of<RentedBikeProvider>(context, listen: false)
+                        .addNewBookedBike(
+                      rentID: UniqueKey().toString(),
+                      name: widget.eachbike.name,
+                      picture: widget.eachbike.picture,
+                      paidprice: _hargaBayar,
+                      rentduration: Duration(hours: durasi.toInt()),
+                      timetoscheduledtime: const Duration(seconds: 0),
+                    );
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                      const SnackBar(
+                        backgroundColor: Colors.white,
+                        closeIconColor: Color(0xFF2D3250),
+                        duration: Duration(seconds: 8),
+                        showCloseIcon: true,
+                        content: Text(
+                          'Enjoy your ride!',
+                          style: TextStyle(
+                              fontFamily: "Neue", color: Color(0xFF2D3250)),
+                        ),
+                      ),
                     );
                   }
                 }),
@@ -92,7 +125,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
     );
   }
 
-  Column durationTextField(SaldoProvider balance) {
+  Column durationTextField(LoginProvider loginProvider) {
     return Column(
       children: [
         TextFormField(
@@ -128,7 +161,10 @@ class _RentNowComponentState extends State<RentNowComponent> {
             if (value == null || value.isEmpty) {
               return 'Please enter rent duration';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (int.tryParse(value) == null || int.parse(value) <= 0) {
+              return 'Rent duration must be greater than 0.';
+            }
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
             return null;
@@ -181,7 +217,7 @@ class _RentNowComponentState extends State<RentNowComponent> {
             if (value == null || value.isEmpty) {
               return 'Please select an option';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
 

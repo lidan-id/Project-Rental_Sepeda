@@ -199,6 +199,20 @@ class _LoginState extends State<Login> {
                       usernameTempInput = usernameInput.text;
                       passwordTempInput = passwordInput.text;
                     } else {
+                      Provider.of<RentedBikeProvider>(context, listen: false)
+                          .refreshRent(
+                              Provider.of<RegisterProvider>(context,
+                                      listen: false)
+                                  .users[indexUser]
+                                  .bookedBike,
+                              Provider.of<RegisterProvider>(context,
+                                      listen: false)
+                                  .users[indexUser]
+                                  .bikeInRent,
+                              Provider.of<RegisterProvider>(context,
+                                      listen: false)
+                                  .users[indexUser]
+                                  .rentCompleteBike);
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => HomeMenu()));
                     }

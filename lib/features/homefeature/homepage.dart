@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/homefeature/my_dashboard.dart';
 import 'package:flutter_application_1/features/homefeature/my_wallet.dart';
 import 'package:flutter_application_1/features/rentfeature/bikes.dart';
 import 'package:flutter_application_1/features/profilefeature/profile.dart';
@@ -41,11 +42,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const FabHome(),
+      // floatingActionButton: const FabHome(),
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
           color: const Color(0xFF2D3250),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,16 +57,16 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class FabHome extends StatelessWidget {
-  const FabHome({super.key});
+// class FabHome extends StatelessWidget {
+//   const FabHome({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {},
-      backgroundColor: const Color(0xFFF6B17A),
-      shape: const CircleBorder(),
-      child: const Icon(Icons.location_on),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FloatingActionButton(
+//       onPressed: () {},
+//       backgroundColor: const Color(0xFFF6B17A),
+//       shape: const CircleBorder(),
+//       child: const Icon(Icons.location_on),
+//     );
+//   }
+// }

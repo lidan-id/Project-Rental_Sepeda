@@ -1,8 +1,8 @@
 import 'dart:async';
 // import 'dart:ffi';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class User {
   String email;
@@ -74,7 +74,16 @@ class RegisterProvider extends ChangeNotifier {
     users.add(user);
     notifyListeners();
   }
+
+  void changeRent(List<RentedBikes> newBooked) {
+    users[indexUser].bookedBike = newBooked;
+    print(users[indexUser].bookedBike.length);
+    print(users[1].bookedBike.length);
+    notifyListeners();
+  }
 }
+
+int indexUser = 0;
 
 class LoginProvider extends ChangeNotifier {
   String user = '';
@@ -109,6 +118,7 @@ class LoginProvider extends ChangeNotifier {
     for (int i = 0; i < users.length; i++) {
       if (users[i].username == username && users[i].password == password) {
         result = true;
+        currentUser = users[i];
         user = username;
 
         indexUser = i;
@@ -122,22 +132,23 @@ class LoginProvider extends ChangeNotifier {
     return result;
   }
 
+  void setUser(User user) {
+    currentUser = user;
+    notifyListeners();
+  }
+
+  void topUp(double amount) {
+    currentUser.saldo = currentUser.saldo + amount;
+    notifyListeners();
+  }
+
+  void bayar(double amount) {
+    currentUser.saldo = currentUser.saldo - amount;
+  }
+
   void changeProfilePic(newPic) {
     profilePic = newPic;
     notifyListeners();
-  }
-}
-
-class SaldoProvider extends ChangeNotifier {
-  double saldo = 350000;
-
-  void topUp(amount) {
-    saldo = saldo + amount;
-    notifyListeners();
-  }
-
-  void bayar(amount) {
-    saldo = saldo - amount;
   }
 }
 

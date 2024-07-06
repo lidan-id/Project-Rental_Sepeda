@@ -19,6 +19,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
   final TextEditingController _dateController = TextEditingController();
   DateTime? _selectedDateTime;
   double _durasi = 0;
+  double durasi = 0;
   double _hargaBayar = 0;
   String _selectedOption = 'Hour(s)';
   Duration? _scheduleTimeLeft;
@@ -26,15 +27,18 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
   void _updateHargaBayar(eachbike) {
     setState(() {
       if (_selectedOption == 'Hour(s)') {
-        _hargaBayar = _durasi * eachbike.price * 1;
+        durasi = _durasi * 1;
+        _hargaBayar = durasi * eachbike.price * 90 / 100;
         return;
       }
       if (_selectedOption == 'Day(s)') {
-        _hargaBayar = _durasi * eachbike.price * 24;
+        durasi = _durasi * 24;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
       if (_selectedOption == 'Week(s)') {
-        _hargaBayar = _durasi * eachbike.price * 168;
+        durasi = _durasi * 168;
+        _hargaBayar = durasi * eachbike.price;
         return;
       }
     });
@@ -42,19 +46,41 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
 
   Future<void> _selectDateTime(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 30)),
-    );
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 30)),
+        builder: (context, widget) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                  colorScheme: const ColorScheme.light(
+                    primary: Color(0xffF6B17A),
+                    surface: Color(0xff2D3250),
+                    onSurface: Color(0xffF6B17A),
+                  ),
+                  dividerTheme:
+                      const DividerThemeData(color: Color(0xffF6B17A))),
+              child: widget!);
+        });
 
     if (pickedDate != null) {
       TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.fromDateTime(
-          DateTime.now().add(const Duration(hours: 1)),
-        ),
-      );
+          context: context,
+          initialTime: TimeOfDay.fromDateTime(
+            DateTime.now().add(const Duration(hours: 1)),
+          ),
+          builder: (context, widget) {
+            return Theme(
+                data: ThemeData.light().copyWith(
+                    colorScheme: const ColorScheme.light(
+                        primary: Color(0xffF6B17A),
+                        surface: Color(0xff2D3250),
+                        onSurface: Color(0xffF6B17A),
+                        secondary: Color(0xffF6B17A)),
+                    dividerTheme:
+                        const DividerThemeData(color: Color(0xffF6B17A))),
+                child: widget!);
+          });
 
       if (pickedTime != null) {
         setState(() {
@@ -85,7 +111,12 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
 
   @override
   Widget build(BuildContext context) {
-    SaldoProvider balance = Provider.of<SaldoProvider>(context);
+    final NumberFormat currencyFormat = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    );
+    LoginProvider balance = Provider.of<LoginProvider>(context);
     return Form(
       key: _rentLaterKey,
       child: Column(
@@ -118,11 +149,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
               if (value == null || value.isEmpty) {
                 return 'Please choose date & time';
               }
-              if (_hargaBayar > balance.saldo) {
-                return "Not enough balance. Please top-up or adjust";
-              }
               if (_scheduleTimeLeft!.isNegative ||
-                  // _scheduleTimeLeft!.inSeconds <= 3540) {
                   _scheduleTimeLeft!.inMinutes < 59) {
                 return "Please enter valid time. At least 1 hour from current time";
               }
@@ -132,9 +159,13 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
           const SizedBox(
             height: 20,
           ),
+          const Text(
+            "App Discount: 10%",
+            style: TextStyle(fontFamily: "Neue", color: Colors.white),
+          ),
           Center(
             child: Text(
-              "Rp${_hargaBayar.toString()}",
+              currencyFormat.format(_hargaBayar),
               style: const TextStyle(
                   fontFamily: "Neue", color: Color(0xFF2D3250), fontSize: 30),
             ),
@@ -143,7 +174,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             height: 10,
           ),
           Text(
-            "Your Balance: Rp${balance.saldo.toString()}",
+            "Your Balance: ${currencyFormat.format(balance.currentUser.saldo)}",
             style: const TextStyle(
                 fontFamily: "Neue", fontSize: 20, color: Color(0xFF424769)),
           ),
@@ -165,10 +196,30 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
                 bgcolor: const Color(0xFF424769),
                 onTap: () {
                   if (_rentLaterKey.currentState!.validate()) {
-                    balance.bayar(_hargaBayar);
+                    balance.bayar(
+                      _hargaBayar,
+                    );
+                    Provider.of<RentedBikeProvider>(context, listen: false)
+                        .addNewBookedBike(
+                      rentID: UniqueKey().toString(),
+                      name: widget.eachbike.name,
+                      picture: widget.eachbike.picture,
+                      paidprice: _hargaBayar,
+                      rentduration: Duration(hours: durasi.toInt()),
+                      timetoscheduledtime: _scheduleTimeLeft!,
+                    );
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                      const SnackBar(
+                        showCloseIcon: true,
+                        backgroundColor: Colors.white,
+                        closeIconColor: Color(0xFF2D3250),
+                        content: Text(
+                          'Bike Booked!',
+                          style: TextStyle(
+                              fontFamily: "Neue", color: Color(0xFF2D3250)),
+                        ),
+                      ),
                     );
                   }
                 }),
@@ -178,7 +229,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
     );
   }
 
-  Column durationTextField(SaldoProvider balance) {
+  Column durationTextField(LoginProvider loginProvider) {
     return Column(
       children: [
         TextFormField(
@@ -214,7 +265,10 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             if (value == null || value.isEmpty) {
               return 'Please enter rent duration';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (int.tryParse(value) == null || int.parse(value) <= 0) {
+              return 'Rent duration must be greater than 0.';
+            }
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
             return null;
@@ -267,7 +321,7 @@ class _RentLaterComponentState extends State<RentLaterComponent> {
             if (value == null || value.isEmpty) {
               return 'Please select an option';
             }
-            if (_hargaBayar > balance.saldo) {
+            if (_hargaBayar > loginProvider.currentUser.saldo) {
               return "Not enough balance. Please top-up or adjust";
             }
 

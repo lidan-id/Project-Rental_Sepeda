@@ -14,12 +14,15 @@ dependencies:
   provider: ^6.1.2
   intl:
   http: ^0.13.3
+  flutter_masked_text2:
   image_picker: ^0.8.6
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons:
 
 flutter:
   assets:
@@ -31,3 +34,9 @@ flutter:
     - family: "Neue"
       fonts:
         - asset: fonts/BebasNeue-Regular.ttf
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+
