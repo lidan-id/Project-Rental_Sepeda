@@ -84,6 +84,10 @@ class Profile extends StatelessWidget {
                   for (int i = 0; i < Provider.of<RegisterProvider>(context, listen: false).users.length; i++) {
                     if (Provider.of<RegisterProvider>(context, listen: false).users[i].username == Provider.of<LoginProvider>(context, listen: false).currentUser.username && 
                     Provider.of<RegisterProvider>(context, listen: false).users[i].password == Provider.of<LoginProvider>(context, listen: false).currentUser.password) {
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].email = Provider.of<LoginProvider>(context, listen: false).currentUser.email;
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].name = Provider.of<LoginProvider>(context, listen: false).currentUser.name;
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].tglLahir = Provider.of<LoginProvider>(context, listen: false).currentUser.tglLahir;
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].noTlp = Provider.of<LoginProvider>(context, listen: false).currentUser.noTlp;
                       Provider.of<RegisterProvider>(context, listen: false).users[i].gender = Provider.of<LoginProvider>(context, listen: false).currentUser.gender;
                       Provider.of<RegisterProvider>(context, listen: false).users[i].bikeInRent = Provider.of<LoginProvider>(context, listen: false).currentUser.bikeInRent;
                       Provider.of<RegisterProvider>(context, listen: false).users[i].bookedBike = Provider.of<LoginProvider>(context, listen: false).currentUser.bookedBike;
@@ -150,7 +154,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
         Text(
           Provider.of<LoginProvider>(context).user.isEmpty
               ? "DummyBot"
-              : Provider.of<LoginProvider>(context).user,
+              : Provider.of<LoginProvider>(context).currentUser.name,
           style: const TextStyle(
               fontSize: 25,
               color: Colors.white,

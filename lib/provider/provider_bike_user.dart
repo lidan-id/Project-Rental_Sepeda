@@ -151,8 +151,28 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changeEmail (String email) {
+    currentUser.email = email;
+    notifyListeners();
+  }
+
+  void changeName (String name) {
+    currentUser.name = name;
+    notifyListeners();
+  }
+
+  void changePhoneNumber (int PhoneNum) {
+    currentUser.noTlp = PhoneNum.toDouble();
+    notifyListeners();
+  }
+
   void changeGender(String gender) {
     currentUser.gender = gender;
+    notifyListeners();
+  }
+
+  void changeBirthDate (DateTime birthdate) {
+    currentUser.tglLahir = birthdate;
     notifyListeners();
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/profilefeature/changeuserinformation/change_email.dart';
 import 'package:flutter_application_1/features/profilefeature/changeuserinformation/change_gender.dart';
 import 'package:flutter_application_1/features/profilefeature/changeuserinformation/change_name.dart';
+import 'package:flutter_application_1/features/profilefeature/changeuserinformation/change_phone_num.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -15,11 +17,35 @@ class UserInformation extends StatefulWidget {
 }
 
 class _UserInformationState extends State<UserInformation> {
+  Future<void> _selectDateTime(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime.now(),
+        builder: (context, widget) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                  colorScheme: const ColorScheme.light(
+                    primary: Color(0xffF6B17A),
+                    surface: Color(0xff2D3250),
+                    onSurface: Color(0xffF6B17A),
+                  ),
+                  dividerTheme:
+                      const DividerThemeData(color: Color(0xffF6B17A))),
+              child: widget!);
+        });
+        if (pickedDate != null) {
+          Provider.of<LoginProvider>(context, listen: false).changeBirthDate(pickedDate);
+        }
+    }
+
   @override
   Widget build(BuildContext context) {
-    final currentUserName = Provider.of<LoginProvider>(context).currentUser.name;
+    final currentEmail = Provider.of<LoginProvider>(context).currentUser.email;
+    final currentName = Provider.of<LoginProvider>(context).currentUser.name;
     final currentUserGender = Provider.of<LoginProvider>(context).currentUser.gender == ""? "Not Set" : Provider.of<LoginProvider>(context).currentUser.gender;
-    final currentUserTglLahir = Provider.of<LoginProvider>(context).currentUser.tglLahir == DateTime(0, 0, 0)? "Not Set" : DateFormat('dd/MM/yyyy').format(Provider.of<LoginProvider>(context).currentUser.tglLahir).toString();
+    final currentUserTglLahir = Provider.of<LoginProvider>(context).currentUser.tglLahir == DateTime(0, 0, 0)? "Not Set" : DateFormat('dd/MM/yyyy').format(Provider.of<LoginProvider>(context).currentUser.tglLahir);
     final currentUserNoTlp = Provider.of<LoginProvider>(context).currentUser.noTlp == 0? "Not Set" : "0"+Provider.of<LoginProvider>(context).currentUser.noTlp.toString();
 
     return Scaffold(
@@ -120,12 +146,11 @@ class _UserInformationState extends State<UserInformation> {
               ),
               UserProfileMenuWidget(leadingTitle: "Username", menuTitle: Provider.of<LoginProvider>(context).user, onPress: () {}, endIcon: false,),
               UserProfileMenuWidget(
-                  leadingTitle: "Name", menuTitle: currentUserName, onPress: () {
+                  leadingTitle: "Name", menuTitle: currentName, onPress: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangeName()));
                   }),
               UserProfileMenuWidget(
                   leadingTitle: "Gender", menuTitle: currentUserGender, onPress: () {
-                    // RadioListTile(value: 0, groupValue: groupValue, onChanged: onChanged)
                     showDialog(context: context,
                     builder: (context) {
                       return ChangeGender();
@@ -134,13 +159,20 @@ class _UserInformationState extends State<UserInformation> {
               UserProfileMenuWidget(
                   leadingTitle: "Birth Date",
                   menuTitle: currentUserTglLahir,
-                  onPress: () {}),
+                  onPress: () async {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    await _selectDateTime(context);
+                  }),
               UserProfileMenuWidget(
                   leadingTitle: "Phone Number",
                   menuTitle: currentUserNoTlp,
-                  onPress: () {}),
+                  onPress: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => changePhoneNumber()));
+                  }),
               UserProfileMenuWidget(
-                  leadingTitle: "Email", menuTitle: "COba", onPress: () {}),
+                  leadingTitle: "Email", menuTitle: currentEmail, onPress: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangeEmail()));
+                  }),
             ],
           ),
         ),

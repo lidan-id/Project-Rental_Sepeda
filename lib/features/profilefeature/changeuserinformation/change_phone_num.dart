@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 
-class ChangeName extends StatefulWidget{
-  const ChangeName ({super.key});
+class changePhoneNumber extends StatefulWidget{
+  const changePhoneNumber ({super.key});
 
   @override
-  State<ChangeName> createState() => _ChangeNameState();
+  State<changePhoneNumber> createState() => _ChangePhoneNumberState();
 }
 
-class _ChangeNameState extends State<ChangeName> {
-  TextEditingController editName = TextEditingController();
-  bool NameError = false;
-  String NameTempInput = '';
+class _ChangePhoneNumberState extends State<changePhoneNumber> {
+  TextEditingController editNoTlp = TextEditingController();
+  bool NoTlpError = false;
+  int NoTlpTempInput = 0;
 
 
 
@@ -20,12 +20,12 @@ class _ChangeNameState extends State<ChangeName> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Name"),
+        title: Text("Phone Number"),
         leading: Builder(builder: (BuildContext) {
           return IconButton(
             onPressed: () {
-              if (editName.text.isNotEmpty) {
-                Provider.of<LoginProvider>(context, listen: false).changeName(editName.text);
+              if (editNoTlp.text.isNotEmpty && !(editNoTlp.text.length < 12)) {
+                Provider.of<LoginProvider>(context, listen: false).changePhoneNumber(int.parse(editNoTlp.text));
               Navigator.of(context).pop();
               }
               else {
@@ -48,22 +48,22 @@ class _ChangeNameState extends State<ChangeName> {
                     onChanged: (value) {
                       setState(() {
                       
-                      if (editName.text.isNotEmpty) {
-                        NameError = false;
+                      if (editNoTlp.text.isNotEmpty) {
+                        NoTlpError = false;
                       }
                       else {
-                        NameError = true;
+                        NoTlpError = true;
                       }
                       });
                     },
-                    controller: editName,
+                    controller: editNoTlp,
                     style: TextStyle(color: Colors.white),
                     maxLines: 1,
                     maxLength: 20,
                     decoration: InputDecoration(
-                        labelText: Provider.of<LoginProvider>(context).currentUser.name,
+                        labelText: "0" + Provider.of<LoginProvider>(context).currentUser.noTlp.toString(),
                         labelStyle: TextStyle(),
-                        errorText: NameError? "Name cannot be empty" : null,
+                        errorText: NoTlpError? "Phone number not valid" : null,
                         hintStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),

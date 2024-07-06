@@ -2,17 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 
-class ChangeName extends StatefulWidget{
-  const ChangeName ({super.key});
+class ChangeEmail extends StatefulWidget{
+  const ChangeEmail ({super.key});
 
   @override
-  State<ChangeName> createState() => _ChangeNameState();
+  State<ChangeEmail> createState() => _ChangeEmailState();
 }
 
-class _ChangeNameState extends State<ChangeName> {
-  TextEditingController editName = TextEditingController();
-  bool NameError = false;
-  String NameTempInput = '';
+class _ChangeEmailState extends State<ChangeEmail> {
+  TextEditingController editEmail = TextEditingController();
+  bool EmailError = false;
+  String EmailTempInput = '';
+
+  bool validateEmail(String value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    RegExp regex = RegExp(pattern);
+    return regex.hasMatch(value);
+  }
 
 
 
@@ -20,12 +32,12 @@ class _ChangeNameState extends State<ChangeName> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Name"),
+        title: Text("Email"),
         leading: Builder(builder: (BuildContext) {
           return IconButton(
             onPressed: () {
-              if (editName.text.isNotEmpty) {
-                Provider.of<LoginProvider>(context, listen: false).changeName(editName.text);
+              if (validateEmail(editEmail.text)) {
+                Provider.of<LoginProvider>(context, listen: false).changeEmail(editEmail.text);
               Navigator.of(context).pop();
               }
               else {
@@ -48,22 +60,22 @@ class _ChangeNameState extends State<ChangeName> {
                     onChanged: (value) {
                       setState(() {
                       
-                      if (editName.text.isNotEmpty) {
-                        NameError = false;
+                      if (validateEmail(editEmail.text)) {
+                        EmailError = false;
                       }
                       else {
-                        NameError = true;
+                        EmailError = true;
                       }
                       });
                     },
-                    controller: editName,
+                    controller: editEmail,
                     style: TextStyle(color: Colors.white),
                     maxLines: 1,
                     maxLength: 20,
                     decoration: InputDecoration(
-                        labelText: Provider.of<LoginProvider>(context).currentUser.name,
+                        labelText: Provider.of<LoginProvider>(context).currentUser.email,
                         labelStyle: TextStyle(),
-                        errorText: NameError? "Name cannot be empty" : null,
+                        errorText: EmailError? "email not valid" : null,
                         hintStyle: TextStyle(color: Colors.white),
                         enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
