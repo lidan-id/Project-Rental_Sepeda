@@ -158,6 +158,27 @@ class Profile extends StatelessWidget {
               ProfileMenuWidget(
                 menuTitle: "Log out",
                 onPress: () {
+                  //pemindahan data ke user
+                  for (int i = 0; i < Provider.of<RegisterProvider>(context, listen: false).users.length; i++) {
+                    if (Provider.of<RegisterProvider>(context, listen: false).users[i].username == Provider.of<LoginProvider>(context, listen: false).currentUser.username && 
+                    Provider.of<RegisterProvider>(context, listen: false).users[i].password == Provider.of<LoginProvider>(context, listen: false).currentUser.password) {
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].bikeInRent = Provider.of<LoginProvider>(context, listen: false).currentUser.bikeInRent;
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].bookedBike = Provider.of<LoginProvider>(context, listen: false).currentUser.bookedBike;
+                      Provider.of<RegisterProvider>(context, listen: false).users[i].rentCompleteBike = Provider.of<LoginProvider>(context, listen: false).currentUser.rentCompleteBike;
+                      Provider.of<LoginProvider>(context, listen: false).currentUser.bikeInRent = [];
+                      Provider.of<LoginProvider>(context, listen: false).currentUser.bookedBike = [];
+                      Provider.of<LoginProvider>(context, listen: false).currentUser.rentCompleteBike = [];
+                    }
+    }
+                  //logout
+                  Provider.of<RegisterProvider>(context, listen: false)
+                      .changeRent(Provider.of<RentedBikeProvider>(context,
+                              listen: false)
+                          .bookedBike);
+                  Provider.of<RegisterProvider>(context, listen: false)
+                      .changeRent(Provider.of<RentedBikeProvider>(context,
+                              listen: false)
+                          .bookedBike);
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => const Login()),
                       (route) => false);
