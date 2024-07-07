@@ -10,15 +10,13 @@ class NotificationSettings extends StatelessWidget {
     final notificationProvider = Provider.of<NotificationProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF2D3250),
         title: const Text(
           "Notification Settings",
-          style: TextStyle(
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              fontFamily: 'Neue',
-              fontSize: 35),
+          style: TextStyle(fontFamily: 'Neue'),
         ),
+        foregroundColor: const Color(0xFFF6B17A),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: Container(
         decoration: BoxDecoration(

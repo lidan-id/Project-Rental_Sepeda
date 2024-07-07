@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider/provider_bike_user.dart';
 import 'package:provider/provider.dart';
 
-class ChangeEmail extends StatefulWidget{
-  const ChangeEmail ({super.key});
+class ChangeEmail extends StatefulWidget {
+  const ChangeEmail({super.key});
 
   @override
   State<ChangeEmail> createState() => _ChangeEmailState();
@@ -26,25 +26,29 @@ class _ChangeEmailState extends State<ChangeEmail> {
     return regex.hasMatch(value);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Email"),
+        title: Text(
+          "Email",
+          style: TextStyle(fontFamily: 'Neue'),
+        ),
+        foregroundColor: const Color(0xFFF6B17A),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: Builder(builder: (BuildContext) {
           return IconButton(
-            onPressed: () {
-              if (validateEmail(editEmail.text)) {
-                Provider.of<LoginProvider>(context, listen: false).changeEmail(editEmail.text);
-              Navigator.of(context).pop();
-              }
-              else {
-                Navigator.of(context).pop();
-              }
-            }, 
-            icon: Icon(Icons.arrow_back));
+              onPressed: () {
+                if (validateEmail(editEmail.text)) {
+                  Provider.of<LoginProvider>(context, listen: false)
+                      .changeEmail(editEmail.text);
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.of(context).pop();
+                }
+              },
+              icon: Icon(Icons.arrow_back));
         }),
       ),
       body: Container(
@@ -54,35 +58,37 @@ class _ChangeEmailState extends State<ChangeEmail> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            
             children: [
               TextFormField(
-                    onChanged: (value) {
-                      setState(() {
-                      
-                      if (validateEmail(editEmail.text)) {
-                        EmailError = false;
-                      }
-                      else {
-                        EmailError = true;
-                      }
-                      });
-                    },
-                    controller: editEmail,
-                    style: TextStyle(color: Colors.white),
-                    maxLines: 1,
-                    maxLength: 20,
-                    decoration: InputDecoration(
-                        labelText: Provider.of<LoginProvider>(context).currentUser.email,
-                        labelStyle: TextStyle(),
-                        errorText: EmailError? "email not valid" : null,
-                        hintStyle: TextStyle(color: Colors.white),
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white))),
-                  ),
-                  SizedBox(width: 5,)
+                onChanged: (value) {
+                  setState(() {
+                    if (validateEmail(editEmail.text)) {
+                      EmailError = false;
+                    } else {
+                      EmailError = true;
+                    }
+                  });
+                },
+                controller: editEmail,
+                style: TextStyle(color: Colors.white),
+                maxLines: 1,
+                maxLength: 20,
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                    counterStyle: TextStyle(color: Color(0xFFF6B17A)),
+                    labelText:
+                        Provider.of<LoginProvider>(context).currentUser.email,
+                    labelStyle: TextStyle(color: Color(0xFFF6B17A)),
+                    errorText: EmailError ? "email not valid" : null,
+                    hintStyle: TextStyle(color: Colors.white),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white))),
+              ),
+              SizedBox(
+                width: 5,
+              )
             ],
           ),
         ),
