@@ -39,18 +39,16 @@ class Profile extends StatelessWidget {
               ProfileMenuWidget(
                 menuTitle: "My Balance",
                 onPress: () {
-                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const TopUp()));
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const TopUp()));
                 },
               ),
               ProfileMenuWidget(
                 menuTitle: "History",
-                onPress: () {Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const RentStatusPage()));},
-              ),
-              ProfileMenuWidget(
-                menuTitle: "Help Center",
-                onPress: () {},
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const RentStatusPage()));
+                },
               ),
               ProfileMenuWidget(
                 menuTitle: "Notification",
@@ -66,14 +64,6 @@ class Profile extends StatelessWidget {
                       builder: (context) => const PermissionManager()));
                 },
               ),
-              ProfileMenuWidget(
-                menuTitle: "Privacy Policy",
-                onPress: () {},
-              ),
-              ProfileMenuWidget(
-                menuTitle: "Terms of Service",
-                onPress: () {},
-              ),
               const SizedBox(
                 height: 20,
               ),
@@ -81,31 +71,96 @@ class Profile extends StatelessWidget {
                 menuTitle: "Log out",
                 onPress: () {
                   //pemindahan data ke user
-                  for (int i = 0; i < Provider.of<RegisterProvider>(context, listen: false).users.length; i++) {
-                    if (Provider.of<RegisterProvider>(context, listen: false).users[i].username == Provider.of<LoginProvider>(context, listen: false).currentUser.username && 
-                    Provider.of<RegisterProvider>(context, listen: false).users[i].password == Provider.of<LoginProvider>(context, listen: false).currentUser.password) {
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].email = Provider.of<LoginProvider>(context, listen: false).currentUser.email;
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].name = Provider.of<LoginProvider>(context, listen: false).currentUser.name;
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].tglLahir = Provider.of<LoginProvider>(context, listen: false).currentUser.tglLahir;
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].noTlp = Provider.of<LoginProvider>(context, listen: false).currentUser.noTlp;
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].gender = Provider.of<LoginProvider>(context, listen: false).currentUser.gender;
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].bikeInRent = Provider.of<LoginProvider>(context, listen: false).currentUser.bikeInRent;
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].bookedBike = Provider.of<LoginProvider>(context, listen: false).currentUser.bookedBike;
-                      Provider.of<RegisterProvider>(context, listen: false).users[i].rentCompleteBike = Provider.of<LoginProvider>(context, listen: false).currentUser.rentCompleteBike;
-                      Provider.of<LoginProvider>(context, listen: false).currentUser.bikeInRent = [];
-                      Provider.of<LoginProvider>(context, listen: false).currentUser.bookedBike = [];
-                      Provider.of<LoginProvider>(context, listen: false).currentUser.rentCompleteBike = [];
+                  for (int i = 0;
+                      i <
+                          Provider.of<RegisterProvider>(context, listen: false)
+                              .users
+                              .length;
+                      i++) {
+                    if (Provider.of<RegisterProvider>(context, listen: false)
+                                .users[i]
+                                .username ==
+                            Provider.of<LoginProvider>(context, listen: false)
+                                .currentUser
+                                .username &&
+                        Provider.of<RegisterProvider>(context, listen: false)
+                                .users[i]
+                                .password ==
+                            Provider.of<LoginProvider>(context, listen: false)
+                                .currentUser
+                                .password) {
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .email =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .email;
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .name =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .name;
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .tglLahir =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .tglLahir;
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .noTlp =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .noTlp;
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .gender =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .gender;
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .bikeInRent =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .bikeInRent;
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .bookedBike =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .bookedBike;
+                      Provider.of<RegisterProvider>(context, listen: false)
+                              .users[i]
+                              .rentCompleteBike =
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .currentUser
+                              .rentCompleteBike;
+                      Provider.of<LoginProvider>(context, listen: false)
+                          .currentUser
+                          .bikeInRent = [];
+                      Provider.of<LoginProvider>(context, listen: false)
+                          .currentUser
+                          .bookedBike = [];
+                      Provider.of<LoginProvider>(context, listen: false)
+                          .currentUser
+                          .rentCompleteBike = [];
                     }
-    }
+                  }
                   //logout
                   Provider.of<RegisterProvider>(context, listen: false)
-                      .changeRent(Provider.of<RentedBikeProvider>(context,
-                              listen: false)
-                          .bookedBike);
-                  Provider.of<RegisterProvider>(context, listen: false)
-                      .changeRent(Provider.of<RentedBikeProvider>(context,
-                              listen: false)
-                          .bookedBike);
+                      .changeRent(
+                          Provider.of<RentedBikeProvider>(context,
+                                  listen: false)
+                              .bookedBike,
+                          Provider.of<RentedBikeProvider>(context,
+                                  listen: false)
+                              .bikeInRent,
+                          Provider.of<RentedBikeProvider>(context,
+                                  listen: false)
+                              .rentCompleteBike);
+
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => const Login()),
                       (route) => false);
@@ -206,86 +261,3 @@ class ProfileMenuWidget extends StatelessWidget {
     );
   }
 }
-
-// class LogOut extends StatelessWidget {
-//   const LogOut({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//         decoration: BoxDecoration(
-//           border: Border.all(width: 1),
-//           borderRadius: BorderRadius.circular(25),
-//         ),
-//         child: Column(
-//           children: [
-//             const ListTile(
-//               title: Text(
-//                 "Log Out",
-//                 style: TextStyle(
-//                     fontWeight: FontWeight.w900,
-//                     color: Colors.red,
-//                     fontFamily: 'Neue',
-//                     fontSize: 30),
-//               ),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.of(context).pushAndRemoveUntil(
-//                     MaterialPageRoute(builder: (context) => const Login()),
-//                     (route) => false);
-//               },
-//               style: ElevatedButton.styleFrom(
-//                   elevation: 10,
-//                   enableFeedback: true,
-//                   foregroundColor: const Color(0xFF7077A1),
-//                   backgroundColor: Colors.red,
-//                   ),
-//               child: const Text(
-//                 'Log Out',
-//                 style: TextStyle(fontFamily: 'Neue', color: Colors.red),
-//               ),
-//             ),
-//             const SizedBox(
-//               height: 10,
-//             )
-//           ],
-//         ));
-//   }
-// }
-
-
-
-// class Profile extends StatelessWidget {
-//   const Profile({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Profile",
-//         style: TextStyle(fontFamily: 'Neue'),),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Container(
-//           padding: EdgeInsets.all(10),
-//           child: Column(
-//             children: [
-//               ListTile(
-//                 title: Text("Edit Profile"),
-//                 trailing: Container(
-//                   width: 30,
-//                   height: 30,
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(50),
-//                     color: Colors.grey),
-//                   child: const Icon(Icons.arrow_right),
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

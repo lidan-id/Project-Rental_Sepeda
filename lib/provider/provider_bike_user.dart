@@ -75,10 +75,10 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeRent(List<RentedBikes> newBooked) {
+  void changeRent(List<RentedBikes> newBooked, newInRent, newCompleteRent) {
     users[indexUser].bookedBike = newBooked;
-    print(users[indexUser].bookedBike.length);
-    print(users[1].bookedBike.length);
+    users[indexUser].bikeInRent = newInRent;
+    users[indexUser].rentCompleteBike = newCompleteRent;
     notifyListeners();
   }
 }
@@ -95,8 +95,8 @@ class LoginProvider extends ChangeNotifier {
       password: 'g',
       saldo: 1000000,
       gender: "Perempuan",
-        tglLahir: DateTime(2011, 3, 3),
-        noTlp: 0812345678,
+      tglLahir: DateTime(2011, 3, 3),
+      noTlp: 0812345678,
       bikeInRent: [],
       bookedBike: [
         RentedBikes(
@@ -110,8 +110,7 @@ class LoginProvider extends ChangeNotifier {
             bookedDate: '30 December 2024 15:15',
             completeDate: '11 January 23'),
       ],
-      rentCompleteBike: []
-      );
+      rentCompleteBike: []);
 
   bool checkUser(List users, String username, String password) {
     bool result = false;
@@ -151,17 +150,17 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeEmail (String email) {
+  void changeEmail(String email) {
     currentUser.email = email;
     notifyListeners();
   }
 
-  void changeName (String name) {
+  void changeName(String name) {
     currentUser.name = name;
     notifyListeners();
   }
 
-  void changePhoneNumber (int PhoneNum) {
+  void changePhoneNumber(int PhoneNum) {
     currentUser.noTlp = PhoneNum.toDouble();
     notifyListeners();
   }
@@ -171,7 +170,7 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeBirthDate (DateTime birthdate) {
+  void changeBirthDate(DateTime birthdate) {
     currentUser.tglLahir = birthdate;
     notifyListeners();
   }
