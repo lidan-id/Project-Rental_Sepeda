@@ -363,13 +363,6 @@ class _RegisterState extends State<Register> {
                               bikeInRent: [],
                               bookedBike: [],
                               rentCompleteBike: []));
-                      Provider.of<LoginProvider>(context, listen: false)
-                          .checkUser(
-                              Provider.of<RegisterProvider>(context,
-                                      listen: false)
-                                  .users,
-                              usernameInput.text,
-                              passwordInput.text);
                       Provider.of<RentedBikeProvider>(context, listen: false)
                           .refreshRent(
                               Provider.of<RegisterProvider>(context,
@@ -384,8 +377,8 @@ class _RegisterState extends State<Register> {
                                       listen: false)
                                   .users[indexUser]
                                   .rentCompleteBike);
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => HomeMenu()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const Login()));
                     }
                   });
                 },
