@@ -193,10 +193,11 @@ class _ProfilePictureState extends State<ProfilePicture> {
         CircleAvatar(
           radius: 25,
           child: ClipOval(
-            child: Provider.of<LoginProvider>(context).profilePic == null
+            child: Provider.of<LoginProvider>(context).currentUser.profilePic ==
+                    null
                 ? const Icon(Icons.person)
                 : Image.file(
-                    Provider.of<LoginProvider>(context).profilePic!,
+                    Provider.of<LoginProvider>(context).currentUser.profilePic!,
                     fit: BoxFit.cover,
                     width: double.infinity,
                     height: double.infinity,

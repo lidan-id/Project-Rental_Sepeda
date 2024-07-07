@@ -16,6 +16,7 @@ class User {
   List<RentedBikes> bikeInRent;
   List<RentedBikes> bookedBike;
   List<RentedBikes> rentCompleteBike;
+  File? profilePic;
 
   User(
       {required this.email,
@@ -28,7 +29,8 @@ class User {
       required this.noTlp,
       required this.bikeInRent,
       required this.bookedBike,
-      required this.rentCompleteBike});
+      required this.rentCompleteBike,
+      this.profilePic});
 }
 
 class RegisterProvider extends ChangeNotifier {
@@ -96,7 +98,6 @@ int indexUser = 0;
 
 class LoginProvider extends ChangeNotifier {
   String user = '';
-  File? profilePic;
   User currentUser = User(
       email: 'Guest',
       username: 'Guest',
@@ -155,7 +156,7 @@ class LoginProvider extends ChangeNotifier {
   }
 
   void changeProfilePic(newPic) {
-    profilePic = newPic;
+    currentUser.profilePic = newPic;
     notifyListeners();
   }
 

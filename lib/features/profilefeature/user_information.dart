@@ -35,18 +35,35 @@ class _UserInformationState extends State<UserInformation> {
                       const DividerThemeData(color: Color(0xffF6B17A))),
               child: widget!);
         });
-        if (pickedDate != null) {
-          Provider.of<LoginProvider>(context, listen: false).changeBirthDate(pickedDate);
-        }
+    if (pickedDate != null) {
+      Provider.of<LoginProvider>(context, listen: false)
+          .changeBirthDate(pickedDate);
     }
+  }
 
   @override
   Widget build(BuildContext context) {
     final currentEmail = Provider.of<LoginProvider>(context).currentUser.email;
     final currentName = Provider.of<LoginProvider>(context).currentUser.name;
-    final currentUserGender = Provider.of<LoginProvider>(context).currentUser.gender == ""? "Not Set" : Provider.of<LoginProvider>(context).currentUser.gender;
-    final currentUserTglLahir = Provider.of<LoginProvider>(context).currentUser.tglLahir == DateTime(0, 0, 0)? "Not Set" : DateFormat('dd/MM/yyyy').format(Provider.of<LoginProvider>(context).currentUser.tglLahir);
-    final currentUserNoTlp = Provider.of<LoginProvider>(context).currentUser.noTlp == 0? "Not Set" : "0"+Provider.of<LoginProvider>(context).currentUser.noTlp.toString();
+    final currentUserGender =
+        Provider.of<LoginProvider>(context).currentUser.gender == ""
+            ? "Not Set"
+            : Provider.of<LoginProvider>(context).currentUser.gender;
+    final currentUserTglLahir = Provider.of<LoginProvider>(context)
+                .currentUser
+                .tglLahir ==
+            DateTime(0, 0, 0)
+        ? "Not Set"
+        : DateFormat('dd/MM/yyyy')
+            .format(Provider.of<LoginProvider>(context).currentUser.tglLahir);
+    final currentUserNoTlp =
+        Provider.of<LoginProvider>(context).currentUser.noTlp == 0
+            ? "Not Set"
+            : "0" +
+                Provider.of<LoginProvider>(context)
+                    .currentUser
+                    .noTlp
+                    .toString();
 
     return Scaffold(
       appBar: AppBar(
@@ -73,14 +90,18 @@ class _UserInformationState extends State<UserInformation> {
                       radius: 10500,
                       // maxRadius: MediaQuery.of(context).size.height * 0.1,
                       child: ClipOval(
-                        child: Provider.of<LoginProvider>(context).profilePic ==
+                        child: Provider.of<LoginProvider>(context)
+                                    .currentUser
+                                    .profilePic ==
                                 null
                             ? const Icon(
                                 Icons.person,
                                 size: 100,
                               )
                             : Image.file(
-                                Provider.of<LoginProvider>(context).profilePic!,
+                                Provider.of<LoginProvider>(context)
+                                    .currentUser
+                                    .profilePic!,
                                 fit: BoxFit.cover,
                                 height:
                                     MediaQuery.of(context).size.height * 0.25,
@@ -144,17 +165,29 @@ class _UserInformationState extends State<UserInformation> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
-              UserProfileMenuWidget(leadingTitle: "Username", menuTitle: Provider.of<LoginProvider>(context).user, onPress: () {}, endIcon: false,),
               UserProfileMenuWidget(
-                  leadingTitle: "Name", menuTitle: currentName, onPress: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangeName()));
+                leadingTitle: "Username",
+                menuTitle: Provider.of<LoginProvider>(context).user,
+                onPress: () {},
+                endIcon: false,
+              ),
+              UserProfileMenuWidget(
+                  leadingTitle: "Name",
+                  menuTitle: currentName,
+                  onPress: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ChangeName()));
                   }),
               UserProfileMenuWidget(
-                  leadingTitle: "Gender", menuTitle: currentUserGender, onPress: () {
-                    showDialog(context: context,
-                    builder: (context) {
-                      return ChangeGender();
-                    },);
+                  leadingTitle: "Gender",
+                  menuTitle: currentUserGender,
+                  onPress: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ChangeGender();
+                      },
+                    );
                   }),
               UserProfileMenuWidget(
                   leadingTitle: "Birth Date",
@@ -167,11 +200,15 @@ class _UserInformationState extends State<UserInformation> {
                   leadingTitle: "Phone Number",
                   menuTitle: currentUserNoTlp,
                   onPress: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => changePhoneNumber()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => changePhoneNumber()));
                   }),
               UserProfileMenuWidget(
-                  leadingTitle: "Email", menuTitle: currentEmail, onPress: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangeEmail()));
+                  leadingTitle: "Email",
+                  menuTitle: currentEmail,
+                  onPress: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ChangeEmail()));
                   }),
             ],
           ),
@@ -230,9 +267,9 @@ class _UserProfileMenuWidgetState extends State<UserProfileMenuWidget> {
               ),
             )
           : Container(
-            width: 30,
-            height: 50,
-          ),
+              width: 30,
+              height: 50,
+            ),
     );
   }
 }
