@@ -81,6 +81,15 @@ class RegisterProvider extends ChangeNotifier {
     users[indexUser].rentCompleteBike = newCompleteRent;
     notifyListeners();
   }
+
+  bool checkValidUsername(username) {
+    for (int i = 0; i < users.length; i++) {
+      if (users[i].username == username) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 int indexUser = 0;

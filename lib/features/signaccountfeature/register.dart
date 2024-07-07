@@ -324,14 +324,22 @@ class _RegisterState extends State<Register> {
                     if (!validateEmail(emailInput.text)) {
                       error = true;
                       emailErrorText = 'Invalid Email';
+                      return;
                     } else {
                       error = false;
                       emailErrorText = null;
+                    }
+                    if (!Provider.of<RegisterProvider>(context, listen: false)
+                        .checkValidUsername(usernameInput.text)) {
+                      error = true;
+                      usernameErrorText = "username is unavailable";
+                      return;
                     }
                     if (usernameInput.text.length < 3 ||
                         usernameInput.text == '') {
                       usernameErrorText = 'username must be 3 characters long';
                       error = true;
+                      return;
                     } else {
                       usernameErrorText = null;
                       error = false;
@@ -340,12 +348,14 @@ class _RegisterState extends State<Register> {
                       passwordErrorText =
                           'password must contains [(!@#\$&*~), 8 characters, uppercase, lowercase]';
                       error = true;
+                      return;
                     } else {
                       passwordErrorText = null;
                     }
                     if (passwordInput.text != confirmPasswordInput.text) {
                       confirmPasswordErrorText = 'password does not match';
                       error = true;
+                      return;
                     } else {
                       confirmPasswordErrorText = null;
                     }
